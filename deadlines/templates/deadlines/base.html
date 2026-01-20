@@ -9,6 +9,82 @@
     {% block extra_css %}{% endblock %}
   </head>
   <body>
-    {% block content %}{% endblock %} {% block extra_js %}{% endblock %}
+    <div class="app-container">
+      <!-- Desktop Sidebar Navigation -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-logo">Deadlines</div>
+          <div class="sidebar-subtitle">Business Tracker</div>
+        </div>
+        <nav class="sidebar-nav">
+          <div class="nav-section">
+            <div class="nav-section-title">Deadlines</div>
+            <a
+              href="{% url 'deadlines:todo' %}"
+              class="nav-item {% block nav_todo %}{% endblock %}"
+            >
+              <span class="nav-icon">✓</span>
+              To-Do {% if overdue_count %}<span class="nav-badge"
+                >{{ overdue_count }}</span
+              >{% endif %}
+            </a>
+            <a
+              href="{% url 'deadlines:list' %}"
+              class="nav-item {% block nav_list %}{% endblock %}"
+            >
+              <span class="nav-icon">☰</span>
+              All Deadlines
+            </a>
+            <a
+              href="{% url 'deadlines:calendar' %}"
+              class="nav-item {% block nav_calendar %}{% endblock %}"
+            >
+              <span class="nav-icon">📅</span>
+              Calendar
+            </a>
+          </div>
+          <div class="nav-section">
+            <div class="nav-section-title">Reference</div>
+            <a
+              href="{% url 'deadlines:entity_list' %}"
+              class="nav-item {% block nav_entities %}{% endblock %}"
+            >
+              <span class="nav-icon">🏢</span>
+              Entities
+            </a>
+          </div>
+        </nav>
+        <div class="sidebar-footer">⚙️ Settings</div>
+      </aside>
+
+      <!-- Main Content Wrapper -->
+      <main class="main-wrapper">{% block content %}{% endblock %}</main>
+
+      <!-- Mobile Bottom Navigation -->
+      <nav class="bottom-nav">
+        <a
+          href="{% url 'deadlines:todo' %}"
+          class="bottom-nav-item {% block bottom_nav_todo %}{% endblock %}"
+        >
+          <span class="bottom-nav-icon">✓</span>
+          To-Do
+        </a>
+        <a
+          href="{% url 'deadlines:entity_list' %}"
+          class="bottom-nav-item {% block bottom_nav_entities %}{% endblock %}"
+        >
+          <span class="bottom-nav-icon">🏢</span>
+          Entities
+        </a>
+        <a
+          href="{% url 'deadlines:calendar' %}"
+          class="bottom-nav-item {% block bottom_nav_settings %}{% endblock %}"
+        >
+          <span class="bottom-nav-icon">⚙️</span>
+          Settings
+        </a>
+      </nav>
+    </div>
+    {% block extra_js %}{% endblock %}
   </body>
 </html>

@@ -3,125 +3,105 @@ deadline.title }} - Business Deadlines{% endblock %} {% block content %}
 <div class="detail-header">
   <a href="javascript:history.back()" class="detail-back">← Back</a>
   <div class="detail-title">{{ deadline.title }}</div>
-  <div class="detail-entity-badge">
-    {{ deadline.entity.entity_code }} · {{ deadline.category|default:"General"
-    }} · {{ deadline.get_frequency_display|default:"One-time" }}
+  <div class="detail-meta">
+    <span class="detail-entity-badge">{{ deadline.entity.entity_code }}</span>
+    <span
+      >{{ deadline.category|default:"General" }} · {{
+      deadline.get_frequency_display|default:"One-time" }}</span
+    >
   </div>
 </div>
 
 <div class="detail-content">
   <div class="detail-card">
     <h3>Deadline Information</h3>
-    <div class="detail-row">
-      <span class="detail-label">Next Due</span>
-      <span
-        class="detail-value {% if deadline.urgency_status == 'overdue' %}overdue{% elif deadline.urgency_status == 'upcoming' %}upcoming{% endif %}"
-      >
-        {{ deadline.next_due|date:"F j, Y" }} {% if deadline.urgency_status ==
-        'overdue' %} ({{ deadline.days_until|add:"-1" }} days overdue) {% elif
-        deadline.urgency_status == 'upcoming' %} ({{ deadline.days_until }}
-        days) {% endif %}
-      </span>
-    </div>
-    <div class="detail-row">
-      <span class="detail-label">Category</span>
-      <span class="detail-value"
-        >{{ deadline.category|default:"General" }}</span
-      >
-    </div>
-    <div class="detail-row">
-      <span class="detail-label">Frequency</span>
-      <span class="detail-value"
-        >{{ deadline.get_frequency_display|default:"One-time" }}</span
-      >
-    </div>
-    {% if deadline.estimated_amount %}
-    <div class="detail-row">
-      <span class="detail-label">Amount</span>
-      <span class="detail-value amount">${{ deadline.estimated_amount }}</span>
-    </div>
-    {% endif %} {% if deadline.account_number %}
-    <div class="detail-row">
-      <span class="detail-label">Account</span>
-      <span class="detail-value">{{ deadline.account_number }}</span>
-    </div>
-    {% endif %}
-    <div class="detail-row">
-      <span class="detail-label">Auto-Pay</span>
-      <span class="detail-value"
-        >{% if deadline.autopay %}Yes{% else %}No{% endif %}</span
-      >
-    </div>
-    {% if deadline.remind_days_before %}
-    <div class="detail-row">
-      <span class="detail-label">Reminder</span>
-      <span class="detail-value"
-        >{{ deadline.remind_days_before }} days before</span
-      >
-    </div>
-    {% endif %} {% if deadline.last_completed %}
-    <div class="detail-row">
-      <span class="detail-label">Last Completed</span>
-      <span class="detail-value"
-        >{{ deadline.last_completed|date:"M j, Y" }}</span
-      >
-    </div>
-    {% endif %}
-  </div>
-
-  <div class="detail-card">
-    <h3>Entity Details</h3>
-    <div class="detail-row">
-      <span class="detail-label">Entity</span>
-      <span class="detail-value">{{ deadline.entity.entity_code }}</span>
-    </div>
-    <div class="detail-row">
-      <span class="detail-label">Business Name</span>
-      <span class="detail-value"
-        >{{ deadline.entity.dba_name|default:deadline.entity.legal_name }}</span
-      >
-    </div>
-    <div class="detail-row">
-      <span class="detail-label">State</span>
-      <span class="detail-value">{{ deadline.entity.physical_state }}</span>
-    </div>
-  </div>
-
-  <form
-    method="post"
-    action="{% url 'deadlines:deadline_complete' deadline.pk %}"
-  >
-    {% csrf_token %}
-    <button type="submit" class="action-button">✓ Mark Complete</button>
-  </form>
-  {% if deadline.frequency %}
-  <div class="auto-advance-note">
-    → Next due advances to {% if deadline.frequency == 'monthly' %} {{
-    deadline.next_due|date:"M" }} {{ deadline.next_due.day }}, {{
-    deadline.next_due.year|add:"0" }} {% elif deadline.frequency == 'quarterly'
-    %} {{ deadline.next_due|date:"M Y" }} + 3 months {% elif deadline.frequency
-    == 'annually' %} {{ deadline.next_due|date:"M j" }}, {{
-    deadline.next_due.year|add:"1" }} {% endif %}
-  </div>
-  {% endif %} {% if deadline.notes %}
-  <div class="detail-card">
-    <div class="notes-section">
-      <div class="notes-header">
-        <span class="notes-title">Notes</span>
+    <div class="detail-grid">
+      <div class="detail-field">
+        <span class="detail-label">Next Due</span>
+        <span
+          class="detail-value {% if deadline.urgency_status == 'overdue' %}overdue{% elif deadline.urgency_status == 'upcoming' %}upcoming{% endif %}"
+        >
+          {{ deadline.next_due|date:"M j, Y" }}
+        </span>
       </div>
+      <div class="detail-field">
+        <span class="detail-label">Status</span>
+        <span
+          class="detail-value {% if deadline.urgency_status == 'overdue' %}overdue{% elif deadline.urgency_status == 'upcoming' %}upcoming{% endif %}"
+        >
+          {% if deadline.urgency_status == 'overdue' %} Overdue {% elif
+          deadline.urgency_status == 'upcoming' %} Due soon {% else %} On track
+          {% endif %}
+        </span>
+      </div>
+      {% if deadline.estimated_amount %}
+      <div class="detail-field">
+        <span class="detail-label">Amount</span>
+        <span class="detail-value amount"
+          >${{ deadline.estimated_amount }}</span
+        >
+      </div>
+      {% endif %}
+      <div class="detail-field">
+        <span class="detail-label">Auto-Pay</span>
+        <span class="detail-value"
+          >{% if deadline.autopay %}Yes{% else %}No{% endif %}</span
+        >
+      </div>
+      {% if deadline.account_number %}
+      <div class="detail-field">
+        <span class="detail-label">Account #</span>
+        <span class="detail-value" style="font-family: monospace"
+          >{{ deadline.account_number }}</span
+        >
+      </div>
+      {% endif %} {% if deadline.remind_days_before %}
+      <div class="detail-field">
+        <span class="detail-label">Remind</span>
+        <span class="detail-value"
+          >{{ deadline.remind_days_before }} days before</span
+        >
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if deadline.notes %}
+  <div class="detail-card">
+    <h3>Notes</h3>
+    <div class="notes-list">
       <div class="note-item">{{ deadline.notes|linebreaks }}</div>
     </div>
   </div>
   {% endif %}
 
-  <div class="detail-card">
+  <div class="detail-actions">
+    <form
+      method="post"
+      action="{% url 'deadlines:deadline_complete' deadline.pk %}"
+      style="flex: 1"
+    >
+      {% csrf_token %}
+      <button type="submit" class="btn-success">✓ Mark Complete</button>
+    </form>
+  </div>
+
+  {% if deadline.frequency %}
+  <div class="auto-advance-note">
+    → NextDue advances to {% if deadline.frequency == 'monthly' %} next month {%
+    elif deadline.frequency == 'quarterly' %} +3 months {% elif
+    deadline.frequency == 'annually' %} next year {% endif %}
+  </div>
+  {% endif %}
+
+  <div class="detail-card" style="margin-top: 20px">
+    <h3>Add Note</h3>
     <form
       method="post"
       action="{% url 'deadlines:deadline_add_note' deadline.pk %}"
     >
       {% csrf_token %}
-      <div class="form-group">
-        <label class="form-label">Add Note</label>
+      <div class="form-group" style="margin-bottom: 12px">
         <textarea
           name="note"
           class="form-textarea"

@@ -1,16 +1,19 @@
 {% extends "deadlines/base.html" %} {% load static %} {% block title %}{{
-entity.entity_code }} - Business Deadlines{% endblock %} {% block content %}
+entity.entity_code }} - Business Deadlines{% endblock %} {% block nav_entities
+%}active{% endblock %} {% block bottom_nav_entities %}active{% endblock %} {%
+block content %}
 <div class="detail-header">
   <a href="{% url 'deadlines:entity_list' %}" class="detail-back"
     >← Back to Entities</a
   >
   <div class="detail-title">{{ entity.entity_code }}</div>
-  <div class="detail-entity-badge">
-    {{ entity.dba_name|default:entity.legal_name }}
+  <div class="detail-meta">
+    <span class="detail-entity-badge">{{ entity.physical_state }}</span>
+    <span>{{ entity.dba_name|default:entity.legal_name }}</span>
   </div>
 </div>
 
-<div class="tabs" style="background: #5558e3">
+<div class="tabs entity-tabs" style="background: #5558e3">
   <a
     href="?tab=overview"
     class="tab {% if active_tab == 'overview' %}active{% endif %}"
@@ -102,92 +105,91 @@ entity.entity_code }} - Business Deadlines{% endblock %} {% block content %}
   <!-- Overview Tab -->
   <div class="detail-card">
     <h3>Business Information</h3>
-    <div class="detail-row">
-      <span class="detail-label">Legal Name</span>
-      <span class="detail-value">{{ entity.legal_name }}</span>
+    <div class="detail-grid">
+      <div class="detail-field">
+        <span class="detail-label">Legal Name</span>
+        <span class="detail-value">{{ entity.legal_name }}</span>
+      </div>
+      {% if entity.dba_name %}
+      <div class="detail-field">
+        <span class="detail-label">DBA</span>
+        <span class="detail-value">{{ entity.dba_name }}</span>
+      </div>
+      {% endif %}
+      <div class="detail-field">
+        <span class="detail-label">Entity Type</span>
+        <span class="detail-value">{{ entity.entity_type|default:"N/A" }}</span>
+      </div>
+      <div class="detail-field">
+        <span class="detail-label">State</span>
+        <span class="detail-value">{{ entity.physical_state }}</span>
+      </div>
+      {% if entity.ein %}
+      <div class="detail-field">
+        <span class="detail-label">EIN</span>
+        <span class="detail-value" style="font-family: monospace"
+          >{{ entity.ein }}</span
+        >
+      </div>
+      {% endif %} {% if entity.sos_number %}
+      <div class="detail-field">
+        <span class="detail-label">SOS Number</span>
+        <span class="detail-value" style="font-family: monospace"
+          >{{ entity.sos_number }}</span
+        >
+      </div>
+      {% endif %}
     </div>
-    {% if entity.dba_name %}
-    <div class="detail-row">
-      <span class="detail-label">DBA</span>
-      <span class="detail-value">{{ entity.dba_name }}</span>
-    </div>
-    {% endif %}
-    <div class="detail-row">
-      <span class="detail-label">Entity Type</span>
-      <span class="detail-value">{{ entity.entity_type|default:"N/A" }}</span>
-    </div>
-    <div class="detail-row">
-      <span class="detail-label">State</span>
-      <span class="detail-value">{{ entity.physical_state }}</span>
-    </div>
-    {% if entity.ein %}
-    <div class="detail-row">
-      <span class="detail-label">EIN</span>
-      <span class="detail-value">{{ entity.ein }}</span>
-    </div>
-    {% endif %} {% if entity.sos_number %}
-    <div class="detail-row">
-      <span class="detail-label">SOS Number</span>
-      <span class="detail-value">{{ entity.sos_number }}</span>
-    </div>
-    {% endif %} {% if entity.sos_renewal_date %}
-    <div class="detail-row">
-      <span class="detail-label">SOS Renewal</span>
-      <span class="detail-value"
-        >{{ entity.sos_renewal_date|date:"M j, Y" }}</span
-      >
-    </div>
-    {% endif %}
   </div>
 
   {% if entity.physical_address %}
   <div class="detail-card">
     <h3>Address</h3>
-    <div class="detail-row">
-      <span class="detail-label">Address</span>
-      <span class="detail-value">{{ entity.physical_address }}</span>
-    </div>
-    <div class="detail-row">
-      <span class="detail-label">City</span>
-      <span class="detail-value">{{ entity.physical_city }}</span>
-    </div>
-    <div class="detail-row">
-      <span class="detail-label">State, ZIP</span>
-      <span class="detail-value"
-        >{{ entity.physical_state }} {{ entity.physical_zip }}</span
+    <p
+      style="
+        font-size: 14px;
+        color: #333;
+        line-height: 1.6;
+        margin-bottom: 12px;
+      "
+    >
+      {{ entity.physical_address }}<br />
+      {{ entity.physical_city }}, {{ entity.physical_state }} {{
+      entity.physical_zip }}
+    </p>
+    <div style="display: flex; gap: 12px">
+      <a
+        href="https://maps.google.com/?q={{ entity.physical_address }},{{ entity.physical_city }},{{ entity.physical_state }}"
+        target="_blank"
+        style="font-size: 12px; color: #6366f1; text-decoration: none"
+        >🗺️ Open in Maps</a
       >
     </div>
   </div>
   {% endif %} {% if entity.manager_name %}
   <div class="detail-card">
     <h3>Management</h3>
-    <div class="detail-row">
-      <span class="detail-label">Manager</span>
-      <span class="detail-value">{{ entity.manager_name }}</span>
-    </div>
-    {% if entity.manager_phone %}
-    <div class="detail-row">
-      <span class="detail-label">Phone</span>
-      <span class="detail-value">
+    <div class="contact-card">
+      <div class="contact-name">{{ entity.manager_name }}</div>
+      <div class="contact-detail">Manager</div>
+      {% if entity.manager_phone %}
+      <div class="contact-detail" style="margin-top: 8px">
         <a
           href="tel:{{ entity.manager_phone }}"
           style="color: #6366f1; text-decoration: none"
-          >{{ entity.manager_phone }}</a
+          >📞 {{ entity.manager_phone }}</a
         >
-      </span>
-    </div>
-    {% endif %} {% if entity.manager_email %}
-    <div class="detail-row">
-      <span class="detail-label">Email</span>
-      <span class="detail-value">
+      </div>
+      {% endif %} {% if entity.manager_email %}
+      <div class="contact-detail">
         <a
           href="mailto:{{ entity.manager_email }}"
-          style="color: #6366f1; text-decoration: none; font-size: 11px"
-          >{{ entity.manager_email }}</a
+          style="color: #6366f1; text-decoration: none"
+          >✉️ {{ entity.manager_email }}</a
         >
-      </span>
+      </div>
+      {% endif %}
     </div>
-    {% endif %}
   </div>
   {% endif %} {% elif active_tab == 'financial' %}
   <!-- Financial Tab -->
@@ -220,7 +222,7 @@ entity.entity_code }} - Business Deadlines{% endblock %} {% block content %}
     <div class="financial-item">
       <div class="financial-item-header">{{ card.card_name }}</div>
       <div class="financial-item-detail">
-        •••• {{ card.last4 }} {% if card.network %}({{ card.network }}){% endif
+        •••• {{ card.last4 }}{% if card.network %} ({{ card.network }}){% endif
         %}
       </div>
       {% if card.credit_limit %}
@@ -337,21 +339,15 @@ entity.entity_code }} - Business Deadlines{% endblock %} {% block content %}
     {% if deadlines %} {% for deadline in deadlines %}
     <a
       href="{% url 'deadlines:deadline_detail' deadline.pk %}"
-      style="text-decoration: none"
+      class="list-item {{ deadline.urgency_status }}"
+      style="display: block; margin: 8px 0"
     >
-      <div class="financial-item">
-        <div class="financial-item-header">{{ deadline.title }}</div>
-        <div class="financial-item-detail">
-          {{ deadline.category }} • {{ deadline.get_frequency_display }}
-        </div>
-        <div class="financial-item-detail">
-          Next Due: {{ deadline.next_due|date:"M j, Y" }}
-        </div>
-        {% if deadline.estimated_amount %}
-        <div class="financial-item-detail">
-          Amount: ${{ deadline.estimated_amount|floatformat:2 }}
-        </div>
-        {% endif %}
+      <div class="list-item-title">{{ deadline.title }}</div>
+      <div class="list-item-meta">
+        <span
+          >{{ deadline.category }} · {{ deadline.get_frequency_display }}</span
+        >
+        <span class="list-item-date">{{ deadline.next_due|date:"M j" }}</span>
       </div>
     </a>
     {% endfor %}
@@ -390,7 +386,7 @@ entity.entity_code }} - Business Deadlines{% endblock %} {% block content %}
         <a
           href="mailto:{{ contact.email }}"
           style="color: #6366f1; text-decoration: none"
-          >{{ contact.email }}</a
+          >✉️ {{ contact.email }}</a
         >
       </div>
       {% endif %} {% if contact.phone %}
@@ -398,7 +394,7 @@ entity.entity_code }} - Business Deadlines{% endblock %} {% block content %}
         <a
           href="tel:{{ contact.phone }}"
           style="color: #6366f1; text-decoration: none"
-          >{{ contact.phone }}</a
+          >📞 {{ contact.phone }}</a
         >
       </div>
       {% endif %} {% if contact.mobile %}
@@ -406,7 +402,7 @@ entity.entity_code }} - Business Deadlines{% endblock %} {% block content %}
         <a
           href="tel:{{ contact.mobile }}"
           style="color: #6366f1; text-decoration: none"
-          >Mobile: {{ contact.mobile }}</a
+          >📱 {{ contact.mobile }}</a
         >
       </div>
       {% endif %}

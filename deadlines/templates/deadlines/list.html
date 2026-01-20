@@ -1,9 +1,38 @@
 {% extends "deadlines/base.html" %} {% load static %} {% block title %}List -
-Business Deadlines{% endblock %} {% block content %}
+Business Deadlines{% endblock %} {% block nav_list %}active{% endblock %} {%
+block content %}
 <div class="header">
   <div class="header-row">
-    <h1>Deadlines</h1>
-    <a href="{% url 'deadlines:deadline_add' %}" class="add-btn">+</a>
+    <h1>All Deadlines</h1>
+    <div class="header-actions">
+      <a href="{% url 'deadlines:deadline_add' %}" class="add-btn">+</a>
+      <form method="get" style="margin: 0">
+        <select
+          name="entity"
+          class="filter-dropdown"
+          onchange="this.form.submit()"
+        >
+          <option value="">All Entities</option>
+          {% for entity in entities %}
+          <option
+            value="{{ entity.entity_code }}"
+            {%
+            if
+            entity.entity_code=""
+            ="entity_filter"
+            %}selected{%
+            endif
+            %}
+          >
+            {{ entity.entity_code }}
+          </option>
+          {% endfor %}
+        </select>
+      </form>
+      <a href="{% url 'deadlines:deadline_add' %}" class="btn-primary"
+        >+ Add Deadline</a
+      >
+    </div>
   </div>
   <div class="entity-filter">
     <form method="get" style="margin: 0">
@@ -50,8 +79,8 @@ Business Deadlines{% endblock %} {% block content %}
           >Due: {{ deadline.next_due|date:"M j" }}</span
         >
       </div>
-      {% if deadline.amount %}
-      <div class="list-item-amount">${{ deadline.amount }}</div>
+      {% if deadline.estimated_amount %}
+      <div class="list-item-amount">${{ deadline.estimated_amount }}</div>
       {% endif %}
     </div>
   </a>
@@ -70,8 +99,8 @@ Business Deadlines{% endblock %} {% block content %}
           >Due: {{ deadline.next_due|date:"M j" }}</span
         >
       </div>
-      {% if deadline.amount %}
-      <div class="list-item-amount">${{ deadline.amount }}</div>
+      {% if deadline.estimated_amount %}
+      <div class="list-item-amount">${{ deadline.estimated_amount }}</div>
       {% endif %}
     </div>
   </a>
@@ -90,8 +119,8 @@ Business Deadlines{% endblock %} {% block content %}
           >Due: {{ deadline.next_due|date:"M j" }}</span
         >
       </div>
-      {% if deadline.amount %}
-      <div class="list-item-amount">${{ deadline.amount }}</div>
+      {% if deadline.estimated_amount %}
+      <div class="list-item-amount">${{ deadline.estimated_amount }}</div>
       {% endif %}
     </div>
   </a>

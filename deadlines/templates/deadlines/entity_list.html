@@ -1,34 +1,65 @@
 {% extends "deadlines/base.html" %} {% load static %} {% block title %}Entities
-- Business Deadlines{% endblock %} {% block content %}
+- Business Deadlines{% endblock %} {% block nav_entities %}active{% endblock %}
+{% block bottom_nav_entities %}active{% endblock %} {% block content %}
 <div class="header">
   <div class="header-row">
     <h1>Entities</h1>
+    <div class="header-actions">
+      <form method="get" style="margin: 0">
+        <select
+          name="state"
+          class="filter-dropdown"
+          onchange="this.form.submit()"
+        >
+          <option value="">All States</option>
+          <option value="OR" {% if state_filter="" ="OR" %}selected{% endif %}>
+            Oregon
+          </option>
+          <option value="CO" {% if state_filter="" ="CO" %}selected{% endif %}>
+            Colorado
+          </option>
+        </select>
+      </form>
+    </div>
   </div>
 </div>
 
 <div class="content">
-  {% for entity in entities %}
-  <a
-    href="{% url 'deadlines:entity_detail' entity.pk %}"
-    class="entity-card {{ entity.color }}"
-  >
-    <div class="entity-card-header">
-      <div class="entity-code">{{ entity.entity_code }}</div>
-      <div class="entity-state">{{ entity.physical_state }}</div>
+  <div class="entity-grid">
+    {% for entity in entities %}
+    <a
+      href="{% url 'deadlines:entity_detail' entity.pk %}"
+      class="entity-card state-{{ entity.physical_state|lower }}"
+    >
+      <div class="entity-card-header">
+        <div class="entity-code">{{ entity.entity_code }}</div>
+        <div class="entity-state">{{ entity.physical_state }}</div>
+      </div>
+      <div class="entity-name">
+        {{ entity.dba_name|default:entity.legal_name }}
+      </div>
+      <div class="entity-stats">
+        {% if entity.overdue_count %}
+        <div class="entity-stat">
+          <div class="entity-stat-dot red"></div>
+          {{ entity.overdue_count }} overdue
+        </div>
+        {% elif entity.this_week_count %}
+        <div class="entity-stat">
+          <div class="entity-stat-dot yellow"></div>
+          {{ entity.this_week_count }} due this week
+        </div>
+        {% else %}
+        <div class="entity-stat">All on track</div>
+        {% endif %}
+      </div>
+    </a>
+    {% empty %}
+    <div class="empty-state">
+      <div class="empty-state-icon">🏢</div>
+      <div class="empty-state-text">No entities found.</div>
     </div>
-    <div class="entity-name">
-      {{ entity.dba_name|default:entity.legal_name }}
-    </div>
-    <div class="entity-meta">
-      {{ entity.entity_type|default:"" }} {% if entity.ein %}· EIN: {{
-      entity.ein }}{% endif %}
-    </div>
-  </a>
-  {% empty %}
-  <div class="empty-state">
-    <div class="empty-state-icon">🏢</div>
-    <div class="empty-state-text">No entities found.</div>
+    {% endfor %}
   </div>
-  {% endfor %}
 </div>
 {% endblock %}

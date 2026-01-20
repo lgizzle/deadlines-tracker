@@ -1,9 +1,15 @@
 {% extends "deadlines/base.html" %} {% load static %} {% block title %}To-Do -
-Business Deadlines{% endblock %} {% block content %}
+Business Deadlines{% endblock %} {% block nav_todo %}active{% endblock %} {%
+block bottom_nav_todo %}active{% endblock %} {% block content %}
 <div class="header">
   <div class="header-row">
-    <h1>Deadlines</h1>
-    <a href="{% url 'deadlines:deadline_add' %}" class="add-btn">+</a>
+    <h1>To-Do</h1>
+    <div class="header-actions">
+      <a href="{% url 'deadlines:deadline_add' %}" class="add-btn">+</a>
+      <a href="{% url 'deadlines:deadline_add' %}" class="btn-primary"
+        >+ Add Deadline</a
+      >
+    </div>
   </div>
 </div>
 
@@ -13,22 +19,22 @@ Business Deadlines{% endblock %} {% block content %}
   <a href="{% url 'deadlines:calendar' %}" class="tab">Calendar</a>
 </div>
 
-<div class="content">
-  <div class="stats">
-    <div class="stat">
-      <div class="stat-number red">{{ stats.overdue }}</div>
-      <div class="stat-label">Overdue</div>
-    </div>
-    <div class="stat">
-      <div class="stat-number yellow">{{ stats.this_week }}</div>
-      <div class="stat-label">This Week</div>
-    </div>
-    <div class="stat">
-      <div class="stat-number green">{{ stats.total }}</div>
-      <div class="stat-label">Total</div>
-    </div>
+<div class="stats">
+  <div class="stat">
+    <div class="stat-number red">{{ stats.overdue }}</div>
+    <div class="stat-label">Overdue</div>
   </div>
+  <div class="stat">
+    <div class="stat-number yellow">{{ stats.this_week }}</div>
+    <div class="stat-label">This Week</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number green">{{ stats.total }}</div>
+    <div class="stat-label">On Track</div>
+  </div>
+</div>
 
+<div class="content">
   {% if overdue %}
   <div class="section-header">Overdue - Do Now!</div>
   {% for deadline in overdue %}
