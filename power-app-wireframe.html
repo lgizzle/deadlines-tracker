@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Deadlines Power App - Wireframe v2</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            padding: 40px 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 20px;
+        }
+        .section-title {
+            text-align: center;
+            color: #6366f1;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 40px 0 20px;
+            padding-top: 40px;
+            border-top: 1px solid #333;
+        }
+        .section-title:first-of-type {
+            border-top: none;
+            padding-top: 0;
+            margin-top: 20px;
+        }
+        .wireframes {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .phone {
+            width: 280px;
+            height: 560px;
+            background: #fff;
+            border-radius: 36px;
+            padding: 10px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .screen {
+            width: 100%;
+            height: 100%;
+            background: #f5f5f5;
+            border-radius: 28px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .status-bar {
+            height: 40px;
+            background: #6366f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .header {
+            background: #6366f1;
+            color: white;
+            padding: 12px 14px;
+        }
+        .header h2 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header .entity-filter {
+            margin-top: 6px;
+            padding: 5px 10px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 16px;
+            font-size: 11px;
+            display: inline-block;
+        }
+        .add-btn {
+            width: 32px;
+            height: 32px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 300;
+        }
+        .tabs {
+            display: flex;
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .tab {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            font-size: 11px;
+            color: #666;
+            cursor: pointer;
+        }
+        .tab.active {
+            color: #6366f1;
+            border-bottom: 2px solid #6366f1;
+            font-weight: 600;
+        }
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            background: #f5f5f5;
+        }
+        .section-header {
+            padding: 10px 14px 6px;
+            font-size: 10px;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .list-item {
+            background: white;
+            margin: 0 10px 6px;
+            padding: 12px;
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+        }
+        .list-item.overdue {
+            border-left: 3px solid #ef4444;
+        }
+        .list-item.upcoming {
+            border-left: 3px solid #f59e0b;
+        }
+        .list-item.normal {
+            border-left: 3px solid #22c55e;
+        }
+        .list-item-title {
+            font-weight: 600;
+            font-size: 13px;
+            color: #333;
+        }
+        .list-item-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 4px;
+            font-size: 11px;
+            color: #666;
+        }
+        .list-item-entity {
+            background: #e0e7ff;
+            color: #4338ca;
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-size: 9px;
+            font-weight: 600;
+        }
+        .list-item-amount {
+            font-weight: 400;
+            color: #999;
+            font-size: 10px;
+        }
+        .bottom-nav {
+            display: flex;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            padding: 6px 0 16px;
+        }
+        .nav-item {
+            flex: 1;
+            text-align: center;
+            font-size: 9px;
+            color: #666;
+        }
+        .nav-item.active {
+            color: #6366f1;
+        }
+        .nav-icon {
+            width: 22px;
+            height: 22px;
+            margin: 0 auto 3px;
+            background: #ddd;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        .nav-item.active .nav-icon {
+            background: #6366f1;
+            color: white;
+        }
+
+        /* Calendar styles */
+        .calendar-grid {
+            background: white;
+            margin: 10px;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .calendar-month {
+            font-weight: 600;
+            font-size: 14px;
+            color: #333;
+        }
+        .calendar-nav {
+            display: flex;
+            gap: 6px;
+        }
+        .calendar-nav button {
+            width: 24px;
+            height: 24px;
+            border: none;
+            background: #f0f0f0;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-size: 9px;
+            color: #999;
+            margin-bottom: 6px;
+        }
+        .days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 3px;
+        }
+        .day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            border-radius: 50%;
+            position: relative;
+        }
+        .day.has-deadline {
+            background: #fef3c7;
+            font-weight: 600;
+        }
+        .day.has-overdue {
+            background: #fecaca;
+            color: #dc2626;
+            font-weight: 600;
+        }
+        .day.today {
+            background: #6366f1;
+            color: white;
+            font-weight: 600;
+        }
+        .day-count {
+            position: absolute;
+            top: -1px;
+            right: -1px;
+            width: 12px;
+            height: 12px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            font-size: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Todo styles */
+        .todo-item {
+            background: white;
+            margin: 0 10px 6px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .todo-item.overdue {
+            border-left: 3px solid #ef4444;
+        }
+        .todo-item.upcoming {
+            border-left: 3px solid #f59e0b;
+        }
+        .todo-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #ccc;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .todo-checkbox.checked {
+            background: #22c55e;
+            border-color: #22c55e;
+            color: white;
+            font-size: 14px;
+        }
+        .todo-content {
+            flex: 1;
+            min-width: 0;
+        }
+        .todo-title {
+            font-weight: 600;
+            font-size: 12px;
+            color: #333;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .todo-meta {
+            font-size: 10px;
+            color: #666;
+            margin-top: 2px;
+        }
+        .todo-amount {
+            font-size: 11px;
+            color: #999;
+            text-align: right;
+        }
+        .todo-stats {
+            background: white;
+            margin: 10px;
+            padding: 14px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        .stat-number.red { color: #ef4444; }
+        .stat-number.yellow { color: #f59e0b; }
+        .stat-number.green { color: #22c55e; }
+        .stat-label {
+            font-size: 9px;
+            color: #666;
+            margin-top: 2px;
+        }
+
+        /* Detail screen */
+        .detail-header {
+            background: #6366f1;
+            color: white;
+            padding: 16px 14px;
+        }
+        .detail-back {
+            font-size: 12px;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+        .detail-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .detail-entity {
+            background: rgba(255,255,255,0.2);
+            padding: 3px 10px;
+            border-radius: 16px;
+            font-size: 10px;
+            display: inline-block;
+        }
+        .detail-content {
+            padding: 14px;
+            flex: 1;
+            overflow-y: auto;
+        }
+        .detail-card {
+            background: white;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+        .detail-label {
+            font-size: 11px;
+            color: #666;
+        }
+        .detail-value {
+            font-size: 12px;
+            font-weight: 600;
+            color: #333;
+        }
+        .detail-value.amount {
+            color: #059669;
+        }
+        .action-button {
+            width: 100%;
+            padding: 14px;
+            background: #22c55e;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .action-button.secondary {
+            background: #f0f0f0;
+            color: #666;
+            margin-top: 8px;
+        }
+        .auto-advance-note {
+            text-align: center;
+            font-size: 10px;
+            color: #666;
+            margin-top: 6px;
+        }
+
+        /* Add form */
+        .form-group {
+            margin-bottom: 14px;
+        }
+        .form-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 4px;
+            display: block;
+        }
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 13px;
+            background: white;
+        }
+        .form-select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 13px;
+            background: white;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L2 4h8z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+        }
+        .form-row {
+            display: flex;
+            gap: 10px;
+        }
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        /* Notes section in detail */
+        .notes-section {
+            margin-top: 8px;
+        }
+        .notes-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .notes-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: #666;
+        }
+        .add-note-btn {
+            font-size: 10px;
+            color: #6366f1;
+            font-weight: 600;
+        }
+        .note-item {
+            background: #f9fafb;
+            padding: 8px 10px;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            font-size: 11px;
+            color: #555;
+        }
+        .note-date {
+            font-size: 9px;
+            color: #999;
+            margin-top: 4px;
+        }
+
+        /* Screen labels */
+        .screen-label {
+            text-align: center;
+            margin-top: 12px;
+            font-size: 12px;
+            color: #888;
+            font-weight: 600;
+        }
+        .screen-desc {
+            text-align: center;
+            font-size: 10px;
+            color: #666;
+            margin-top: 3px;
+            max-width: 260px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <h1>Business Deadlines Power App</h1>
+    <p class="subtitle">Mobile-First Wireframes v2 - 5 Screens</p>
+
+    <div class="section-title">Main Views (Tab Navigation)</div>
+
+    <div class="wireframes">
+        <!-- Screen 1: To-Do View -->
+        <div>
+            <div class="phone">
+                <div class="screen">
+                    <div class="status-bar">9:41 AM</div>
+                    <div class="header">
+                        <div class="header-row">
+                            <h2>To-Do</h2>
+                            <div class="add-btn">+</div>
+                        </div>
+                    </div>
+                    <div class="tabs">
+                        <div class="tab active">To-Do</div>
+                        <div class="tab">List</div>
+                        <div class="tab">Calendar</div>
+                    </div>
+                    <div class="content">
+                        <div class="todo-stats">
+                            <div>
+                                <div class="stat-number red">2</div>
+                                <div class="stat-label">Overdue</div>
+                            </div>
+                            <div>
+                                <div class="stat-number yellow">5</div>
+                                <div class="stat-label">This Week</div>
+                            </div>
+                            <div>
+                                <div class="stat-number green">57</div>
+                                <div class="stat-label">On Track</div>
+                            </div>
+                        </div>
+
+                        <div class="section-header">Overdue - Do Now!</div>
+                        <div class="todo-item overdue">
+                            <div class="todo-checkbox"></div>
+                            <div class="todo-content">
+                                <div class="todo-title">Comcast Business (NW Ninth)</div>
+                                <div class="todo-meta">NWNINTH · Jan 15 · Utility</div>
+                            </div>
+                        </div>
+                        <div class="todo-item overdue">
+                            <div class="todo-checkbox"></div>
+                            <div class="todo-content">
+                                <div class="todo-title">NW Natural (NW Ninth Front)</div>
+                                <div class="todo-meta">NWNINTH · Jan 18 · Utility</div>
+                            </div>
+                        </div>
+
+                        <div class="section-header">Due This Week</div>
+                        <div class="todo-item upcoming">
+                            <div class="todo-checkbox"></div>
+                            <div class="todo-content">
+                                <div class="todo-title">Patriots Sales Tax Filing</div>
+                                <div class="todo-meta">PATLIQ · Jan 19 · Sales Tax</div>
+                            </div>
+                        </div>
+                        <div class="todo-item upcoming">
+                            <div class="todo-checkbox"></div>
+                            <div class="todo-content">
+                                <div class="todo-title">Cheers Sales Tax Filing</div>
+                                <div class="todo-meta">CHEERS · Jan 19 · Sales Tax</div>
+                            </div>
+                        </div>
+                        <div class="todo-item upcoming">
+                            <div class="todo-checkbox checked">✓</div>
+                            <div class="todo-content">
+                                <div class="todo-title" style="text-decoration: line-through; color: #999;">Republic Services (GXM)</div>
+                                <div class="todo-meta" style="color: #bbb;">GXM · Jan 19 · Autopay</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom-nav">
+                        <div class="nav-item active">
+                            <div class="nav-icon">✓</div>
+                            To-Do
+                        </div>
+                        <div class="nav-item">
+                            <div class="nav-icon">🏢</div>
+                            Entities
+                        </div>
+                        <div class="nav-item">
+                            <div class="nav-icon">⚙️</div>
+                            Settings
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="screen-label">TO-DO VIEW</div>
+            <div class="screen-desc">Action mode! Quick stats + checkboxes. Shows entity + category (no amounts). Tap checkbox = mark complete.</div>
+        </div>
+
+        <!-- Screen 2: List View -->
+        <div>
+            <div class="phone">
+                <div class="screen">
+                    <div class="status-bar">9:41 AM</div>
+                    <div class="header">
+                        <div class="header-row">
+                            <h2>All Deadlines</h2>
+                            <div class="add-btn">+</div>
+                        </div>
+                        <div class="entity-filter">All Entities ▼</div>
+                    </div>
+                    <div class="tabs">
+                        <div class="tab">To-Do</div>
+                        <div class="tab active">List</div>
+                        <div class="tab">Calendar</div>
+                    </div>
+                    <div class="content">
+                        <div class="section-header">Overdue (2)</div>
+                        <div class="list-item overdue">
+                            <div class="list-item-title">Comcast Business (NW Ninth)</div>
+                            <div class="list-item-meta">
+                                <span class="list-item-entity">NWNINTH</span>
+                                <span>Jan 15 · <span class="list-item-amount">$190</span></span>
+                            </div>
+                        </div>
+
+                        <div class="section-header">This Week (5)</div>
+                        <div class="list-item upcoming">
+                            <div class="list-item-title">Patriots Sales Tax Filing</div>
+                            <div class="list-item-meta">
+                                <span class="list-item-entity">PATLIQ</span>
+                                <span>Jan 19 · <span class="list-item-amount">$8,000</span></span>
+                            </div>
+                        </div>
+                        <div class="list-item upcoming">
+                            <div class="list-item-title">Cheers Sales Tax Filing</div>
+                            <div class="list-item-meta">
+                                <span class="list-item-entity">CHEERS</span>
+                                <span>Jan 19 · <span class="list-item-amount">$8,000</span></span>
+                            </div>
+                        </div>
+
+                        <div class="section-header">Coming Up (57)</div>
+                        <div class="list-item normal">
+                            <div class="list-item-title">Pacific Power (GXM Main)</div>
+                            <div class="list-item-meta">
+                                <span class="list-item-entity">GXM</span>
+                                <span>Jan 23 · <span class="list-item-amount">$680</span></span>
+                            </div>
+                        </div>
+                        <div class="list-item normal">
+                            <div class="list-item-title">City of Corvallis Water</div>
+                            <div class="list-item-meta">
+                                <span class="list-item-entity">NWNINTH</span>
+                                <span>Jan 25 · <span class="list-item-amount">$400</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom-nav">
+                        <div class="nav-item">
+                            <div class="nav-icon">✓</div>
+                            To-Do
+                        </div>
+                        <div class="nav-item">
+                            <div class="nav-icon">🏢</div>
+                            Entities
+                        </div>
+                        <div class="nav-item">
+                            <div class="nav-icon">⚙️</div>
+                            Settings
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="screen-label">LIST VIEW</div>
+            <div class="screen-desc">Browse all 64 deadlines. Filter by entity. Tap item → Detail view.</div>
+        </div>
+
+        <!-- Screen 3: Calendar View -->
+        <div>
+            <div class="phone">
+                <div class="screen">
+                    <div class="status-bar">9:41 AM</div>
+                    <div class="header">
+                        <div class="header-row">
+                            <h2>Calendar</h2>
+                            <div class="add-btn">+</div>
+                        </div>
+                        <div class="entity-filter">All Entities ▼</div>
+                    </div>
+                    <div class="tabs">
+                        <div class="tab">To-Do</div>
+                        <div class="tab">List</div>
+                        <div class="tab active">Calendar</div>
+                    </div>
+                    <div class="content">
+                        <div class="calendar-grid">
+                            <div class="calendar-header">
+                                <button>&lt;</button>
+                                <span class="calendar-month">January 2026</span>
+                                <button>&gt;</button>
+                            </div>
+                            <div class="weekdays">
+                                <div>S</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div>
+                            </div>
+                            <div class="days">
+                                <div class="day"></div>
+                                <div class="day"></div>
+                                <div class="day"></div>
+                                <div class="day">1</div>
+                                <div class="day has-deadline">2<span class="day-count">1</span></div>
+                                <div class="day">3</div>
+                                <div class="day">4</div>
+                                <div class="day">5</div>
+                                <div class="day">6</div>
+                                <div class="day">7</div>
+                                <div class="day">8</div>
+                                <div class="day">9</div>
+                                <div class="day">10</div>
+                                <div class="day">11</div>
+                                <div class="day">12</div>
+                                <div class="day">13</div>
+                                <div class="day has-deadline">14<span class="day-count">3</span></div>
+                                <div class="day has-overdue">15<span class="day-count">2</span></div>
+                                <div class="day">16</div>
+                                <div class="day today">17</div>
+                                <div class="day has-overdue">18<span class="day-count">2</span></div>
+                                <div class="day has-deadline">19<span class="day-count">5</span></div>
+                                <div class="day has-deadline">20<span class="day-count">3</span></div>
+                                <div class="day">21</div>
+                                <div class="day has-deadline">22<span class="day-count">2</span></div>
+                                <div class="day has-deadline">23<span class="day-count">2</span></div>
+                                <div class="day">24</div>
+                                <div class="day has-deadline">25<span class="day-count">2</span></div>
+                                <div class="day has-deadline">26<span class="day-count">1</span></div>
+                                <div class="day has-deadline">27<span class="day-count">2</span></div>
+                                <div class="day has-deadline">28<span class="day-count">2</span></div>
+                                <div class="day has-deadline">29<span class="day-count">2</span></div>
+                                <div class="day has-deadline">30<span class="day-count">4</span></div>
+                                <div class="day">31</div>
+                            </div>
+                        </div>
+
+                        <div class="section-header">January 19 (5 items)</div>
+                        <div class="list-item upcoming">
+                            <div class="list-item-title">Patriots Sales Tax Filing</div>
+                            <div class="list-item-meta">
+                                <span class="list-item-entity">PATLIQ</span>
+                                <span>Sales Tax</span>
+                            </div>
+                        </div>
+                        <div class="list-item upcoming">
+                            <div class="list-item-title">Cheers Sales Tax Filing</div>
+                            <div class="list-item-meta">
+                                <span class="list-item-entity">CHEERS</span>
+                                <span>Sales Tax</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom-nav">
+                        <div class="nav-item">
+                            <div class="nav-icon">✓</div>
+                            To-Do
+                        </div>
+                        <div class="nav-item">
+                            <div class="nav-icon">🏢</div>
+                            Entities
+                        </div>
+                        <div class="nav-item">
+                            <div class="nav-icon">⚙️</div>
+                            Settings
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="screen-label">CALENDAR VIEW</div>
+            <div class="screen-desc">Month view with counts. Tap date → shows items due. Red = overdue.</div>
+        </div>
+    </div>
+
+    <div class="section-title">Detail & Add Screens</div>
+
+    <div class="wireframes">
+        <!-- Screen 4: Detail View with Notes -->
+        <div>
+            <div class="phone">
+                <div class="screen">
+                    <div class="status-bar">9:41 AM</div>
+                    <div class="detail-header">
+                        <div class="detail-back">← Back</div>
+                        <div class="detail-title">Patriots Sales Tax</div>
+                        <div class="detail-entity">PATLIQ · Sales Tax · Monthly</div>
+                    </div>
+                    <div class="detail-content">
+                        <div class="detail-card">
+                            <div class="detail-row">
+                                <span class="detail-label">Next Due</span>
+                                <span class="detail-value">Jan 19, 2026</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Due Day</span>
+                                <span class="detail-value">20th of month</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Amount</span>
+                                <span class="detail-value amount">$8,000.00</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Autopay</span>
+                                <span class="detail-value">No</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Remind</span>
+                                <span class="detail-value">10 days before</span>
+                            </div>
+                        </div>
+
+                        <div class="detail-card">
+                            <div class="notes-header">
+                                <span class="notes-title">Notes</span>
+                                <span class="add-note-btn">+ Add Note</span>
+                            </div>
+                            <div class="note-item">
+                                20th monthly (next business day if weekend/holiday). File via Colorado SUTS portal.
+                            </div>
+                            <div class="note-item">
+                                Paid $8,247 for Dec - higher due to holiday sales
+                                <div class="note-date">Jan 15, 2026</div>
+                            </div>
+                        </div>
+
+                        <button class="action-button">✓ Mark Complete</button>
+                        <div class="auto-advance-note">→ NextDue advances to Feb 19, 2026</div>
+
+                        <button class="action-button secondary">Edit Details</button>
+                    </div>
+                </div>
+            </div>
+            <div class="screen-label">DETAIL VIEW</div>
+            <div class="screen-desc">Full info + notes history. Mark Complete auto-advances date. Add notes for context.</div>
+        </div>
+
+        <!-- Screen 5: Add Deadline -->
+        <div>
+            <div class="phone">
+                <div class="screen">
+                    <div class="status-bar">9:41 AM</div>
+                    <div class="header">
+                        <div class="header-row">
+                            <h2>Add Deadline</h2>
+                        </div>
+                    </div>
+                    <div class="detail-content" style="background: #f5f5f5;">
+                        <div class="detail-card">
+                            <div class="form-group">
+                                <label class="form-label">Title *</label>
+                                <input type="text" class="form-input" placeholder="e.g., Republic Services (GXM)">
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Entity *</label>
+                                    <select class="form-select">
+                                        <option>Select...</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Category *</label>
+                                    <select class="form-select">
+                                        <option>Select...</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Frequency *</label>
+                                    <select class="form-select">
+                                        <option>Monthly</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Due Day *</label>
+                                    <input type="number" class="form-input" placeholder="1-31">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Next Due *</label>
+                                    <input type="date" class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Remind Days</label>
+                                    <input type="number" class="form-input" placeholder="7">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Amount</label>
+                                    <input type="text" class="form-input" placeholder="$0.00">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Autopay</label>
+                                    <select class="form-select">
+                                        <option>No</option>
+                                        <option>Yes</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Account #</label>
+                                <input type="text" class="form-input" placeholder="Optional">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Notes</label>
+                                <textarea class="form-input" style="height: 60px; resize: none;" placeholder="Optional notes..."></textarea>
+                            </div>
+                        </div>
+
+                        <button class="action-button">Save Deadline</button>
+                        <button class="action-button secondary">Cancel</button>
+                    </div>
+                </div>
+            </div>
+            <div class="screen-label">ADD DEADLINE</div>
+            <div class="screen-desc">Tap + button from any screen. Entity/Category from dropdowns. Saves to SharePoint.</div>
+        </div>
+    </div>
+
+    <div class="section-title">Entity Reference Screens</div>
+
+    <div class="wireframes">
+        <!-- Entity List -->
+        <div>
+            <div class="phone">
+                <div class="screen">
+                    <div class="status-bar">9:41 AM</div>
+                    <div class="header">
+                        <h2>Entities</h2>
+                    </div>
+                    <div class="content" style="padding: 10px;">
+                        <div class="entity-card" style="background: white; border-radius: 12px; padding: 14px; margin-bottom: 10px; border-left: 4px solid #6366f1;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <div style="font-weight: 700; font-size: 14px; color: #333;">CHEERS</div>
+                                    <div style="font-size: 11px; color: #666;">Victory Spirits LLC</div>
+                                </div>
+                                <div style="font-size: 10px; color: #888;">CO →</div>
+                            </div>
+                        </div>
+                        <div class="entity-card" style="background: white; border-radius: 12px; padding: 14px; margin-bottom: 10px; border-left: 4px solid #22c55e;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <div style="font-weight: 700; font-size: 14px; color: #333;">TIMBER</div>
+                                    <div style="font-size: 11px; color: #666;">Timberhill Sports LLC</div>
+                                </div>
+                                <div style="font-size: 10px; color: #888;">OR →</div>
+                            </div>
+                        </div>
+                        <div class="entity-card" style="background: white; border-radius: 12px; padding: 14px; margin-bottom: 10px; border-left: 4px solid #22c55e;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <div style="font-weight: 700; font-size: 14px; color: #333;">GXM</div>
+                                    <div style="font-size: 11px; color: #666;">GXM LLC (G3 Sports)</div>
+                                </div>
+                                <div style="font-size: 10px; color: #888;">OR →</div>
+                            </div>
+                        </div>
+                        <div class="entity-card" style="background: white; border-radius: 12px; padding: 14px; margin-bottom: 10px; border-left: 4px solid #6366f1;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <div style="font-weight: 700; font-size: 14px; color: #333;">PATLIQ</div>
+                                    <div style="font-size: 11px; color: #666;">BG Capital (Patriots)</div>
+                                </div>
+                                <div style="font-size: 10px; color: #888;">CO →</div>
+                            </div>
+                        </div>
+                        <div class="entity-card" style="background: white; border-radius: 12px; padding: 14px; margin-bottom: 10px; border-left: 4px solid #22c55e;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <div style="font-weight: 700; font-size: 14px; color: #333;">NWNINTH</div>
+                                    <div style="font-size: 11px; color: #666;">NW Ninth LLC</div>
+                                </div>
+                                <div style="font-size: 10px; color: #888;">OR →</div>
+                            </div>
+                        </div>
+                        <div class="entity-card" style="background: white; border-radius: 12px; padding: 14px; margin-bottom: 10px; border-left: 4px solid #f59e0b;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <div style="font-weight: 700; font-size: 14px; color: #333;">FOURWEST</div>
+                                    <div style="font-size: 11px; color: #666;">Four West LLC</div>
+                                </div>
+                                <div style="font-size: 10px; color: #888;">OR →</div>
+                            </div>
+                        </div>
+                        <div style="text-align: center; padding: 10px; font-size: 10px; color: #999;">+ 7 more entities</div>
+                    </div>
+                    <div class="bottom-nav">
+                        <div class="nav-item">
+                            <div class="nav-icon">✓</div>
+                            To-Do
+                        </div>
+                        <div class="nav-item active">
+                            <div class="nav-icon">🏢</div>
+                            Entities
+                        </div>
+                        <div class="nav-item">
+                            <div class="nav-icon">⚙️</div>
+                            Settings
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="screen-label">ENTITY LIST</div>
+            <div class="screen-desc">All 13 entities. Color = state (purple=CO, green=OR, yellow=other). Tap → detail.</div>
+        </div>
+
+        <!-- Entity Detail - Overview Tab -->
+        <div>
+            <div class="phone">
+                <div class="screen">
+                    <div class="status-bar">9:41 AM</div>
+                    <div class="detail-header" style="padding-bottom: 8px;">
+                        <div class="detail-back">← Entities</div>
+                        <div class="detail-title">CHEERS</div>
+                        <div style="font-size: 11px; opacity: 0.9;">Victory Spirits LLC</div>
+                    </div>
+                    <div class="tabs" style="background: #5558e3;">
+                        <div class="tab active" style="color: white; border-bottom-color: white;">Overview</div>
+                        <div class="tab" style="color: rgba(255,255,255,0.6); border-bottom-color: transparent;">Financial</div>
+                        <div class="tab" style="color: rgba(255,255,255,0.6); border-bottom-color: transparent;">Services</div>
+                        <div class="tab" style="color: rgba(255,255,255,0.6); border-bottom-color: transparent;">People</div>
+                    </div>
+                    <div class="detail-content" style="padding: 10px;">
+                        <!-- Quick Copy Row -->
+                        <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+                            <div style="flex: 1; background: white; border-radius: 10px; padding: 10px; text-align: center;">
+                                <div style="font-size: 9px; color: #666; margin-bottom: 2px;">EIN</div>
+                                <div style="font-size: 12px; font-weight: 700; color: #333;">88-4052817</div>
+                                <div style="font-size: 8px; color: #6366f1; margin-top: 3px;">📋 Copy</div>
+                            </div>
+                            <div style="flex: 1; background: white; border-radius: 10px; padding: 10px; text-align: center;">
+                                <div style="font-size: 9px; color: #666; margin-bottom: 2px;">SOS ID</div>
+                                <div style="font-size: 12px; font-weight: 700; color: #333;">20248215072</div>
+                                <div style="font-size: 8px; color: #6366f1; margin-top: 3px;">📋 Copy</div>
+                            </div>
+                        </div>
+
+                        <!-- Business Info Card -->
+                        <div class="detail-card" style="margin-bottom: 10px;">
+                            <div style="font-size: 10px; font-weight: 600; color: #6366f1; margin-bottom: 8px;">BUSINESS INFO</div>
+                            <div class="detail-row">
+                                <span class="detail-label">Legal Name</span>
+                                <span class="detail-value">Victory Spirits LLC</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">DBA</span>
+                                <span class="detail-value">Cheers Liquor</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">State</span>
+                                <span class="detail-value">Colorado</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">NAICS</span>
+                                <span class="detail-value">445310</span>
+                            </div>
+                        </div>
+
+                        <!-- Address Card -->
+                        <div class="detail-card" style="margin-bottom: 10px;">
+                            <div style="font-size: 10px; font-weight: 600; color: #6366f1; margin-bottom: 8px;">ADDRESS</div>
+                            <div style="font-size: 12px; color: #333; line-height: 1.5;">
+                                1105 North Circle Dr<br>
+                                Colorado Springs, CO 80909
+                            </div>
+                            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                <div style="font-size: 10px; color: #6366f1;">📋 Copy</div>
+                                <div style="font-size: 10px; color: #6366f1;">🗺️ Maps</div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Contact -->
+                        <div class="detail-card">
+                            <div style="font-size: 10px; font-weight: 600; color: #6366f1; margin-bottom: 8px;">MANAGER</div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <div style="font-size: 13px; font-weight: 600; color: #333;">Rob McNeely</div>
+                                    <div style="font-size: 11px; color: #666;">General Manager</div>
+                                </div>
+                                <div style="display: flex; gap: 8px;">
+                                    <div style="width: 36px; height: 36px; background: #22c55e; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">📞</div>
+                                    <div style="width: 36px; height: 36px; background: #3b82f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">✉️</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="screen-label">ENTITY DETAIL - OVERVIEW</div>
+            <div class="screen-desc">Quick-copy EIN/SOS. Business info, address with Maps link, manager with tap-to-call.</div>
+        </div>
+
+        <!-- Entity Detail - Financial Tab -->
+        <div>
+            <div class="phone">
+                <div class="screen">
+                    <div class="status-bar">9:41 AM</div>
+                    <div class="detail-header" style="padding-bottom: 8px;">
+                        <div class="detail-back">← Entities</div>
+                        <div class="detail-title">CHEERS</div>
+                        <div style="font-size: 11px; opacity: 0.9;">Victory Spirits LLC</div>
+                    </div>
+                    <div class="tabs" style="background: #5558e3;">
+                        <div class="tab" style="color: rgba(255,255,255,0.6); border-bottom-color: transparent;">Overview</div>
+                        <div class="tab active" style="color: white; border-bottom-color: white;">Financial</div>
+                        <div class="tab" style="color: rgba(255,255,255,0.6); border-bottom-color: transparent;">Services</div>
+                        <div class="tab" style="color: rgba(255,255,255,0.6); border-bottom-color: transparent;">People</div>
+                    </div>
+                    <div class="detail-content" style="padding: 10px;">
+                        <!-- Bank Account -->
+                        <div class="detail-card" style="margin-bottom: 10px;">
+                            <div style="font-size: 10px; font-weight: 600; color: #6366f1; margin-bottom: 8px;">BANK ACCOUNT</div>
+                            <div class="detail-row">
+                                <span class="detail-label">Bank</span>
+                                <span class="detail-value">Wells Fargo</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Account #</span>
+                                <span class="detail-value" style="font-family: monospace;">****4521 📋</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Routing #</span>
+                                <span class="detail-value" style="font-family: monospace;">102000076 📋</span>
+                            </div>
+                            <div style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed #e0e0e0;">
+                                <div style="font-size: 10px; color: #6366f1; font-weight: 600;">Show Full Account # →</div>
+                            </div>
+                        </div>
+
+                        <!-- Credit Cards -->
+                        <div class="detail-card" style="margin-bottom: 10px;">
+                            <div style="font-size: 10px; font-weight: 600; color: #6366f1; margin-bottom: 8px;">CREDIT CARDS</div>
+                            <div style="display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid #f0f0f0;">
+                                <div style="width: 40px; height: 26px; background: linear-gradient(135deg, #1a1f71, #c4a000); border-radius: 4px; margin-right: 10px;"></div>
+                                <div style="flex: 1;">
+                                    <div style="font-size: 12px; font-weight: 600;">Visa ****6636</div>
+                                    <div style="font-size: 10px; color: #666;">Primary operating</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Merchant Processor -->
+                        <div class="detail-card" style="margin-bottom: 10px;">
+                            <div style="font-size: 10px; font-weight: 600; color: #6366f1; margin-bottom: 8px;">MERCHANT PROCESSING</div>
+                            <div class="detail-row">
+                                <span class="detail-label">Processor</span>
+                                <span class="detail-value">AccessOne/First Data</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Merchant ID</span>
+                                <span class="detail-value" style="font-family: monospace; font-size: 10px;">498478863885</span>
+                            </div>
+                        </div>
+
+                        <!-- Loans -->
+                        <div class="detail-card">
+                            <div style="font-size: 10px; font-weight: 600; color: #6366f1; margin-bottom: 8px;">LOANS</div>
+                            <div style="padding: 8px 0;">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <div style="font-size: 12px; font-weight: 600;">Equipment Loan</div>
+                                    <div style="font-size: 11px; color: #666;">$850/mo</div>
+                                </div>
+                                <div style="font-size: 10px; color: #666; margin-top: 2px;">Wells Fargo · Balance: $18,400</div>
+                                <div style="font-size: 9px; color: #999; margin-top: 2px;">as of Jan 2026</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="screen-label">ENTITY DETAIL - FINANCIAL</div>
+            <div class="screen-desc">Bank account (tap to reveal full #), credit cards, merchant processing, loans with balances.</div>
+        </div>
+
+        <!-- Entity Detail - Services Tab -->
+        <div>
+            <div class="phone">
+                <div class="screen">
+                    <div class="status-bar">9:41 AM</div>
+                    <div class="detail-header" style="padding-bottom: 8px;">
+                        <div class="detail-back">← Entities</div>
+                        <div class="detail-title">CHEERS</div>
+                        <div style="font-size: 11px; opacity: 0.9;">Victory Spirits LLC</div>
+                    </div>
+                    <div class="tabs" style="background: #5558e3;">
+                        <div class="tab" style="color: rgba(255,255,255,0.6); border-bottom-color: transparent;">Overview</div>
+                        <div class="tab" style="color: rgba(255,255,255,0.6); border-bottom-color: transparent;">Financial</div>
+                        <div class="tab active" style="color: white; border-bottom-color: white;">Services</div>
+                        <div class="tab" style="color: rgba(255,255,255,0.6); border-bottom-color: transparent;">People</div>
+                    </div>
+                    <div class="detail-content" style="padding: 10px;">
+                        <!-- Utilities -->
+                        <div class="detail-card" style="margin-bottom: 10px;">
+                            <div style="font-size: 10px; font-weight: 600; color: #6366f1; margin-bottom: 8px;">UTILITIES</div>
+                            <div style="padding: 6px 0; border-bottom: 1px solid #f0f0f0;">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <div style="font-size: 12px; font-weight: 600;">Colorado Springs Utilities</div>
+                                    <div style="font-size: 9px; background: #dcfce7; color: #166534; padding: 2px 6px; border-radius: 8px;">Autopay</div>
+                                </div>
+                                <div style="font-size: 10px; color: #666; font-family: monospace; margin-top: 2px;">2195915859 📋</div>
+                            </div>
+                            <div style="padding: 6px 0;">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <div style="font-size: 12px; font-weight: 600;">Mountain View Electric</div>
+                                    <div style="font-size: 9px; background: #dcfce7; color: #166534; padding: 2px 6px; border-radius: 8px;">Autopay</div>
+                                </div>
+                                <div style="font-size: 10px; color: #666; font-family: monospace; margin-top: 2px;">104650200 📋</div>
+                            </div>
+                        </div>
+
+                        <!-- Insurance -->
+                        <div class="detail-card" style="margin-bottom: 10px;">
+                            <div style="font-size: 10px; font-weight: 600; color: #6366f1; margin-bottom: 8px;">INSURANCE</div>
+                            <div style="padding: 6px 0; border-bottom: 1px solid #f0f0f0;">
+                                <div style="font-size: 12px; font-weight: 600;">GL/Property/Liquor</div>
+                                <div style="font-size: 10px; color: #666;">Cincinnati Insurance</div>
+                                <div style="font-size: 10px; color: #f59e0b; margin-top: 2px;">Renews Feb 6, 2026</div>
+                            </div>
+                            <div style="padding: 6px 0; border-bottom: 1px solid #f0f0f0;">
+                                <div style="font-size: 12px; font-weight: 600;">Commercial Auto</div>
+                                <div style="font-size: 10px; color: #666;">Progressive</div>
+                                <div style="font-size: 10px; color: #f59e0b; margin-top: 2px;">Renews Feb 6, 2026</div>
+                            </div>
+                            <div style="padding: 6px 0;">
+                                <div style="font-size: 12px; font-weight: 600;">Workers Comp</div>
+                                <div style="font-size: 10px; color: #666;">Pinnacol</div>
+                                <div style="font-size: 10px; color: #f59e0b; margin-top: 2px;">Renews Feb 7, 2026</div>
+                            </div>
+                        </div>
+
+                        <!-- Licenses -->
+                        <div class="detail-card">
+                            <div style="font-size: 10px; font-weight: 600; color: #6366f1; margin-bottom: 8px;">LICENSES</div>
+                            <div style="padding: 6px 0; border-bottom: 1px solid #f0f0f0;">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <div style="font-size: 12px; font-weight: 600;">CO Sales Tax</div>
+                                    <div style="font-size: 10px; color: #666;">#00092998</div>
+                                </div>
+                                <div style="font-size: 10px; color: #ef4444; margin-top: 2px;">Expires Dec 31</div>
+                            </div>
+                            <div style="padding: 6px 0; border-bottom: 1px solid #f0f0f0;">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <div style="font-size: 12px; font-weight: 600;">Lottery License</div>
+                                    <div style="font-size: 10px; color: #666;">#140408</div>
+                                </div>
+                                <div style="font-size: 10px; color: #f59e0b; margin-top: 2px;">Expires Feb 7, 2026</div>
+                            </div>
+                            <div style="padding: 6px 0;">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <div style="font-size: 12px; font-weight: 600;">Tobacco/Nicotine</div>
+                                    <div style="font-size: 10px; color: #666;">#TOB-007248</div>
+                                </div>
+                                <div style="font-size: 10px; color: #f59e0b; margin-top: 2px;">Expires Feb 5, 2026</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="screen-label">ENTITY DETAIL - SERVICES</div>
+            <div class="screen-desc">Utilities (with autopay badges), insurance policies, licenses with expiration dates.</div>
+        </div>
+
+        <!-- Entity Detail - People Tab -->
+        <div>
+            <div class="phone">
+                <div class="screen">
+                    <div class="status-bar">9:41 AM</div>
+                    <div class="detail-header" style="padding-bottom: 8px;">
+                        <div class="detail-back">← Entities</div>
+                        <div class="detail-title">CHEERS</div>
+                        <div style="font-size: 11px; opacity: 0.9;">Victory Spirits LLC</div>
+                    </div>
+                    <div class="tabs" style="background: #5558e3;">
+                        <div class="tab" style="color: rgba(255,255,255,0.6); border-bottom-color: transparent;">Overview</div>
+                        <div class="tab" style="color: rgba(255,255,255,0.6); border-bottom-color: transparent;">Financial</div>
+                        <div class="tab" style="color: rgba(255,255,255,0.6); border-bottom-color: transparent;">Services</div>
+                        <div class="tab active" style="color: white; border-bottom-color: white;">People</div>
+                    </div>
+                    <div class="detail-content" style="padding: 10px;">
+                        <!-- Management -->
+                        <div class="detail-card" style="margin-bottom: 10px;">
+                            <div style="font-size: 10px; font-weight: 600; color: #6366f1; margin-bottom: 8px;">MANAGEMENT</div>
+                            <div style="display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid #f0f0f0;">
+                                <div style="width: 40px; height: 40px; background: #e0e7ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; margin-right: 10px;">RM</div>
+                                <div style="flex: 1;">
+                                    <div style="font-size: 12px; font-weight: 600;">Rob McNeely</div>
+                                    <div style="font-size: 10px; color: #666;">General Manager</div>
+                                </div>
+                                <div style="display: flex; gap: 6px;">
+                                    <div style="width: 30px; height: 30px; background: #22c55e; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px;">📞</div>
+                                    <div style="width: 30px; height: 30px; background: #3b82f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px;">✉️</div>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: center; padding: 8px 0;">
+                                <div style="width: 40px; height: 40px; background: #fef3c7; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; margin-right: 10px;">MW</div>
+                                <div style="flex: 1;">
+                                    <div style="font-size: 12px; font-weight: 600;">Mariah Wiseman</div>
+                                    <div style="font-size: 10px; color: #666;">Partner (Patriots)</div>
+                                </div>
+                                <div style="display: flex; gap: 6px;">
+                                    <div style="width: 30px; height: 30px; background: #22c55e; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px;">📞</div>
+                                    <div style="width: 30px; height: 30px; background: #3b82f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px;">✉️</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Professional Services -->
+                        <div class="detail-card" style="margin-bottom: 10px;">
+                            <div style="font-size: 10px; font-weight: 600; color: #6366f1; margin-bottom: 8px;">PROFESSIONAL SERVICES</div>
+                            <div style="display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid #f0f0f0;">
+                                <div style="width: 40px; height: 40px; background: #dcfce7; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; margin-right: 10px;">🏦</div>
+                                <div style="flex: 1;">
+                                    <div style="font-size: 12px; font-weight: 600;">Wells Fargo - Sarah Chen</div>
+                                    <div style="font-size: 10px; color: #666;">Banker</div>
+                                </div>
+                                <div style="width: 30px; height: 30px; background: #22c55e; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px;">📞</div>
+                            </div>
+                            <div style="display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid #f0f0f0;">
+                                <div style="width: 40px; height: 40px; background: #fee2e2; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; margin-right: 10px;">🛡️</div>
+                                <div style="flex: 1;">
+                                    <div style="font-size: 12px; font-weight: 600;">Tim Morrison</div>
+                                    <div style="font-size: 10px; color: #666;">Insurance Agent</div>
+                                </div>
+                                <div style="width: 30px; height: 30px; background: #22c55e; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px;">📞</div>
+                            </div>
+                            <div style="display: flex; align-items: center; padding: 8px 0;">
+                                <div style="width: 40px; height: 40px; background: #e0e7ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; margin-right: 10px;">💼</div>
+                                <div style="flex: 1;">
+                                    <div style="font-size: 12px; font-weight: 600;">Paychex - Jackie</div>
+                                    <div style="font-size: 10px; color: #666;">Payroll Rep</div>
+                                </div>
+                                <div style="width: 30px; height: 30px; background: #22c55e; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px;">📞</div>
+                            </div>
+                        </div>
+
+                        <!-- Property -->
+                        <div class="detail-card">
+                            <div style="font-size: 10px; font-weight: 600; color: #6366f1; margin-bottom: 8px;">PROPERTY</div>
+                            <div style="padding: 8px 0;">
+                                <div style="font-size: 12px; font-weight: 600;">1105 North Circle Dr</div>
+                                <div style="font-size: 10px; color: #666; margin-top: 2px;">Tax Acct: 6407403001 (El Paso County)</div>
+                                <div style="font-size: 10px; color: #666; margin-top: 2px;">Owned by: 1105 North Circle LLC</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="screen-label">ENTITY DETAIL - PEOPLE</div>
+            <div class="screen-desc">Management with tap-to-call/email, professional contacts (banker, insurance, payroll), property info.</div>
+        </div>
+    </div>
+
+    <div class="section-title">App Summary</div>
+    <div style="max-width: 900px; margin: 0 auto; padding: 20px; background: #252540; border-radius: 16px;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+            <tr style="border-bottom: 1px solid #444;">
+                <td style="padding: 12px; color: #888; width: 140px;">Screens</td>
+                <td style="padding: 12px; color: #fff;"><strong>10 total:</strong><br>
+                    <span style="color: #6366f1;">Deadlines:</span> To-Do, List, Calendar, Detail, Add Deadline<br>
+                    <span style="color: #22c55e;">Entities:</span> Entity List, Detail (Overview, Financial, Services, People tabs)
+                </td>
+            </tr>
+            <tr style="border-bottom: 1px solid #444;">
+                <td style="padding: 12px; color: #888;">Data Sources</td>
+                <td style="padding: 12px; color: #fff;">
+                    • SharePoint "Business Deadlines" list<br>
+                    • SSOT reference files (entities, contacts, accounts, utilities, insurance, licenses)
+                </td>
+            </tr>
+            <tr style="border-bottom: 1px solid #444;">
+                <td style="padding: 12px; color: #888;">Deadline Actions</td>
+                <td style="padding: 12px; color: #fff;">Mark Complete (auto-advance NextDue), Add Deadline, Add Note, Filter by Entity</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #444;">
+                <td style="padding: 12px; color: #888;">Entity Features</td>
+                <td style="padding: 12px; color: #fff;">
+                    • Quick-copy EIN, SOS ID, account numbers<br>
+                    • Tap-to-call managers, bankers, insurance agents<br>
+                    • Bank account (masked, reveal on tap), credit cards, loans<br>
+                    • Utility accounts with autopay status<br>
+                    • Insurance/license expiration dates
+                </td>
+            </tr>
+            <tr style="border-bottom: 1px solid #444;">
+                <td style="padding: 12px; color: #888;">Notifications</td>
+                <td style="padding: 12px; color: #fff;">Power Automate push notifications using RemindDaysBefore field</td>
+            </tr>
+            <tr>
+                <td style="padding: 12px; color: #888;">Platform</td>
+                <td style="padding: 12px; color: #fff;">Power Apps Canvas App (mobile-first, responsive for desktop)</td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>

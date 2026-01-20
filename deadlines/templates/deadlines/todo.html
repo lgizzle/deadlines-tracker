@@ -1,0 +1,89 @@
+{% extends "deadlines/base.html" %} {% load static %} {% block title %}To-Do -
+Business Deadlines{% endblock %} {% block content %}
+<div class="header">
+  <div class="header-row">
+    <h1>Deadlines</h1>
+    <a href="{% url 'deadlines:deadline_add' %}" class="add-btn">+</a>
+  </div>
+</div>
+
+<div class="tabs">
+  <a href="{% url 'deadlines:todo' %}" class="tab active">To-Do</a>
+  <a href="{% url 'deadlines:list' %}" class="tab">List</a>
+  <a href="{% url 'deadlines:calendar' %}" class="tab">Calendar</a>
+</div>
+
+<div class="content">
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-number red">{{ stats.overdue }}</div>
+      <div class="stat-label">Overdue</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number yellow">{{ stats.this_week }}</div>
+      <div class="stat-label">This Week</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number green">{{ stats.total }}</div>
+      <div class="stat-label">Total</div>
+    </div>
+  </div>
+
+  {% if overdue %}
+  <div class="section-header">Overdue - Do Now!</div>
+  {% for deadline in overdue %}
+  <div class="todo-item overdue">
+    <form
+      method="post"
+      action="{% url 'deadlines:deadline_complete' deadline.pk %}"
+      style="margin: 0"
+    >
+      {% csrf_token %}
+      <button type="submit" class="todo-checkbox"></button>
+    </form>
+    <a
+      href="{% url 'deadlines:deadline_detail' deadline.pk %}"
+      style="flex: 1; text-decoration: none; color: inherit; min-width: 0"
+    >
+      <div class="todo-content">
+        <div class="todo-title">{{ deadline.title }}</div>
+        <div class="todo-meta">
+          <span class="todo-entity">{{ deadline.entity.entity_code }}</span>
+          <span>{{ deadline.category|default:"" }}</span>
+        </div>
+      </div>
+    </a>
+  </div>
+  {% endfor %} {% endif %} {% if this_week %}
+  <div class="section-header">Due This Week</div>
+  {% for deadline in this_week %}
+  <div class="todo-item upcoming">
+    <form
+      method="post"
+      action="{% url 'deadlines:deadline_complete' deadline.pk %}"
+      style="margin: 0"
+    >
+      {% csrf_token %}
+      <button type="submit" class="todo-checkbox"></button>
+    </form>
+    <a
+      href="{% url 'deadlines:deadline_detail' deadline.pk %}"
+      style="flex: 1; text-decoration: none; color: inherit; min-width: 0"
+    >
+      <div class="todo-content">
+        <div class="todo-title">{{ deadline.title }}</div>
+        <div class="todo-meta">
+          <span class="todo-entity">{{ deadline.entity.entity_code }}</span>
+          <span>{{ deadline.category|default:"" }}</span>
+        </div>
+      </div>
+    </a>
+  </div>
+  {% endfor %} {% endif %} {% if not overdue and not this_week %}
+  <div class="empty-state">
+    <div class="empty-state-icon">✅</div>
+    <div class="empty-state-text">All caught up! No urgent deadlines.</div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

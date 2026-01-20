@@ -1,0 +1,34 @@
+{% extends "deadlines/base.html" %} {% load static %} {% block title %}Entities
+- Business Deadlines{% endblock %} {% block content %}
+<div class="header">
+  <div class="header-row">
+    <h1>Entities</h1>
+  </div>
+</div>
+
+<div class="content">
+  {% for entity in entities %}
+  <a
+    href="{% url 'deadlines:entity_detail' entity.pk %}"
+    class="entity-card {{ entity.color }}"
+  >
+    <div class="entity-card-header">
+      <div class="entity-code">{{ entity.entity_code }}</div>
+      <div class="entity-state">{{ entity.physical_state }}</div>
+    </div>
+    <div class="entity-name">
+      {{ entity.dba_name|default:entity.legal_name }}
+    </div>
+    <div class="entity-meta">
+      {{ entity.entity_type|default:"" }} {% if entity.ein %}· EIN: {{
+      entity.ein }}{% endif %}
+    </div>
+  </a>
+  {% empty %}
+  <div class="empty-state">
+    <div class="empty-state-icon">🏢</div>
+    <div class="empty-state-text">No entities found.</div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

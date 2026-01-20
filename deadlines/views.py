@@ -1,0 +1,360 @@
+import calendar as cal
+from datetime import datetime, timedelta
+
+from dateutil.relativedelta import relativedelta
+from django.db.models import Count, Q
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils import timezone
+
+from .models import Contact, Deadline, Entity
+
+
+def get_deadline_status(deadline):
+    """Determine the urgency status of a deadline."""
+    today = timezone.now().date()
+    next_due = deadline.next_due
+
+    if not next_due:
+        return "normal"
+
+    if next_due < today:
+        return "overdue"
+
+    days_until = (next_due - today).days
+    remind_days = deadline.remind_days_before or 7
+
+    if days_until <= remind_days:
+        return "upcoming"
+
+    return "normal"
+
+
+def todo_view(request):
+    """To-Do view with actionable items grouped by urgency."""
+    today = timezone.now().date()
+
+    # Get all active deadlines
+    deadlines = Deadline.objects.filter(
+        status__in=["Active", "Autopay"]
+    ).select_related("entity")
+
+    # Categorize deadlines
+    overdue = []
+    this_week = []
+
+    for deadline in deadlines:
+        if not deadline.next_due:
+            continue
+
+        urgency_status = get_deadline_status(deadline)
+        deadline.urgency_status = urgency_status
+        deadline.days_until = (
+            (deadline.next_due - today).days if deadline.next_due else None
+        )
+
+        if urgency_status == "overdue":
+            overdue.append(deadline)
+        elif urgency_status == "upcoming":
+            this_week.append(deadline)
+
+    # Sort by urgency
+    overdue.sort(key=lambda x: x.next_due)
+    this_week.sort(key=lambda x: x.next_due)
+
+    # Calculate stats
+    stats = {
+        "overdue": len(overdue),
+        "this_week": len(this_week),
+        "total": deadlines.count(),
+    }
+
+    context = {
+        "overdue": overdue,
+        "this_week": this_week,
+        "stats": stats,
+        "active_tab": "todo",
+    }
+
+    return render(request, "deadlines/todo.html", context)
+
+
+def list_view(request):
+    """List view with all deadlines grouped by urgency."""
+    today = timezone.now().date()
+    entity_filter = request.GET.get("entity", "")
+
+    # Get all active deadlines
+    deadlines = Deadline.objects.filter(
+        status__in=["Active", "Autopay"]
+    ).select_related("entity")
+
+    if entity_filter:
+        deadlines = deadlines.filter(entity__entity_code=entity_filter)
+
+    # Categorize deadlines
+    overdue = []
+    this_week = []
+    coming_up = []
+
+    for deadline in deadlines:
+        if not deadline.next_due:
+            continue
+
+        urgency_status = get_deadline_status(deadline)
+        deadline.urgency_status = urgency_status
+        deadline.days_until = (
+            (deadline.next_due - today).days if deadline.next_due else None
+        )
+
+        if urgency_status == "overdue":
+            overdue.append(deadline)
+        elif urgency_status == "upcoming":
+            this_week.append(deadline)
+        else:
+            coming_up.append(deadline)
+
+    # Sort all by date
+    overdue.sort(key=lambda x: x.next_due)
+    this_week.sort(key=lambda x: x.next_due)
+    coming_up.sort(key=lambda x: x.next_due)
+
+    # Get all entities for filter dropdown
+    entities = Entity.objects.filter(status="Active").order_by("entity_code")
+
+    context = {
+        "overdue": overdue,
+        "this_week": this_week,
+        "coming_up": coming_up,
+        "entities": entities,
+        "entity_filter": entity_filter,
+        "active_tab": "list",
+    }
+
+    return render(request, "deadlines/list.html", context)
+
+
+def calendar_view(request):
+    """Calendar view showing deadlines by date."""
+    # Get month/year from request or use current
+    year = int(request.GET.get("year", timezone.now().year))
+    month = int(request.GET.get("month", timezone.now().month))
+    entity_filter = request.GET.get("entity", "")
+
+    # Create calendar
+    c = cal.Calendar()
+    month_days = c.monthdayscalendar(year, month)
+
+    # Get all deadlines for this month
+    start_date = datetime(year, month, 1).date()
+    if month == 12:
+        end_date = datetime(year + 1, 1, 1).date()
+    else:
+        end_date = datetime(year, month + 1, 1).date()
+
+    deadlines = Deadline.objects.filter(
+        status__in=["Active", "Autopay"],
+        next_due__gte=start_date,
+        next_due__lt=end_date,
+    ).select_related("entity")
+
+    if entity_filter:
+        deadlines = deadlines.filter(entity__entity_code=entity_filter)
+
+    # Group deadlines by date
+    deadlines_by_date = {}
+    for deadline in deadlines:
+        date_key = deadline.next_due.day
+        if date_key not in deadlines_by_date:
+            deadlines_by_date[date_key] = []
+        deadline.urgency_status = get_deadline_status(deadline)
+        deadlines_by_date[date_key].append(deadline)
+
+    # Get selected date deadlines (default to today if in current month)
+    selected_day = int(request.GET.get("day", 0))
+    if selected_day == 0:
+        today = timezone.now().date()
+        if today.year == year and today.month == month:
+            selected_day = today.day
+
+    selected_deadlines = deadlines_by_date.get(selected_day, [])
+
+    # Navigation dates
+    prev_month = month - 1 if month > 1 else 12
+    prev_year = year if month > 1 else year - 1
+    next_month = month + 1 if month < 12 else 1
+    next_year = year if month < 12 else year + 1
+
+    # Get all entities for filter
+    entities = Entity.objects.filter(status="Active").order_by("entity_code")
+
+    context = {
+        "month_days": month_days,
+        "deadlines_by_date": deadlines_by_date,
+        "selected_deadlines": selected_deadlines,
+        "selected_day": selected_day,
+        "month": month,
+        "year": year,
+        "month_name": cal.month_name[month],
+        "prev_month": prev_month,
+        "prev_year": prev_year,
+        "next_month": next_month,
+        "next_year": next_year,
+        "today": timezone.now().date(),
+        "entities": entities,
+        "entity_filter": entity_filter,
+        "active_tab": "calendar",
+    }
+
+    return render(request, "deadlines/calendar.html", context)
+
+
+def deadline_detail(request, pk):
+    """Detailed view of a single deadline."""
+    deadline = get_object_or_404(Deadline, pk=pk)
+    deadline.urgency_status = get_deadline_status(deadline)
+
+    context = {
+        "deadline": deadline,
+    }
+
+    return render(request, "deadlines/deadline_detail.html", context)
+
+
+def deadline_complete(request, pk):
+    """Mark a deadline as complete and advance the date."""
+    if request.method == "POST":
+        deadline = get_object_or_404(Deadline, pk=pk)
+
+        # Advance the next_due date based on frequency
+        if deadline.next_due and deadline.frequency:
+            if deadline.frequency == "daily":
+                deadline.next_due += timedelta(days=1)
+            elif deadline.frequency == "weekly":
+                deadline.next_due += timedelta(weeks=1)
+            elif deadline.frequency == "monthly":
+                deadline.next_due += relativedelta(months=1)
+            elif deadline.frequency == "quarterly":
+                deadline.next_due += relativedelta(months=3)
+            elif deadline.frequency == "annually":
+                deadline.next_due += relativedelta(years=1)
+
+            deadline.last_completed = timezone.now().date()
+            deadline.save()
+
+        # Return to the referrer or todo page
+        return redirect(request.META.get("HTTP_REFERER", "deadlines:todo"))
+
+    return redirect("deadlines:deadline_detail", pk=pk)
+
+
+def deadline_add_note(request, pk):
+    """Add a note to a deadline (simplified version)."""
+    if request.method == "POST":
+        deadline = get_object_or_404(Deadline, pk=pk)
+        note_text = request.POST.get("note", "")
+
+        if note_text:
+            # Append note to notes field with timestamp
+            timestamp = timezone.now().strftime("%Y-%m-%d %H:%M")
+            if deadline.notes:
+                deadline.notes += f"\n\n[{timestamp}] {note_text}"
+            else:
+                deadline.notes = f"[{timestamp}] {note_text}"
+            deadline.save()
+
+        return redirect("deadlines:deadline_detail", pk=pk)
+
+    return redirect("deadlines:deadline_detail", pk=pk)
+
+
+def deadline_add(request):
+    """Add a new deadline (simplified form)."""
+    if request.method == "POST":
+        # Handle form submission
+        entity_id = request.POST.get("entity")
+        title = request.POST.get("title")
+        category = request.POST.get("category")
+        frequency = request.POST.get("frequency")
+        next_due = request.POST.get("next_due")
+        amount = request.POST.get("amount")
+        account_number = request.POST.get("account_number")
+        remind_days_before = request.POST.get("remind_days_before")
+        notes = request.POST.get("notes")
+
+        if entity_id and title:
+            deadline = Deadline.objects.create(
+                entity_id=entity_id,
+                title=title,
+                category=category if category else None,
+                frequency=frequency if frequency else None,
+                next_due=next_due if next_due else None,
+                amount=amount if amount else None,
+                account_number=account_number if account_number else "",
+                remind_days_before=remind_days_before if remind_days_before else 7,
+                notes=notes if notes else "",
+                status="Active",
+            )
+            return redirect("deadlines:todo")
+
+    # GET request - show form
+    entities = Entity.objects.filter(status="Active").order_by("entity_code")
+
+    context = {
+        "entities": entities,
+    }
+
+    return render(request, "deadlines/deadline_add.html", context)
+
+
+def entity_list(request):
+    """List of all entities."""
+    entities = Entity.objects.filter(status="Active").order_by("entity_code")
+
+    # Add state color coding
+    for entity in entities:
+        if entity.physical_state == "CO":
+            entity.color = "purple"
+        elif entity.physical_state == "OR":
+            entity.color = "green"
+        else:
+            entity.color = "yellow"
+
+    context = {
+        "entities": entities,
+    }
+
+    return render(request, "deadlines/entity_list.html", context)
+
+
+def entity_detail(request, pk):
+    """Detailed view of an entity with tabs."""
+    entity = get_object_or_404(Entity, pk=pk)
+    tab = request.GET.get("tab", "overview")
+
+    # Get all related data
+    bank_accounts = entity.bank_accounts.filter(status="Active")
+    credit_cards = entity.credit_cards.filter(status="Active")
+    insurance_policies = entity.insurance_policies.filter(status="Active").order_by(
+        "renewal_date"
+    )
+    licenses = entity.licenses.filter(status="Active").order_by("expiration_date")
+    loans = entity.loans.filter(status="Active").order_by("maturity_date")
+    deadlines = entity.deadlines.filter(status__in=["Active", "Autopay"]).order_by(
+        "next_due"
+    )[:10]
+    contacts = entity.contacts.all().order_by("contact_type", "last_name")
+
+    context = {
+        "entity": entity,
+        "active_tab": tab,
+        "bank_accounts": bank_accounts,
+        "credit_cards": credit_cards,
+        "insurance_policies": insurance_policies,
+        "licenses": licenses,
+        "loans": loans,
+        "deadlines": deadlines,
+        "contacts": contacts,
+    }
+
+    return render(request, "deadlines/entity_detail.html", context)

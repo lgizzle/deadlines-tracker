@@ -1,0 +1,421 @@
+{% extends "deadlines/base.html" %} {% load static %} {% block title %}{{
+entity.entity_code }} - Business Deadlines{% endblock %} {% block content %}
+<div class="detail-header">
+  <a href="{% url 'deadlines:entity_list' %}" class="detail-back"
+    >← Back to Entities</a
+  >
+  <div class="detail-title">{{ entity.entity_code }}</div>
+  <div class="detail-entity-badge">
+    {{ entity.dba_name|default:entity.legal_name }}
+  </div>
+</div>
+
+<div class="tabs" style="background: #5558e3">
+  <a
+    href="?tab=overview"
+    class="tab {% if active_tab == 'overview' %}active{% endif %}"
+    style="color: rgba(255, 255, 255, 0.7)"
+    >Overview</a
+  >
+  <a
+    href="?tab=financial"
+    class="tab {% if active_tab == 'financial' %}active{% endif %}"
+    style="color: rgba(255, 255, 255, 0.7)"
+    >Financial</a
+  >
+  <a
+    href="?tab=insurance"
+    class="tab {% if active_tab == 'insurance' %}active{% endif %}"
+    style="color: rgba(255, 255, 255, 0.7)"
+    >Insurance</a
+  >
+  <a
+    href="?tab=licenses"
+    class="tab {% if active_tab == 'licenses' %}active{% endif %}"
+    style="color: rgba(255, 255, 255, 0.7)"
+    >Licenses</a
+  >
+  <a
+    href="?tab=deadlines"
+    class="tab {% if active_tab == 'deadlines' %}active{% endif %}"
+    style="color: rgba(255, 255, 255, 0.7)"
+    >Deadlines</a
+  >
+  <a
+    href="?tab=contacts"
+    class="tab {% if active_tab == 'contacts' %}active{% endif %}"
+    style="color: rgba(255, 255, 255, 0.7)"
+    >Contacts</a
+  >
+</div>
+
+<style>
+  .tabs .tab.active {
+    color: white !important;
+    border-bottom-color: white;
+  }
+  .financial-item {
+    background: #f8f9fa;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 6px;
+    border-left: 3px solid #6366f1;
+  }
+  .financial-item-header {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #1f2937;
+  }
+  .financial-item-detail {
+    font-size: 12px;
+    color: #6b7280;
+    margin: 3px 0;
+  }
+  .contact-card {
+    background: #f8f9fa;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+  }
+  .contact-name {
+    font-weight: 600;
+    font-size: 15px;
+    color: #1f2937;
+    margin-bottom: 5px;
+  }
+  .contact-detail {
+    font-size: 13px;
+    color: #6b7280;
+    margin: 3px 0;
+  }
+  .empty-state-small {
+    text-align: center;
+    padding: 30px;
+    color: #9ca3af;
+    font-size: 13px;
+  }
+</style>
+
+<div class="detail-content">
+  {% if active_tab == 'overview' %}
+  <!-- Overview Tab -->
+  <div class="detail-card">
+    <h3>Business Information</h3>
+    <div class="detail-row">
+      <span class="detail-label">Legal Name</span>
+      <span class="detail-value">{{ entity.legal_name }}</span>
+    </div>
+    {% if entity.dba_name %}
+    <div class="detail-row">
+      <span class="detail-label">DBA</span>
+      <span class="detail-value">{{ entity.dba_name }}</span>
+    </div>
+    {% endif %}
+    <div class="detail-row">
+      <span class="detail-label">Entity Type</span>
+      <span class="detail-value">{{ entity.entity_type|default:"N/A" }}</span>
+    </div>
+    <div class="detail-row">
+      <span class="detail-label">State</span>
+      <span class="detail-value">{{ entity.physical_state }}</span>
+    </div>
+    {% if entity.ein %}
+    <div class="detail-row">
+      <span class="detail-label">EIN</span>
+      <span class="detail-value">{{ entity.ein }}</span>
+    </div>
+    {% endif %} {% if entity.sos_number %}
+    <div class="detail-row">
+      <span class="detail-label">SOS Number</span>
+      <span class="detail-value">{{ entity.sos_number }}</span>
+    </div>
+    {% endif %} {% if entity.sos_renewal_date %}
+    <div class="detail-row">
+      <span class="detail-label">SOS Renewal</span>
+      <span class="detail-value"
+        >{{ entity.sos_renewal_date|date:"M j, Y" }}</span
+      >
+    </div>
+    {% endif %}
+  </div>
+
+  {% if entity.physical_address %}
+  <div class="detail-card">
+    <h3>Address</h3>
+    <div class="detail-row">
+      <span class="detail-label">Address</span>
+      <span class="detail-value">{{ entity.physical_address }}</span>
+    </div>
+    <div class="detail-row">
+      <span class="detail-label">City</span>
+      <span class="detail-value">{{ entity.physical_city }}</span>
+    </div>
+    <div class="detail-row">
+      <span class="detail-label">State, ZIP</span>
+      <span class="detail-value"
+        >{{ entity.physical_state }} {{ entity.physical_zip }}</span
+      >
+    </div>
+  </div>
+  {% endif %} {% if entity.manager_name %}
+  <div class="detail-card">
+    <h3>Management</h3>
+    <div class="detail-row">
+      <span class="detail-label">Manager</span>
+      <span class="detail-value">{{ entity.manager_name }}</span>
+    </div>
+    {% if entity.manager_phone %}
+    <div class="detail-row">
+      <span class="detail-label">Phone</span>
+      <span class="detail-value">
+        <a
+          href="tel:{{ entity.manager_phone }}"
+          style="color: #6366f1; text-decoration: none"
+          >{{ entity.manager_phone }}</a
+        >
+      </span>
+    </div>
+    {% endif %} {% if entity.manager_email %}
+    <div class="detail-row">
+      <span class="detail-label">Email</span>
+      <span class="detail-value">
+        <a
+          href="mailto:{{ entity.manager_email }}"
+          style="color: #6366f1; text-decoration: none; font-size: 11px"
+          >{{ entity.manager_email }}</a
+        >
+      </span>
+    </div>
+    {% endif %}
+  </div>
+  {% endif %} {% elif active_tab == 'financial' %}
+  <!-- Financial Tab -->
+  <div class="detail-card">
+    <h3>Bank Accounts</h3>
+    {% if bank_accounts %} {% for account in bank_accounts %}
+    <div class="financial-item">
+      <div class="financial-item-header">
+        {{ account.bank_name }} - {{ account.account_type }}
+      </div>
+      <div class="financial-item-detail">
+        Account: •••• {{ account.account_number_last4 }}
+      </div>
+      {% if account.routing_number %}
+      <div class="financial-item-detail">
+        Routing: {{ account.routing_number }}
+      </div>
+      {% endif %} {% if account.notes %}
+      <div class="financial-item-detail">{{ account.notes }}</div>
+      {% endif %}
+    </div>
+    {% endfor %} {% else %}
+    <div class="empty-state-small">No bank accounts on file</div>
+    {% endif %}
+  </div>
+
+  <div class="detail-card">
+    <h3>Credit Cards</h3>
+    {% if credit_cards %} {% for card in credit_cards %}
+    <div class="financial-item">
+      <div class="financial-item-header">{{ card.card_name }}</div>
+      <div class="financial-item-detail">
+        •••• {{ card.last4 }} {% if card.network %}({{ card.network }}){% endif
+        %}
+      </div>
+      {% if card.credit_limit %}
+      <div class="financial-item-detail">
+        Limit: ${{ card.credit_limit|floatformat:0 }}
+      </div>
+      {% endif %} {% if card.notes %}
+      <div class="financial-item-detail">{{ card.notes }}</div>
+      {% endif %}
+    </div>
+    {% endfor %} {% else %}
+    <div class="empty-state-small">No credit cards on file</div>
+    {% endif %}
+  </div>
+
+  <div class="detail-card">
+    <h3>Loans</h3>
+    {% if loans %} {% for loan in loans %}
+    <div class="financial-item">
+      <div class="financial-item-header">
+        {{ loan.loan_type }} - {{ loan.lender }}
+      </div>
+      {% if loan.account_number %}
+      <div class="financial-item-detail">
+        Account: {{ loan.account_number }}
+      </div>
+      {% endif %} {% if loan.current_balance %}
+      <div class="financial-item-detail">
+        Balance: ${{ loan.current_balance|floatformat:2 }}
+      </div>
+      {% endif %} {% if loan.payment_amount %}
+      <div class="financial-item-detail">
+        Payment: ${{ loan.payment_amount|floatformat:2 }} {{
+        loan.payment_frequency }}
+      </div>
+      {% endif %} {% if loan.maturity_date %}
+      <div class="financial-item-detail">
+        Maturity: {{ loan.maturity_date|date:"M j, Y" }}
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %} {% else %}
+    <div class="empty-state-small">No loans on file</div>
+    {% endif %}
+  </div>
+
+  {% elif active_tab == 'insurance' %}
+  <!-- Insurance Tab -->
+  <div class="detail-card">
+    <h3>Insurance Policies</h3>
+    {% if insurance_policies %} {% for policy in insurance_policies %}
+    <div class="financial-item">
+      <div class="financial-item-header">
+        {{ policy.policy_type }} - {{ policy.carrier }}
+      </div>
+      <div class="financial-item-detail">
+        Policy #: {{ policy.policy_number }}
+      </div>
+      {% if policy.coverage_amount %}
+      <div class="financial-item-detail">
+        Coverage: ${{ policy.coverage_amount|floatformat:0 }}
+      </div>
+      {% endif %} {% if policy.premium_amount %}
+      <div class="financial-item-detail">
+        Premium: ${{ policy.premium_amount|floatformat:2 }}
+      </div>
+      {% endif %} {% if policy.renewal_date %}
+      <div class="financial-item-detail">
+        Renewal: {{ policy.renewal_date|date:"M j, Y" }}
+      </div>
+      {% endif %} {% if policy.notes %}
+      <div class="financial-item-detail">{{ policy.notes }}</div>
+      {% endif %}
+    </div>
+    {% endfor %} {% else %}
+    <div class="empty-state-small">No insurance policies on file</div>
+    {% endif %}
+  </div>
+
+  {% elif active_tab == 'licenses' %}
+  <!-- Licenses Tab -->
+  <div class="detail-card">
+    <h3>Licenses & Permits</h3>
+    {% if licenses %} {% for license in licenses %}
+    <div class="financial-item">
+      <div class="financial-item-header">{{ license.license_type }}</div>
+      <div class="financial-item-detail">
+        License #: {{ license.license_number }}
+      </div>
+      <div class="financial-item-detail">
+        Issuing Authority: {{ license.issuing_authority }}
+      </div>
+      {% if license.expiration_date %}
+      <div class="financial-item-detail">
+        Expires: {{ license.expiration_date|date:"M j, Y" }}
+      </div>
+      {% endif %} {% if license.renewal_fee %}
+      <div class="financial-item-detail">
+        Renewal Fee: ${{ license.renewal_fee|floatformat:2 }}
+      </div>
+      {% endif %} {% if license.notes %}
+      <div class="financial-item-detail">{{ license.notes }}</div>
+      {% endif %}
+    </div>
+    {% endfor %} {% else %}
+    <div class="empty-state-small">No licenses on file</div>
+    {% endif %}
+  </div>
+
+  {% elif active_tab == 'deadlines' %}
+  <!-- Deadlines Tab -->
+  <div class="detail-card">
+    <h3>Active Deadlines</h3>
+    {% if deadlines %} {% for deadline in deadlines %}
+    <a
+      href="{% url 'deadlines:deadline_detail' deadline.pk %}"
+      style="text-decoration: none"
+    >
+      <div class="financial-item">
+        <div class="financial-item-header">{{ deadline.title }}</div>
+        <div class="financial-item-detail">
+          {{ deadline.category }} • {{ deadline.get_frequency_display }}
+        </div>
+        <div class="financial-item-detail">
+          Next Due: {{ deadline.next_due|date:"M j, Y" }}
+        </div>
+        {% if deadline.estimated_amount %}
+        <div class="financial-item-detail">
+          Amount: ${{ deadline.estimated_amount|floatformat:2 }}
+        </div>
+        {% endif %}
+      </div>
+    </a>
+    {% endfor %}
+    <div style="text-align: center; margin-top: 15px">
+      <a
+        href="{% url 'deadlines:list' %}?entity={{ entity.entity_code }}"
+        style="color: #6366f1; text-decoration: none; font-size: 13px"
+        >View All Deadlines →</a
+      >
+    </div>
+    {% else %}
+    <div class="empty-state-small">No active deadlines</div>
+    {% endif %}
+  </div>
+
+  {% elif active_tab == 'contacts' %}
+  <!-- Contacts Tab -->
+  <div class="detail-card">
+    <h3>Contacts</h3>
+    {% if contacts %} {% for contact in contacts %}
+    <div class="contact-card">
+      <div class="contact-name">{{ contact.full_name }}</div>
+      {% if contact.title %}
+      <div class="contact-detail">{{ contact.title }}</div>
+      {% endif %} {% if contact.company_name %}
+      <div class="contact-detail">{{ contact.company_name }}</div>
+      {% endif %}
+      <div
+        class="contact-detail"
+        style="color: #9ca3af; font-size: 11px; margin-top: 5px"
+      >
+        {{ contact.contact_type }}
+      </div>
+      {% if contact.email %}
+      <div class="contact-detail" style="margin-top: 8px">
+        <a
+          href="mailto:{{ contact.email }}"
+          style="color: #6366f1; text-decoration: none"
+          >{{ contact.email }}</a
+        >
+      </div>
+      {% endif %} {% if contact.phone %}
+      <div class="contact-detail">
+        <a
+          href="tel:{{ contact.phone }}"
+          style="color: #6366f1; text-decoration: none"
+          >{{ contact.phone }}</a
+        >
+      </div>
+      {% endif %} {% if contact.mobile %}
+      <div class="contact-detail">
+        <a
+          href="tel:{{ contact.mobile }}"
+          style="color: #6366f1; text-decoration: none"
+          >Mobile: {{ contact.mobile }}</a
+        >
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %} {% else %}
+    <div class="empty-state-small">No contacts on file</div>
+    {% endif %}
+  </div>
+
+  {% endif %}
+</div>
+{% endblock %}
