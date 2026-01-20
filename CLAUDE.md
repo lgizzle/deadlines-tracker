@@ -2,6 +2,42 @@
 
 ## Project Philosophy
 
+### **MANDATORY TESTING PROTOCOL**
+
+**🚨 BEFORE claiming any fix is complete:**
+
+1. **Test on MOBILE first** - Verify the fix works and nothing broke
+2. **Test on DESKTOP second** - Verify the fix works and nothing broke
+3. **ONLY THEN** report success to the user
+
+**NEVER:**
+- ❌ Assume mobile works if desktop is fixed
+- ❌ Assume desktop works if mobile is fixed
+- ❌ Tell the user something is "fixed" without actually testing both views
+- ❌ Skip testing because "it should work"
+
+**If you cannot test both views yourself, explicitly tell the user:**
+*"Please test this on both mobile and desktop to confirm it works correctly."*
+
+### Autonomous Problem Resolution
+
+**When the user asks you to fix problems:**
+
+1. ✅ **DO**: Identify and fix ALL problems autonomously
+2. ✅ **DO**: Test your fixes thoroughly (mobile + desktop)
+3. ✅ **DO**: Verify no new issues were introduced
+4. ✅ **DO**: Report back ONLY when everything is working
+
+**Never:**
+- ❌ Report a problem and wait for user instructions
+- ❌ Ask "What should I do about this issue?"
+- ❌ Say "I found a problem" without fixing it first
+- ❌ Report partial success with caveats
+
+**Your response should be:** "Fixed [describe what you fixed]. Tested on mobile and desktop - everything works correctly."
+
+**NOT:** "I fixed X but there's also Y that needs attention..."
+
 ### Mobile-First, Desktop-Enhanced Design
 
 **⚠️ CRITICAL: Mobile is the PRIMARY use case**

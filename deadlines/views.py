@@ -228,18 +228,17 @@ def deadline_complete(request, pk):
 
         # Advance the next_due date based on frequency
         if deadline.next_due and deadline.frequency:
-            if deadline.frequency == "daily":
+            if deadline.frequency == "Daily":
                 deadline.next_due += timedelta(days=1)
-            elif deadline.frequency == "weekly":
+            elif deadline.frequency == "Weekly":
                 deadline.next_due += timedelta(weeks=1)
-            elif deadline.frequency == "monthly":
+            elif deadline.frequency == "Monthly":
                 deadline.next_due += relativedelta(months=1)
-            elif deadline.frequency == "quarterly":
+            elif deadline.frequency == "Quarterly":
                 deadline.next_due += relativedelta(months=3)
-            elif deadline.frequency == "annually":
+            elif deadline.frequency == "Annual":
                 deadline.next_due += relativedelta(years=1)
 
-            deadline.last_completed = timezone.now().date()
             deadline.save()
 
         # Return to the referrer or todo page
@@ -286,10 +285,10 @@ def deadline_add(request):
             deadline = Deadline.objects.create(
                 entity_id=entity_id,
                 title=title,
-                category=category if category else None,
-                frequency=frequency if frequency else None,
-                next_due=next_due if next_due else None,
-                amount=amount if amount else None,
+                category=category if category else "Other",
+                frequency=frequency if frequency else "One-Time",
+                next_due=next_due if next_due else date.today(),
+                estimated_amount=amount if amount else None,
                 account_number=account_number if account_number else "",
                 remind_days_before=remind_days_before if remind_days_before else 7,
                 notes=notes if notes else "",
