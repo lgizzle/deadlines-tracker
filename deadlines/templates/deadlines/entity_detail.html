@@ -286,6 +286,93 @@
     {% endif %}
   </div>
 
+  <div class="detail-card">
+    <h3>Merchant Processors</h3>
+    {% if merchant_processors %}
+    {% for processor in merchant_processors %}
+    <div class="financial-item">
+      <div class="financial-item-header">{{ processor.processor_name }}</div>
+      {% if processor.merchant_id %}
+      <div class="financial-item-detail">Merchant ID: {{ processor.merchant_id }}</div>
+      {% endif %}
+      {% if processor.terminal_id %}
+      <div class="financial-item-detail">Terminal ID: {{ processor.terminal_id }}</div>
+      {% endif %}
+      {% if processor.dba_name %}
+      <div class="financial-item-detail">DBA: {{ processor.dba_name }}</div>
+      {% endif %}
+      {% if processor.portal_url %}
+      <div class="financial-item-detail">
+        <a href="{{ processor.portal_url }}" target="_blank" style="color: #6366f1; text-decoration: none">🔗 Portal</a>
+      </div>
+      {% endif %}
+      {% if processor.notes %}
+      <div class="financial-item-detail">{{ processor.notes }}</div>
+      {% endif %}
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="empty-state-small">No merchant processors on file</div>
+    {% endif %}
+  </div>
+
+  <div class="detail-card">
+    <h3>State Accounts</h3>
+    {% if state_accounts %}
+    {% for account in state_accounts %}
+    <div class="financial-item">
+      <div class="financial-item-header">{{ account.state }} - {{ account.account_type }}</div>
+      {% if account.account_number %}
+      <div class="financial-item-detail">Account #: {{ account.account_number }}</div>
+      {% endif %}
+      {% if account.portal_name %}
+      <div class="financial-item-detail">Portal: {{ account.portal_name }}</div>
+      {% endif %}
+      {% if account.portal_url %}
+      <div class="financial-item-detail">
+        <a href="{{ account.portal_url }}" target="_blank" style="color: #6366f1; text-decoration: none">🔗 {{ account.portal_name|default:"Login" }}</a>
+      </div>
+      {% endif %}
+      {% if account.notes %}
+      <div class="financial-item-detail">{{ account.notes }}</div>
+      {% endif %}
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="empty-state-small">No state accounts on file</div>
+    {% endif %}
+  </div>
+
+  <div class="detail-card">
+    <h3>Vendors</h3>
+    {% if vendors %}
+    {% for vendor in vendors %}
+    <div class="financial-item">
+      <div class="financial-item-header">{{ vendor.vendor_name }}</div>
+      {% if vendor.account_number %}
+      <div class="financial-item-detail">Account: {{ vendor.account_number }}</div>
+      {% endif %}
+      {% if vendor.purpose %}
+      <div class="financial-item-detail">Purpose: {{ vendor.purpose }}</div>
+      {% endif %}
+      {% if vendor.service_location %}
+      <div class="financial-item-detail">Location: {{ vendor.service_location }}</div>
+      {% endif %}
+      {% if vendor.contact_phone %}
+      <div class="financial-item-detail">
+        <a href="tel:{{ vendor.contact_phone }}" style="color: #6366f1; text-decoration: none">📞 {{ vendor.contact_phone }}</a>
+      </div>
+      {% endif %}
+      {% if vendor.notes %}
+      <div class="financial-item-detail">{{ vendor.notes }}</div>
+      {% endif %}
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="empty-state-small">No vendors on file</div>
+    {% endif %}
+  </div>
+
   {% elif active_tab == 'insurance' %}
   <!-- Insurance Tab -->
   <div class="detail-card">

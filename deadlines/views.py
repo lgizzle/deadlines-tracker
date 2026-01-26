@@ -7,7 +7,7 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 
-from .models import Contact, Deadline, Entity
+from .models import Contact, Deadline, Entity, MerchantProcessor, StateAccount, Vendor
 
 
 def get_deadline_status(deadline):
@@ -343,6 +343,9 @@ def entity_detail(request, pk):
         "next_due"
     )[:10]
     contacts = entity.contacts.all().order_by("contact_type", "last_name")
+    state_accounts = entity.state_accounts.filter(status="Active").order_by("state", "account_type")
+    merchant_processors = entity.merchant_processors.filter(status="Active").order_by("processor_name")
+    vendors = entity.vendors.filter(status="Active").order_by("vendor_name")
 
     context = {
         "entity": entity,
@@ -354,6 +357,9 @@ def entity_detail(request, pk):
         "loans": loans,
         "deadlines": deadlines,
         "contacts": contacts,
+        "state_accounts": state_accounts,
+        "merchant_processors": merchant_processors,
+        "vendors": vendors,
     }
 
     return render(request, "deadlines/entity_detail.html", context)

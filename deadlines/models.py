@@ -317,3 +317,82 @@ class Contact(models.Model):
     @property
     def full_name(self):
         return f"{self.first_name} {self.last_name}"
+
+
+class StateAccount(models.Model):
+    """State-level accounts (unemployment, sales tax, revenue online)"""
+
+    ACCOUNT_TYPE_CHOICES = [
+        ("Unemployment Insurance", "Unemployment Insurance"),
+        ("Sales Tax", "Sales Tax"),
+        ("Revenue Online", "Revenue Online"),
+        ("Withholding Tax", "Withholding Tax"),
+        ("Other", "Other"),
+    ]
+
+    entity = models.ForeignKey(
+        Entity, on_delete=models.CASCADE, related_name="state_accounts"
+    )
+    state = models.CharField(max_length=2, help_text="State abbreviation (e.g., OR, CO)")
+    account_type = models.CharField(max_length=50, choices=ACCOUNT_TYPE_CHOICES)
+    account_number = models.CharField(max_length=100, blank=True)
+    portal_name = models.CharField(
+        max_length=100, blank=True, help_text="e.g., MYUI, Revenue Online"
+    )
+    portal_url = models.URLField(blank=True)
+    login_email = models.EmailField(blank=True, help_text="Login email (not password)")
+    status = models.CharField(max_length=20, default="Active")
+    notes = models.TextField(blank=True)
+
+    class Meta:
+        ordering = ["entity", "state", "account_type"]
+        verbose_name = "State Account"
+        verbose_name_plural = "State Accounts"
+
+    def __str__(self):
+        return f"{self.entity.entity_code} - {self.state} {self.account_type}"
+
+
+class MerchantProcessor(models.Model):
+    """Card payment processing accounts"""
+
+    entity = models.ForeignKey(
+        Entity, on_delete=models.CASCADE, related_name="merchant_processors"
+    )
+    processor_name = models.CharField(max_length=100, help_text="e.g., Square, Toast, AccessOne")
+    merchant_id = models.CharField(max_length=100, blank=True)
+    terminal_id = models.CharField(max_length=100, blank=True)
+    portal_url = models.URLField(blank=True)
+    dba_name = models.CharField(max_length=200, blank=True, verbose_name="DBA Name on Processor")
+    status = models.CharField(max_length=20, default="Active")
+    notes = models.TextField(blank=True)
+
+    class Meta:
+        ordering = ["entity", "processor_name"]
+        verbose_name = "Merchant Processor"
+        verbose_name_plural = "Merchant Processors"
+
+    def __str__(self):
+        return f"{self.entity.entity_code} - {self.processor_name}"
+
+
+class Vendor(models.Model):
+    """Vendor and supplier accounts"""
+
+    entity = models.ForeignKey(
+        Entity, on_delete=models.CASCADE, related_name="vendors"
+    )
+    vendor_name = models.CharField(max_length=200)
+    account_number = models.CharField(max_length=100, blank=True)
+    service_location = models.TextField(blank=True, help_text="Address where service is provided")
+    purpose = models.CharField(max_length=200, blank=True, help_text="What this vendor provides")
+    contact_phone = models.CharField(max_length=20, blank=True)
+    website = models.URLField(blank=True)
+    status = models.CharField(max_length=20, default="Active")
+    notes = models.TextField(blank=True)
+
+    class Meta:
+        ordering = ["entity", "vendor_name"]
+
+    def __str__(self):
+        return f"{self.entity.entity_code} - {self.vendor_name}"
