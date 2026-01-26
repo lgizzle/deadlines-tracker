@@ -1,135 +1,109 @@
-{% extends "deadlines/base.html" %} {% load static %} {% block title %}List -
-Business Deadlines{% endblock %} {% block nav_list %}active{% endblock %} {%
-block content %}
+{% extends "deadlines/base.html" %}
+{% load static %}
+
+{% block title %}List - Business Deadlines{% endblock %}
+
+{% block nav_list %}active{% endblock %}
+
+{% block content %}
 <div class="header">
-  <div class="header-row">
-    <h1>All Deadlines</h1>
-    <div class="header-actions">
-      <a href="{% url 'deadlines:deadline_add' %}" class="add-btn">+</a>
-      <form method="get" style="margin: 0">
-        <select
-          name="entity"
-          class="filter-dropdown"
-          onchange="this.form.submit()"
-        >
-          <option value="">All Entities</option>
-          {% for entity in entities %}
-          <option
-            value="{{ entity.entity_code }}"
-            {%
-            if
-            entity.entity_code=""
-            ="entity_filter"
-            %}selected{%
-            endif
-            %}
-          >
-            {{ entity.entity_code }}
-          </option>
-          {% endfor %}
-        </select>
-      </form>
-      <a href="{% url 'deadlines:deadline_add' %}" class="btn-primary"
-        >+ Add Deadline</a
-      >
+    <div class="header-row">
+        <h1>All Deadlines</h1>
+        <div class="header-actions">
+            <a href="{% url 'deadlines:deadline_add' %}" class="add-btn">+</a>
+            <form method="get" style="margin: 0;">
+                <select name="entity" class="filter-dropdown" onchange="this.form.submit()">
+                    <option value="">All Entities</option>
+                    {% for entity in entities %}
+                        <option value="{{ entity.entity_code }}" {% if entity.entity_code == entity_filter %}selected{% endif %}>
+                            {{ entity.entity_code }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </form>
+            <a href="{% url 'deadlines:deadline_add' %}" class="btn-primary">+ Add Deadline</a>
+        </div>
     </div>
-  </div>
-  <div class="entity-filter">
-    <form method="get" style="margin: 0">
-      <select name="entity" onchange="this.form.submit()">
-        <option value="">All Entities</option>
-        {% for entity in entities %}
-        <option
-          value="{{ entity.entity_code }}"
-          {%
-          if
-          entity.entity_code=""
-          ="entity_filter"
-          %}selected{%
-          endif
-          %}
-        >
-          {{ entity.entity_code }}
-        </option>
-        {% endfor %}
-      </select>
-    </form>
-  </div>
+    <div class="entity-filter">
+        <form method="get" style="margin: 0;">
+            <select name="entity" onchange="this.form.submit()">
+                <option value="">All Entities</option>
+                {% for entity in entities %}
+                    <option value="{{ entity.entity_code }}" {% if entity.entity_code == entity_filter %}selected{% endif %}>
+                        {{ entity.entity_code }}
+                    </option>
+                {% endfor %}
+            </select>
+        </form>
+    </div>
 </div>
 
 <div class="tabs">
-  <a href="{% url 'deadlines:todo' %}" class="tab">To-Do</a>
-  <a href="{% url 'deadlines:list' %}" class="tab active">List</a>
-  <a href="{% url 'deadlines:calendar' %}" class="tab">Calendar</a>
+    <a href="{% url 'deadlines:todo' %}" class="tab">To-Do</a>
+    <a href="{% url 'deadlines:list' %}" class="tab active">List</a>
+    <a href="{% url 'deadlines:calendar' %}" class="tab">Calendar</a>
 </div>
 
 <div class="content">
-  {% if overdue %}
-  <div class="section-header">Overdue ({{ overdue|length }})</div>
-  {% for deadline in overdue %}
-  <a
-    href="{% url 'deadlines:deadline_detail' deadline.pk %}"
-    class="list-item overdue"
-  >
-    <div class="list-item-title">{{ deadline.title }}</div>
-    <div class="list-item-meta">
-      <div>
-        <span class="list-item-entity">{{ deadline.entity.entity_code }}</span>
-        <span class="list-item-date"
-          >Due: {{ deadline.next_due|date:"M j" }}</span
-        >
-      </div>
-      {% if deadline.estimated_amount %}
-      <div class="list-item-amount">${{ deadline.estimated_amount }}</div>
-      {% endif %}
-    </div>
-  </a>
-  {% endfor %} {% endif %} {% if this_week %}
-  <div class="section-header">This Week ({{ this_week|length }})</div>
-  {% for deadline in this_week %}
-  <a
-    href="{% url 'deadlines:deadline_detail' deadline.pk %}"
-    class="list-item upcoming"
-  >
-    <div class="list-item-title">{{ deadline.title }}</div>
-    <div class="list-item-meta">
-      <div>
-        <span class="list-item-entity">{{ deadline.entity.entity_code }}</span>
-        <span class="list-item-date"
-          >Due: {{ deadline.next_due|date:"M j" }}</span
-        >
-      </div>
-      {% if deadline.estimated_amount %}
-      <div class="list-item-amount">${{ deadline.estimated_amount }}</div>
-      {% endif %}
-    </div>
-  </a>
-  {% endfor %} {% endif %} {% if coming_up %}
-  <div class="section-header">Coming Up ({{ coming_up|length }})</div>
-  {% for deadline in coming_up %}
-  <a
-    href="{% url 'deadlines:deadline_detail' deadline.pk %}"
-    class="list-item normal"
-  >
-    <div class="list-item-title">{{ deadline.title }}</div>
-    <div class="list-item-meta">
-      <div>
-        <span class="list-item-entity">{{ deadline.entity.entity_code }}</span>
-        <span class="list-item-date"
-          >Due: {{ deadline.next_due|date:"M j" }}</span
-        >
-      </div>
-      {% if deadline.estimated_amount %}
-      <div class="list-item-amount">${{ deadline.estimated_amount }}</div>
-      {% endif %}
-    </div>
-  </a>
-  {% endfor %} {% endif %} {% if not overdue and not this_week and not coming_up
-  %}
-  <div class="empty-state">
-    <div class="empty-state-icon">📋</div>
-    <div class="empty-state-text">No deadlines found.</div>
-  </div>
-  {% endif %}
+    {% if overdue %}
+        <div class="section-header">Overdue ({{ overdue|length }})</div>
+        {% for deadline in overdue %}
+            <a href="{% url 'deadlines:deadline_detail' deadline.pk %}" class="list-item overdue">
+                <div class="list-item-title">{{ deadline.title }}</div>
+                <div class="list-item-meta">
+                    <div>
+                        <span class="list-item-entity">{{ deadline.entity.entity_code }}</span>
+                        <span class="list-item-date">Due: {{ deadline.next_due|date:"M j" }}</span>
+                    </div>
+                    {% if deadline.estimated_amount %}
+                        <div class="list-item-amount">${{ deadline.estimated_amount }}</div>
+                    {% endif %}
+                </div>
+            </a>
+        {% endfor %}
+    {% endif %}
+
+    {% if this_week %}
+        <div class="section-header">This Week ({{ this_week|length }})</div>
+        {% for deadline in this_week %}
+            <a href="{% url 'deadlines:deadline_detail' deadline.pk %}" class="list-item upcoming">
+                <div class="list-item-title">{{ deadline.title }}</div>
+                <div class="list-item-meta">
+                    <div>
+                        <span class="list-item-entity">{{ deadline.entity.entity_code }}</span>
+                        <span class="list-item-date">Due: {{ deadline.next_due|date:"M j" }}</span>
+                    </div>
+                    {% if deadline.estimated_amount %}
+                        <div class="list-item-amount">${{ deadline.estimated_amount }}</div>
+                    {% endif %}
+                </div>
+            </a>
+        {% endfor %}
+    {% endif %}
+
+    {% if coming_up %}
+        <div class="section-header">Coming Up ({{ coming_up|length }})</div>
+        {% for deadline in coming_up %}
+            <a href="{% url 'deadlines:deadline_detail' deadline.pk %}" class="list-item normal">
+                <div class="list-item-title">{{ deadline.title }}</div>
+                <div class="list-item-meta">
+                    <div>
+                        <span class="list-item-entity">{{ deadline.entity.entity_code }}</span>
+                        <span class="list-item-date">Due: {{ deadline.next_due|date:"M j" }}</span>
+                    </div>
+                    {% if deadline.estimated_amount %}
+                        <div class="list-item-amount">${{ deadline.estimated_amount }}</div>
+                    {% endif %}
+                </div>
+            </a>
+        {% endfor %}
+    {% endif %}
+
+    {% if not overdue and not this_week and not coming_up %}
+        <div class="empty-state">
+            <div class="empty-state-icon">📋</div>
+            <div class="empty-state-text">No deadlines found.</div>
+        </div>
+    {% endif %}
 </div>
 {% endblock %}

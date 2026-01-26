@@ -1,12 +1,11 @@
 {% extends "deadlines/base.html" %}
 {% load static %}
-{% block title %}{{
-entity.entity_code }} - Business Deadlines{% endblock %}
-{% block nav_entities
-%}active{% endblock %}
+
+{% block title %}{{ entity.entity_code }} - Business Deadlines{% endblock %}
+{% block nav_entities %}active{% endblock %}
 {% block bottom_nav_entities %}active{% endblock %}
-{%
-block content %}
+
+{% block content %}
 <div class="detail-header">
   <a href="{% url 'deadlines:entity_list' %}" class="detail-back"
     >← Back to Entities</a
@@ -235,8 +234,7 @@ block content %}
     <div class="financial-item">
       <div class="financial-item-header">{{ card.card_name }}</div>
       <div class="financial-item-detail">
-        •••• {{ card.last4 }}{% if card.network %} ({{ card.network }}){% endif
-        %}
+        •••• {{ card.last4 }}{% if card.network %} ({{ card.network }}){% endif %}
       </div>
       {% if card.credit_limit %}
       <div class="financial-item-detail">

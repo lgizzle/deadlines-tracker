@@ -2,8 +2,7 @@
 {% load static %}
 {% load deadline_tags %}
 {% block title %}Calendar - Business Deadlines{% endblock %}
-{% block
-nav_calendar %}active{% endblock %}
+{% block nav_calendar %}active{% endblock %}
 {% block content %}
 <div class="header">
   <div class="header-row">
@@ -96,10 +95,8 @@ nav_calendar %}active{% endblock %}
       <div class="day empty"></div>
       {% else %}
 {% if deadlines_by_date|in_dict:day %}
-{% with
-      deadlines_by_date|get_item:day as day_deadlines %}
-{% with
-      day_deadlines|first as first_deadline %}
+{% with deadlines_by_date|get_item:day as day_deadlines %}
+{% with day_deadlines|first as first_deadline %}
       <a
         href="?year={{ year }}&month={{ month }}&day={{ day }}{% if entity_filter %}&entity={{ entity_filter }}{% endif %}"
         class="day {% if first_deadline.urgency_status == 'overdue' %}has-overdue{% else %}has-deadline{% endif %} {% if day == today.day and month == today.month and year == today.year %}today{% endif %} {% if day == selected_day %}selected{% endif %}"
@@ -143,8 +140,7 @@ nav_calendar %}active{% endblock %}
 
   {% if selected_deadlines %}
   <div class="section-header">
-    {{ month_name }} {{ selected_day }} — {{ selected_deadlines|length }} item{%
-    if selected_deadlines|length != 1 %}s{% endif %}
+    {{ month_name }} {{ selected_day }} — {{ selected_deadlines|length }} item{% if selected_deadlines|length != 1 %}s{% endif %}
   </div>
   {% for deadline in selected_deadlines %}
   <a

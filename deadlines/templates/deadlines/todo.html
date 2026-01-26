@@ -1,6 +1,11 @@
-{% extends "deadlines/base.html" %} {% load static %} {% block title %}To-Do -
-Business Deadlines{% endblock %} {% block nav_todo %}active{% endblock %} {%
-block bottom_nav_todo %}active{% endblock %} {% block content %}
+{% extends "deadlines/base.html" %}
+{% load static %}
+
+{% block title %}To-Do - Business Deadlines{% endblock %}
+{% block nav_todo %}active{% endblock %}
+{% block bottom_nav_todo %}active{% endblock %}
+
+{% block content %}
 <div class="header">
   <div class="header-row">
     <h1>To-Do</h1>
@@ -60,7 +65,10 @@ block bottom_nav_todo %}active{% endblock %} {% block content %}
       </div>
     </a>
   </div>
-  {% endfor %} {% endif %} {% if this_week %}
+  {% endfor %}
+  {% endif %}
+
+  {% if this_week %}
   <div class="section-header">Due This Week</div>
   {% for deadline in this_week %}
   <div class="todo-item upcoming">
@@ -85,7 +93,10 @@ block bottom_nav_todo %}active{% endblock %} {% block content %}
       </div>
     </a>
   </div>
-  {% endfor %} {% endif %} {% if not overdue and not this_week %}
+  {% endfor %}
+  {% endif %}
+
+  {% if not overdue and not this_week %}
   <div class="empty-state">
     <div class="empty-state-icon">✅</div>
     <div class="empty-state-text">All caught up! No urgent deadlines.</div>
