@@ -1,6 +1,11 @@
-{% extends "deadlines/base.html" %} {% load static %} {% block title %}{{
-entity.entity_code }} - Business Deadlines{% endblock %} {% block nav_entities
-%}active{% endblock %} {% block bottom_nav_entities %}active{% endblock %} {%
+{% extends "deadlines/base.html" %}
+{% load static %}
+{% block title %}{{
+entity.entity_code }} - Business Deadlines{% endblock %}
+{% block nav_entities
+%}active{% endblock %}
+{% block bottom_nav_entities %}active{% endblock %}
+{%
 block content %}
 <div class="detail-header">
   <a href="{% url 'deadlines:entity_list' %}" class="detail-back"
@@ -131,7 +136,8 @@ block content %}
           >{{ entity.ein }}</span
         >
       </div>
-      {% endif %} {% if entity.sos_number %}
+      {% endif %}
+{% if entity.sos_number %}
       <div class="detail-field">
         <span class="detail-label">SOS Number</span>
         <span class="detail-value" style="font-family: monospace"
@@ -166,7 +172,8 @@ block content %}
       >
     </div>
   </div>
-  {% endif %} {% if entity.manager_name %}
+  {% endif %}
+{% if entity.manager_name %}
   <div class="detail-card">
     <h3>Management</h3>
     <div class="contact-card">
@@ -180,7 +187,8 @@ block content %}
           >📞 {{ entity.manager_phone }}</a
         >
       </div>
-      {% endif %} {% if entity.manager_email %}
+      {% endif %}
+{% if entity.manager_email %}
       <div class="contact-detail">
         <a
           href="mailto:{{ entity.manager_email }}"
@@ -191,11 +199,13 @@ block content %}
       {% endif %}
     </div>
   </div>
-  {% endif %} {% elif active_tab == 'financial' %}
+  {% endif %}
+{% elif active_tab == 'financial' %}
   <!-- Financial Tab -->
   <div class="detail-card">
     <h3>Bank Accounts</h3>
-    {% if bank_accounts %} {% for account in bank_accounts %}
+    {% if bank_accounts %}
+{% for account in bank_accounts %}
     <div class="financial-item">
       <div class="financial-item-header">
         {{ account.bank_name }} - {{ account.account_type }}
@@ -207,18 +217,21 @@ block content %}
       <div class="financial-item-detail">
         Routing: {{ account.routing_number }}
       </div>
-      {% endif %} {% if account.notes %}
+      {% endif %}
+{% if account.notes %}
       <div class="financial-item-detail">{{ account.notes }}</div>
       {% endif %}
     </div>
-    {% endfor %} {% else %}
+    {% endfor %}
+{% else %}
     <div class="empty-state-small">No bank accounts on file</div>
     {% endif %}
   </div>
 
   <div class="detail-card">
     <h3>Credit Cards</h3>
-    {% if credit_cards %} {% for card in credit_cards %}
+    {% if credit_cards %}
+{% for card in credit_cards %}
     <div class="financial-item">
       <div class="financial-item-header">{{ card.card_name }}</div>
       <div class="financial-item-detail">
@@ -229,18 +242,21 @@ block content %}
       <div class="financial-item-detail">
         Limit: ${{ card.credit_limit|floatformat:0 }}
       </div>
-      {% endif %} {% if card.notes %}
+      {% endif %}
+{% if card.notes %}
       <div class="financial-item-detail">{{ card.notes }}</div>
       {% endif %}
     </div>
-    {% endfor %} {% else %}
+    {% endfor %}
+{% else %}
     <div class="empty-state-small">No credit cards on file</div>
     {% endif %}
   </div>
 
   <div class="detail-card">
     <h3>Loans</h3>
-    {% if loans %} {% for loan in loans %}
+    {% if loans %}
+{% for loan in loans %}
     <div class="financial-item">
       <div class="financial-item-header">
         {{ loan.loan_type }} - {{ loan.lender }}
@@ -249,22 +265,26 @@ block content %}
       <div class="financial-item-detail">
         Account: {{ loan.account_number }}
       </div>
-      {% endif %} {% if loan.current_balance %}
+      {% endif %}
+{% if loan.current_balance %}
       <div class="financial-item-detail">
         Balance: ${{ loan.current_balance|floatformat:2 }}
       </div>
-      {% endif %} {% if loan.payment_amount %}
+      {% endif %}
+{% if loan.payment_amount %}
       <div class="financial-item-detail">
         Payment: ${{ loan.payment_amount|floatformat:2 }} {{
         loan.payment_frequency }}
       </div>
-      {% endif %} {% if loan.maturity_date %}
+      {% endif %}
+{% if loan.maturity_date %}
       <div class="financial-item-detail">
         Maturity: {{ loan.maturity_date|date:"M j, Y" }}
       </div>
       {% endif %}
     </div>
-    {% endfor %} {% else %}
+    {% endfor %}
+{% else %}
     <div class="empty-state-small">No loans on file</div>
     {% endif %}
   </div>
@@ -273,7 +293,8 @@ block content %}
   <!-- Insurance Tab -->
   <div class="detail-card">
     <h3>Insurance Policies</h3>
-    {% if insurance_policies %} {% for policy in insurance_policies %}
+    {% if insurance_policies %}
+{% for policy in insurance_policies %}
     <div class="financial-item">
       <div class="financial-item-header">
         {{ policy.policy_type }} - {{ policy.carrier }}
@@ -285,19 +306,23 @@ block content %}
       <div class="financial-item-detail">
         Coverage: ${{ policy.coverage_amount|floatformat:0 }}
       </div>
-      {% endif %} {% if policy.premium_amount %}
+      {% endif %}
+{% if policy.premium_amount %}
       <div class="financial-item-detail">
         Premium: ${{ policy.premium_amount|floatformat:2 }}
       </div>
-      {% endif %} {% if policy.renewal_date %}
+      {% endif %}
+{% if policy.renewal_date %}
       <div class="financial-item-detail">
         Renewal: {{ policy.renewal_date|date:"M j, Y" }}
       </div>
-      {% endif %} {% if policy.notes %}
+      {% endif %}
+{% if policy.notes %}
       <div class="financial-item-detail">{{ policy.notes }}</div>
       {% endif %}
     </div>
-    {% endfor %} {% else %}
+    {% endfor %}
+{% else %}
     <div class="empty-state-small">No insurance policies on file</div>
     {% endif %}
   </div>
@@ -306,7 +331,8 @@ block content %}
   <!-- Licenses Tab -->
   <div class="detail-card">
     <h3>Licenses & Permits</h3>
-    {% if licenses %} {% for license in licenses %}
+    {% if licenses %}
+{% for license in licenses %}
     <div class="financial-item">
       <div class="financial-item-header">{{ license.license_type }}</div>
       <div class="financial-item-detail">
@@ -319,15 +345,18 @@ block content %}
       <div class="financial-item-detail">
         Expires: {{ license.expiration_date|date:"M j, Y" }}
       </div>
-      {% endif %} {% if license.renewal_fee %}
+      {% endif %}
+{% if license.renewal_fee %}
       <div class="financial-item-detail">
         Renewal Fee: ${{ license.renewal_fee|floatformat:2 }}
       </div>
-      {% endif %} {% if license.notes %}
+      {% endif %}
+{% if license.notes %}
       <div class="financial-item-detail">{{ license.notes }}</div>
       {% endif %}
     </div>
-    {% endfor %} {% else %}
+    {% endfor %}
+{% else %}
     <div class="empty-state-small">No licenses on file</div>
     {% endif %}
   </div>
@@ -336,7 +365,8 @@ block content %}
   <!-- Deadlines Tab -->
   <div class="detail-card">
     <h3>Active Deadlines</h3>
-    {% if deadlines %} {% for deadline in deadlines %}
+    {% if deadlines %}
+{% for deadline in deadlines %}
     <a
       href="{% url 'deadlines:deadline_detail' deadline.pk %}"
       class="list-item {{ deadline.urgency_status }}"
@@ -367,12 +397,14 @@ block content %}
   <!-- Contacts Tab -->
   <div class="detail-card">
     <h3>Contacts</h3>
-    {% if contacts %} {% for contact in contacts %}
+    {% if contacts %}
+{% for contact in contacts %}
     <div class="contact-card">
       <div class="contact-name">{{ contact.full_name }}</div>
       {% if contact.title %}
       <div class="contact-detail">{{ contact.title }}</div>
-      {% endif %} {% if contact.company_name %}
+      {% endif %}
+{% if contact.company_name %}
       <div class="contact-detail">{{ contact.company_name }}</div>
       {% endif %}
       <div
@@ -389,7 +421,8 @@ block content %}
           >✉️ {{ contact.email }}</a
         >
       </div>
-      {% endif %} {% if contact.phone %}
+      {% endif %}
+{% if contact.phone %}
       <div class="contact-detail">
         <a
           href="tel:{{ contact.phone }}"
@@ -397,7 +430,8 @@ block content %}
           >📞 {{ contact.phone }}</a
         >
       </div>
-      {% endif %} {% if contact.mobile %}
+      {% endif %}
+{% if contact.mobile %}
       <div class="contact-detail">
         <a
           href="tel:{{ contact.mobile }}"
@@ -407,7 +441,8 @@ block content %}
       </div>
       {% endif %}
     </div>
-    {% endfor %} {% else %}
+    {% endfor %}
+{% else %}
     <div class="empty-state-small">No contacts on file</div>
     {% endif %}
   </div>

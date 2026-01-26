@@ -1,6 +1,10 @@
-{% extends "deadlines/base.html" %} {% load static %} {% block title %}Entities
-- Business Deadlines{% endblock %} {% block nav_entities %}active{% endblock %}
-{% block bottom_nav_entities %}active{% endblock %} {% block content %}
+{% extends "deadlines/base.html" %}
+{% load static %}
+{% block title %}Entities
+- Business Deadlines{% endblock %}
+{% block nav_entities %}active{% endblock %}
+{% block bottom_nav_entities %}active{% endblock %}
+{% block content %}
 <div class="header">
   <div class="header-row">
     <h1>Entities</h1>
@@ -12,10 +16,10 @@
           onchange="this.form.submit()"
         >
           <option value="">All States</option>
-          <option value="OR" {% if state_filter="" ="OR" %}selected{% endif %}>
+          <option value="OR" {% if state_filter == "OR" %}selected{% endif %}>
             Oregon
           </option>
-          <option value="CO" {% if state_filter="" ="CO" %}selected{% endif %}>
+          <option value="CO" {% if state_filter == "CO" %}selected{% endif %}>
             Colorado
           </option>
         </select>

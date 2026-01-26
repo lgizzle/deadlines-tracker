@@ -1,6 +1,10 @@
-{% extends "deadlines/base.html" %} {% load static %} {% load deadline_tags %}
-{% block title %}Calendar - Business Deadlines{% endblock %} {% block
-nav_calendar %}active{% endblock %} {% block content %}
+{% extends "deadlines/base.html" %}
+{% load static %}
+{% load deadline_tags %}
+{% block title %}Calendar - Business Deadlines{% endblock %}
+{% block
+nav_calendar %}active{% endblock %}
+{% block content %}
 <div class="header">
   <div class="header-row">
     <h1>Calendar</h1>
@@ -18,13 +22,7 @@ nav_calendar %}active{% endblock %} {% block content %}
           {% for entity in entities %}
           <option
             value="{{ entity.entity_code }}"
-            {%
-            if
-            entity.entity_code=""
-            ="entity_filter"
-            %}selected{%
-            endif
-            %}
+            {% if entity.entity_code == entity_filter %}selected{% endif %}
           >
             {{ entity.entity_code }}
           </option>
@@ -45,13 +43,7 @@ nav_calendar %}active{% endblock %} {% block content %}
         {% for entity in entities %}
         <option
           value="{{ entity.entity_code }}"
-          {%
-          if
-          entity.entity_code=""
-          ="entity_filter"
-          %}selected{%
-          endif
-          %}
+          {% if entity.entity_code == entity_filter %}selected{% endif %}
         >
           {{ entity.entity_code }}
         </option>
@@ -98,10 +90,15 @@ nav_calendar %}active{% endblock %} {% block content %}
     </div>
 
     <div class="days">
-      {% for week in month_days %} {% for day in week %} {% if day == 0 %}
+      {% for week in month_days %}
+{% for day in week %}
+{% if day == 0 %}
       <div class="day empty"></div>
-      {% else %} {% if deadlines_by_date|in_dict:day %} {% with
-      deadlines_by_date|get_item:day as day_deadlines %} {% with
+      {% else %}
+{% if deadlines_by_date|in_dict:day %}
+{% with
+      deadlines_by_date|get_item:day as day_deadlines %}
+{% with
       day_deadlines|first as first_deadline %}
       <a
         href="?year={{ year }}&month={{ month }}&day={{ day }}{% if entity_filter %}&entity={{ entity_filter }}{% endif %}"
@@ -116,7 +113,8 @@ nav_calendar %}active{% endblock %} {% block content %}
               >{{ deadline.title|truncatechars:15 }}</span
             >
           </div>
-          {% endfor %} {% if day_deadlines|length > 3 %}
+          {% endfor %}
+{% if day_deadlines|length > 3 %}
           <div class="day-event-more">
             +{{ day_deadlines|length|add:"-3" }} more
           </div>
@@ -128,13 +126,18 @@ nav_calendar %}active{% endblock %} {% block content %}
         <span class="day-count">1 item</span>
         {% endif %}
       </a>
-      {% endwith %} {% endwith %} {% else %}
+      {% endwith %}
+{% endwith %}
+{% else %}
       <div
         class="day {% if day == today.day and month == today.month and year == today.year %}today{% endif %}"
       >
         <div class="day-number">{{ day }}</div>
       </div>
-      {% endif %} {% endif %} {% endfor %} {% endfor %}
+      {% endif %}
+{% endif %}
+{% endfor %}
+{% endfor %}
     </div>
   </div>
 
@@ -159,6 +162,7 @@ nav_calendar %}active{% endblock %} {% block content %}
       {% endif %}
     </div>
   </a>
-  {% endfor %} {% endif %}
+  {% endfor %}
+{% endif %}
 </div>
 {% endblock %}

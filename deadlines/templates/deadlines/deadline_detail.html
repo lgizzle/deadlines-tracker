@@ -1,5 +1,8 @@
-{% extends "deadlines/base.html" %} {% load static %} {% block title %}{{
-deadline.title }} - Business Deadlines{% endblock %} {% block content %}
+{% extends "deadlines/base.html" %}
+{% load static %}
+{% block title %}{{
+deadline.title }} - Business Deadlines{% endblock %}
+{% block content %}
 <div class="detail-header">
   <a href="javascript:history.back()" class="detail-back">← Back</a>
   <div class="detail-title">{{ deadline.title }}</div>
@@ -55,7 +58,8 @@ deadline.title }} - Business Deadlines{% endblock %} {% block content %}
           >{{ deadline.account_number }}</span
         >
       </div>
-      {% endif %} {% if deadline.remind_days_before %}
+      {% endif %}
+{% if deadline.remind_days_before %}
       <div class="detail-field">
         <span class="detail-label">Remind</span>
         <span class="detail-value"
