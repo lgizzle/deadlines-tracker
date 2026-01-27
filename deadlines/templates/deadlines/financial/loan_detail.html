@@ -1,0 +1,183 @@
+{% extends "deadlines/base.html" %}
+{% load static %}
+
+{% block title %}{{ loan.loan_type }} - {{ loan.lender }} - Business Deadlines{% endblock %}
+{% block nav_entities %}active{% endblock %}
+{% block bottom_nav_entities %}active{% endblock %}
+
+{% block content %}
+<div class="detail-header">
+  <a href="{% url 'deadlines:loan_list' %}" class="detail-back">
+    ← Back to Loans
+  </a>
+  <div class="detail-title">{{ loan.loan_type }}</div>
+  <div class="detail-meta">
+    <span class="detail-entity-badge">{{ loan.entity.entity_code }}</span>
+    <span>{{ loan.lender }}</span>
+  </div>
+</div>
+
+<div class="detail-content">
+  {% if loan.maturity_date %}
+  <div class="detail-card maturity-card">
+    <h3>Maturity Date</h3>
+    <div class="maturity-prominent">
+      <div class="maturity-date-large">{{ loan.maturity_date|date:"F j, Y" }}</div>
+      <div class="maturity-note">Loan matures on this date</div>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="detail-card">
+    <h3>Loan Information</h3>
+    <div class="detail-grid">
+      <div class="detail-field">
+        <span class="detail-label">Loan Type</span>
+        <span class="detail-value">{{ loan.loan_type }}</span>
+      </div>
+      <div class="detail-field">
+        <span class="detail-label">Lender</span>
+        <span class="detail-value">{{ loan.lender }}</span>
+      </div>
+      {% if loan.account_number %}
+      <div class="detail-field">
+        <span class="detail-label">Account Number</span>
+        <span class="detail-value" style="font-family: monospace;">{{ loan.account_number }}</span>
+      </div>
+      {% endif %}
+      <div class="detail-field">
+        <span class="detail-label">Status</span>
+        <span class="detail-value">{{ loan.status }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail-card">
+    <h3>Financial Details</h3>
+    <div class="detail-grid">
+      {% if loan.original_amount %}
+      <div class="detail-field">
+        <span class="detail-label">Original Amount</span>
+        <span class="detail-value">${{ loan.original_amount|floatformat:2 }}</span>
+      </div>
+      {% endif %}
+      {% if loan.current_balance %}
+      <div class="detail-field">
+        <span class="detail-label">Current Balance</span>
+        <span class="detail-value amount">${{ loan.current_balance|floatformat:2 }}</span>
+      </div>
+      {% endif %}
+      {% if loan.interest_rate %}
+      <div class="detail-field">
+        <span class="detail-label">Interest Rate</span>
+        <span class="detail-value">{{ loan.interest_rate }}%</span>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if loan.payment_amount %}
+  <div class="detail-card payment-card">
+    <h3>Payment Schedule</h3>
+    <div class="payment-prominent">
+      <div class="payment-amount">${{ loan.payment_amount|floatformat:2 }}</div>
+      <div class="payment-frequency">{{ loan.payment_frequency|default:"Monthly" }}</div>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="detail-card">
+    <h3>Loan Timeline</h3>
+    <div class="detail-grid">
+      {% if loan.origination_date %}
+      <div class="detail-field">
+        <span class="detail-label">Origination Date</span>
+        <span class="detail-value">{{ loan.origination_date|date:"M j, Y" }}</span>
+      </div>
+      {% endif %}
+      {% if loan.maturity_date %}
+      <div class="detail-field">
+        <span class="detail-label">Maturity Date</span>
+        <span class="detail-value">{{ loan.maturity_date|date:"M j, Y" }}</span>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="detail-card">
+    <h3>Entity</h3>
+    <a href="{% url 'deadlines:entity_detail' loan.entity.pk %}?tab=financial"
+       class="entity-link">
+      <div class="entity-link-code">{{ loan.entity.entity_code }}</div>
+      <div class="entity-link-name">{{ loan.entity.dba_name|default:loan.entity.legal_name }}</div>
+    </a>
+  </div>
+
+  {% if loan.notes %}
+  <div class="detail-card">
+    <h3>Notes</h3>
+    <div class="note-item">{{ loan.notes }}</div>
+  </div>
+  {% endif %}
+</div>
+
+<style>
+  .entity-link {
+    display: block;
+    background: #f8f9fa;
+    padding: 12px;
+    border-radius: 6px;
+    border-left: 3px solid #6366f1;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s;
+  }
+  .entity-link:hover {
+    background: #f0f1f3;
+  }
+  .entity-link-code {
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 4px;
+  }
+  .entity-link-name {
+    font-size: 12px;
+    color: #6b7280;
+  }
+  .maturity-card {
+    border-left: 4px solid #f59e0b;
+  }
+  .maturity-prominent {
+    text-align: center;
+    padding: 16px 0;
+  }
+  .maturity-date-large {
+    font-size: 24px;
+    font-weight: 700;
+    color: #92400e;
+    margin-bottom: 4px;
+  }
+  .maturity-note {
+    font-size: 12px;
+    color: #6b7280;
+  }
+  .payment-card {
+    border-left: 4px solid #22c55e;
+  }
+  .payment-prominent {
+    text-align: center;
+    padding: 16px 0;
+  }
+  .payment-amount {
+    font-size: 32px;
+    font-weight: 700;
+    color: #059669;
+    margin-bottom: 4px;
+  }
+  .payment-frequency {
+    font-size: 14px;
+    color: #6b7280;
+    text-transform: capitalize;
+  }
+</style>
+{% endblock %}

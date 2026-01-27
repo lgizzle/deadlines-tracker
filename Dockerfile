@@ -23,7 +23,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Collect static files
-RUN python manage.py collectstatic --noinput
+# Provide a placeholder encryption key during build (collectstatic doesn't encrypt data)
+# The real key is injected at runtime via Cloud Run secrets
+RUN FIELD_ENCRYPTION_KEY=nPMQFDQoYc972n7SIzQ_B6iAeztx10FVQ154nKC0h6M= python manage.py collectstatic --noinput
 
 # Run gunicorn
 CMD exec gunicorn --bind :$PORT --workers 2 --threads 4 bizops.wsgi:application

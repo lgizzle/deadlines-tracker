@@ -1,0 +1,93 @@
+{% extends "deadlines/base.html" %}
+{% load static %}
+
+{% block title %}Loans - Business Deadlines{% endblock %}
+{% block nav_entities %}active{% endblock %}
+{% block bottom_nav_entities %}active{% endblock %}
+
+{% block content %}
+<div class="header">
+  <div class="header-row">
+    <h1>Loans</h1>
+    <div class="header-actions">
+      <form method="get" style="margin: 0; display: flex; gap: 8px; flex-wrap: wrap;">
+        <select name="entity" class="filter-dropdown" onchange="this.form.submit()">
+          <option value="">All Entities</option>
+          {% for entity in entities %}
+          <option value="{{ entity.entity_code }}" {% if entity_filter == entity.entity_code %}selected{% endif %}>
+            {{ entity.entity_code }}
+          </option>
+          {% endfor %}
+        </select>
+        <select name="lender" class="filter-dropdown" onchange="this.form.submit()">
+          <option value="">All Lenders</option>
+          {% for lender in lenders %}
+          <option value="{{ lender }}" {% if lender_filter == lender %}selected{% endif %}>
+            {{ lender }}
+          </option>
+          {% endfor %}
+        </select>
+        <select name="type" class="filter-dropdown" onchange="this.form.submit()">
+          <option value="">All Types</option>
+          {% for loan_type in loan_types %}
+          <option value="{{ loan_type }}" {% if type_filter == loan_type %}selected{% endif %}>
+            {{ loan_type }}
+          </option>
+          {% endfor %}
+        </select>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+  {% if loans %}
+  <div class="financial-list">
+    {% for loan in loans %}
+    <a href="{% url 'deadlines:loan_detail' loan.pk %}" class="list-item normal">
+      <div class="list-item-title">
+        {{ loan.loan_type }} - {{ loan.lender }}
+      </div>
+      <div class="list-item-meta">
+        <span>
+          <span class="entity-badge">{{ loan.entity.entity_code }}</span>
+          {% if loan.current_balance %}
+          <span style="margin-left: 8px;">Balance: ${{ loan.current_balance|floatformat:2 }}</span>
+          {% endif %}
+        </span>
+        <span style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px;">
+          {% if loan.payment_amount %}
+          <span class="list-item-amount">${{ loan.payment_amount|floatformat:2 }}/{{ loan.payment_frequency|default:"month" }}</span>
+          {% endif %}
+          {% if loan.maturity_date %}
+          <span class="maturity-date">Matures: {{ loan.maturity_date|date:"M j, Y" }}</span>
+          {% endif %}
+        </span>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-state">
+    <div class="empty-state-icon">📋</div>
+    <div class="empty-state-text">No loans found.</div>
+  </div>
+  {% endif %}
+</div>
+
+<style>
+  .financial-list {
+    padding: 14px;
+  }
+  @media (min-width: 1024px) {
+    .financial-list {
+      padding: 0;
+    }
+  }
+  .maturity-date {
+    font-size: 11px;
+    color: #6b7280;
+    font-weight: 500;
+  }
+</style>
+{% endblock %}

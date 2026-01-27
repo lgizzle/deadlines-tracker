@@ -1,0 +1,100 @@
+{% extends "deadlines/base.html" %}
+{% load static %}
+
+{% block title %}Insurance Policies - Business Deadlines{% endblock %}
+
+{% block nav_entities %}active{% endblock %}
+
+{% block content %}
+<div class="header">
+  <div class="header-row">
+    <h1>Insurance Policies</h1>
+    <a href="{% url 'deadlines:insurance_add' %}" class="add-btn">+ Add Policy</a>
+  </div>
+
+  <!-- Filters -->
+  <div class="filter-row" style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
+    <form method="get" style="display: flex; gap: 8px; flex-wrap: wrap; width: 100%;">
+      <select name="entity" class="filter-dropdown" onchange="this.form.submit()">
+        <option value="">All Entities</option>
+        {% for entity in entities %}
+        <option value="{{ entity.entity_code }}" {% if entity_filter == entity.entity_code %}selected{% endif %}>
+          {{ entity.entity_code }}
+        </option>
+        {% endfor %}
+      </select>
+
+      <select name="policy_type" class="filter-dropdown" onchange="this.form.submit()">
+        <option value="">All Policy Types</option>
+        {% for ptype in policy_types %}
+        <option value="{{ ptype }}" {% if policy_type_filter == ptype %}selected{% endif %}>
+          {{ ptype }}
+        </option>
+        {% endfor %}
+      </select>
+
+      <select name="carrier" class="filter-dropdown" onchange="this.form.submit()">
+        <option value="">All Carriers</option>
+        {% for c in carriers %}
+        <option value="{{ c }}" {% if carrier_filter == c %}selected{% endif %}>
+          {{ c }}
+        </option>
+        {% endfor %}
+      </select>
+
+      {% if entity_filter or policy_type_filter or carrier_filter %}
+      <a href="{% url 'deadlines:insurance_list' %}" class="filter-dropdown" style="text-decoration: none; display: flex; align-items: center;">
+        Clear Filters
+      </a>
+      {% endif %}
+    </form>
+  </div>
+</div>
+
+<div class="detail-content" style="background: #f5f5f5;">
+  {% if policies %}
+  <div class="detail-card">
+    <h3>Active Policies ({{ policies|length }})</h3>
+
+    {% for policy in policies %}
+    <a href="{% url 'deadlines:insurance_detail' policy.pk %}" class="financial-item" style="display: block; text-decoration: none; color: inherit; {% if policy.is_overdue %}border-left: 4px solid #dc3545;{% elif policy.is_due_soon %}border-left: 4px solid #ffc107;{% endif %}">
+      <div class="financial-item-header" style="display: flex; justify-content: space-between; align-items: center;">
+        <span>{{ policy.policy_type }} - {{ policy.carrier }}</span>
+        <span style="font-size: 12px; color: #666;">{{ policy.entity.entity_code }}</span>
+      </div>
+      <div class="financial-item-detail">
+        Policy #: {{ policy.policy_number }}
+      </div>
+      {% if policy.coverage_amount %}
+      <div class="financial-item-detail">
+        Coverage: ${{ policy.coverage_amount|floatformat:0|default:"--" }}
+      </div>
+      {% endif %}
+      {% if policy.premium_amount %}
+      <div class="financial-item-detail">
+        Premium: ${{ policy.premium_amount|floatformat:2|default:"--" }}
+      </div>
+      {% endif %}
+      {% if policy.renewal_date %}
+      <div class="financial-item-detail" style="{% if policy.is_overdue %}color: #dc3545; font-weight: 600;{% elif policy.is_due_soon %}color: #856404; font-weight: 600;{% endif %}">
+        Renewal: {{ policy.renewal_date|date:"M j, Y" }}
+        {% if policy.is_overdue %}
+        (OVERDUE)
+        {% elif policy.is_due_soon %}
+        ({{ policy.days_until_renewal }} days)
+        {% endif %}
+      </div>
+      {% endif %}
+    </a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="detail-card">
+    <div class="empty-state-small" style="text-align: center; padding: 40px;">
+      <p style="color: #666; margin-bottom: 20px;">No insurance policies found</p>
+      <a href="{% url 'deadlines:insurance_add' %}" class="action-button">Add First Policy</a>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

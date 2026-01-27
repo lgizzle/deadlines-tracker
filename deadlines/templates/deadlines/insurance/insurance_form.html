@@ -1,0 +1,149 @@
+{% extends "deadlines/base.html" %}
+{% load static %}
+
+{% block title %}{{ form_title }} - Business Deadlines{% endblock %}
+
+{% block nav_entities %}active{% endblock %}
+
+{% block content %}
+<div class="header">
+  <div class="header-row">
+    <div>
+      <a href="{% url 'deadlines:insurance_list' %}" style="color: white; text-decoration: none; font-size: 14px; opacity: 0.8;">
+        &larr; All Policies
+      </a>
+      <h1 style="margin-top: 4px;">{{ form_title }}</h1>
+    </div>
+  </div>
+</div>
+
+<div class="detail-content" style="background: #f5f5f5;">
+  <form method="post">
+    {% csrf_token %}
+
+    <div class="detail-card">
+      <div class="form-group">
+        <label class="form-label">Entity *</label>
+        <select name="entity" class="form-select" required>
+          <option value="">Select entity...</option>
+          {% for entity in entities %}
+          <option value="{{ entity.pk }}" {% if policy and policy.entity_id == entity.pk %}selected{% endif %}>
+            {{ entity.entity_code }} - {{ entity.dba_name|default:entity.legal_name }}
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Policy Type *</label>
+        <input
+          type="text"
+          name="policy_type"
+          class="form-input"
+          required
+          list="policy_types_list"
+          placeholder="e.g., General Liability, Property, Workers Comp"
+          value="{{ policy.policy_type|default:'' }}"
+        />
+        <datalist id="policy_types_list">
+          {% for ptype in policy_type_choices %}
+          <option value="{{ ptype }}">
+          {% endfor %}
+        </datalist>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Carrier *</label>
+        <input
+          type="text"
+          name="carrier"
+          class="form-input"
+          required
+          placeholder="e.g., State Farm, Travelers, Hartford"
+          value="{{ policy.carrier|default:'' }}"
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Policy Number</label>
+        <input
+          type="text"
+          name="policy_number"
+          class="form-input"
+          placeholder="Policy number"
+          value="{{ policy.policy_number|default:'' }}"
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Coverage Amount</label>
+        <input
+          type="number"
+          step="0.01"
+          name="coverage_amount"
+          class="form-input"
+          placeholder="e.g., 1000000"
+          value="{% if policy.coverage_amount %}{{ policy.coverage_amount }}{% endif %}"
+        />
+        <span style="font-size: 12px; color: #666;">Total coverage limit in dollars</span>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Premium Amount</label>
+        <input
+          type="number"
+          step="0.01"
+          name="premium_amount"
+          class="form-input"
+          placeholder="e.g., 5000.00"
+          value="{% if policy.premium_amount %}{{ policy.premium_amount }}{% endif %}"
+        />
+        <span style="font-size: 12px; color: #666;">Annual premium cost</span>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Renewal Date</label>
+        <input
+          type="date"
+          name="renewal_date"
+          class="form-input"
+          value="{% if policy.renewal_date %}{{ policy.renewal_date|date:'Y-m-d' }}{% endif %}"
+        />
+      </div>
+
+      {% if policy %}
+      <div class="form-group">
+        <label class="form-label">Status</label>
+        <select name="status" class="form-select">
+          <option value="Active" {% if policy.status == 'Active' %}selected{% endif %}>Active</option>
+          <option value="Inactive" {% if policy.status == 'Inactive' %}selected{% endif %}>Inactive</option>
+          <option value="Cancelled" {% if policy.status == 'Cancelled' %}selected{% endif %}>Cancelled</option>
+          <option value="Expired" {% if policy.status == 'Expired' %}selected{% endif %}>Expired</option>
+        </select>
+      </div>
+      {% endif %}
+
+      <div class="form-group">
+        <label class="form-label">Notes</label>
+        <textarea
+          name="notes"
+          class="form-textarea"
+          placeholder="Additional policy details, agent contact info, coverage notes..."
+          rows="4"
+        >{{ policy.notes|default:'' }}</textarea>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 12px;">
+      <button type="submit" class="action-button">{{ submit_label }}</button>
+      <button
+        type="button"
+        onclick="history.back()"
+        class="action-button secondary"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>
+{% endblock %}

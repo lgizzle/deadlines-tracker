@@ -1,0 +1,181 @@
+{% extends "deadlines/base.html" %}
+{% load static %}
+
+{% block title %}{% if edit_mode %}Edit{% else %}Add{% endif %} Contact - Business Deadlines{% endblock %}
+{% block nav_contacts %}active{% endblock %}
+{% block bottom_nav_contacts %}active{% endblock %}
+
+{% block content %}
+<div class="header">
+  <div class="header-row">
+    <h1>{% if edit_mode %}Edit{% else %}Add{% endif %} Contact</h1>
+  </div>
+</div>
+
+<div class="detail-content" style="background: #f5f5f5;">
+  <form method="post">
+    {% csrf_token %}
+
+    <div class="detail-card">
+      <h3>Basic Information</h3>
+
+      <div class="form-group">
+        <label class="form-label">First Name *</label>
+        <input
+          type="text"
+          name="first_name"
+          class="form-input"
+          required
+          placeholder="John"
+          value="{% if edit_mode %}{{ contact.first_name }}{% endif %}"
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Last Name *</label>
+        <input
+          type="text"
+          name="last_name"
+          class="form-input"
+          required
+          placeholder="Doe"
+          value="{% if edit_mode %}{{ contact.last_name }}{% endif %}"
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Contact Type *</label>
+        <select name="contact_type" class="form-select" required>
+          <option value="">Select type...</option>
+          {% for type_value, type_label in contact_types %}
+          <option value="{{ type_value }}" {% if edit_mode and contact.contact_type == type_value %}selected{% endif %}>
+            {{ type_label }}
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Entity</label>
+        <select name="entity" class="form-select">
+          <option value="">No Entity (Global Contact)</option>
+          {% for entity in entities %}
+          <option value="{{ entity.pk }}" {% if edit_mode and contact.entity and contact.entity.pk == entity.pk %}selected{% endif %}>
+            {{ entity.entity_code }} - {{ entity.dba_name|default:entity.legal_name }}
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Company Name</label>
+        <input
+          type="text"
+          name="company_name"
+          class="form-input"
+          placeholder="Acme Inc."
+          value="{% if edit_mode %}{{ contact.company_name }}{% endif %}"
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Title</label>
+        <input
+          type="text"
+          name="title"
+          class="form-input"
+          placeholder="Manager"
+          value="{% if edit_mode %}{{ contact.title }}{% endif %}"
+        />
+      </div>
+    </div>
+
+    <div class="detail-card">
+      <h3>Contact Details</h3>
+
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input
+          type="email"
+          name="email"
+          class="form-input"
+          placeholder="john@example.com"
+          value="{% if edit_mode %}{{ contact.email }}{% endif %}"
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Phone</label>
+        <input
+          type="tel"
+          name="phone"
+          class="form-input"
+          placeholder="(555) 123-4567"
+          value="{% if edit_mode %}{{ contact.phone }}{% endif %}"
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Mobile</label>
+        <input
+          type="tel"
+          name="mobile"
+          class="form-input"
+          placeholder="(555) 987-6543"
+          value="{% if edit_mode %}{{ contact.mobile }}{% endif %}"
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Address</label>
+        <textarea
+          name="address"
+          class="form-textarea"
+          placeholder="123 Main St&#10;City, State 12345"
+        >{% if edit_mode %}{{ contact.address }}{% endif %}</textarea>
+      </div>
+    </div>
+
+    <div class="detail-card">
+      <h3>Sensitive Information</h3>
+
+      <div class="form-group">
+        <label class="form-label">SSN</label>
+        <input
+          type="text"
+          name="ssn"
+          class="form-input"
+          placeholder="XXX-XX-XXXX"
+          value="{% if edit_mode and contact.ssn_masked %}{{ contact.ssn_masked }}{% endif %}"
+          style="font-family: monospace;"
+        />
+        {% if edit_mode and contact.ssn_masked %}
+        <p style="font-size: 11px; color: #9ca3af; margin-top: 4px;">
+          Leave as masked value to keep existing SSN, or enter new SSN to update
+        </p>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="detail-card">
+      <h3>Notes</h3>
+
+      <div class="form-group">
+        <textarea
+          name="notes"
+          class="form-textarea"
+          placeholder="Additional notes about this contact..."
+          style="min-height: 100px;"
+        >{% if edit_mode %}{{ contact.notes }}{% endif %}</textarea>
+      </div>
+    </div>
+
+    <button type="submit" class="action-button">
+      {% if edit_mode %}Save Changes{% else %}Create Contact{% endif %}
+    </button>
+    <button type="button" onclick="history.back()" class="action-button secondary">
+      Cancel
+    </button>
+  </form>
+</div>
+{% endblock %}

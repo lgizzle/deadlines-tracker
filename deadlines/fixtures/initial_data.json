@@ -1,0 +1,4521 @@
+[
+{
+  "model": "deadlines.entity",
+  "pk": "CHEERS",
+  "fields": {
+    "legal_name": "Victory Spirits LLC",
+    "dba_name": "Cheers Liquor Mart",
+    "ein": "33-1988757",
+    "entity_type": "LLC",
+    "tax_filing_type": "",
+    "status": "Active",
+    "physical_address": "1105 N Circle Dr",
+    "physical_city": "Colorado Springs",
+    "physical_state": "CO",
+    "physical_zip": "80909-3134",
+    "mailing_address": "",
+    "business_phone": "(719) 574-2244",
+    "website": "https://www.cheersliquormart.com/",
+    "manager_name": "",
+    "manager_phone": "",
+    "manager_email": "",
+    "sos_number": "",
+    "sos_state": "",
+    "sos_renewal_date": null,
+    "partnership_splits": "",
+    "formation_date": null,
+    "notes": "Retail liquor store"
+  }
+},
+{
+  "model": "deadlines.entity",
+  "pk": "FIRS",
+  "fields": {
+    "legal_name": "Firs Housing LLC",
+    "dba_name": "The Firs Apartments",
+    "ein": "81-3311332",
+    "entity_type": "LLC",
+    "tax_filing_type": "",
+    "status": "Active",
+    "physical_address": "4788 Skyline Rd S",
+    "physical_city": "Salem",
+    "physical_state": "OR",
+    "physical_zip": "97306",
+    "mailing_address": "",
+    "business_phone": "",
+    "website": "",
+    "manager_name": "",
+    "manager_phone": "",
+    "manager_email": "",
+    "sos_number": "",
+    "sos_state": "",
+    "sos_renewal_date": null,
+    "partnership_splits": "",
+    "formation_date": null,
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.entity",
+  "pk": "FOURWEST",
+  "fields": {
+    "legal_name": "Four West LLC",
+    "dba_name": "Bensons Properties",
+    "ein": "81-3235813",
+    "entity_type": "LLC",
+    "tax_filing_type": "",
+    "status": "Active",
+    "physical_address": "544 SW 4th St",
+    "physical_city": "Corvallis",
+    "physical_state": "OR",
+    "physical_zip": "97330",
+    "mailing_address": "",
+    "business_phone": "",
+    "website": "",
+    "manager_name": "",
+    "manager_phone": "",
+    "manager_email": "",
+    "sos_number": "",
+    "sos_state": "",
+    "sos_renewal_date": null,
+    "partnership_splits": "",
+    "formation_date": null,
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.entity",
+  "pk": "GXM",
+  "fields": {
+    "legal_name": "GXM LLC",
+    "dba_name": "G3 Sports & Fitness",
+    "ein": "45-4049172",
+    "entity_type": "LLC",
+    "tax_filing_type": "",
+    "status": "Active",
+    "physical_address": "5520 NW Highway 99 W",
+    "physical_city": "Corvallis",
+    "physical_state": "OR",
+    "physical_zip": "97330",
+    "mailing_address": "",
+    "business_phone": "(541) 207-3508",
+    "website": "",
+    "manager_name": "",
+    "manager_phone": "",
+    "manager_email": "",
+    "sos_number": "",
+    "sos_state": "",
+    "sos_renewal_date": null,
+    "partnership_splits": "",
+    "formation_date": null,
+    "notes": "Retail gym and health club"
+  }
+},
+{
+  "model": "deadlines.entity",
+  "pk": "HUCKBERRY",
+  "fields": {
+    "legal_name": "Huckberry LLC",
+    "dba_name": "",
+    "ein": "82-3722905",
+    "entity_type": "LLC",
+    "tax_filing_type": "",
+    "status": "Active",
+    "physical_address": "",
+    "physical_city": "",
+    "physical_state": "OR",
+    "physical_zip": "",
+    "mailing_address": "",
+    "business_phone": "",
+    "website": "",
+    "manager_name": "",
+    "manager_phone": "",
+    "manager_email": "",
+    "sos_number": "",
+    "sos_state": "",
+    "sos_renewal_date": null,
+    "partnership_splits": "",
+    "formation_date": null,
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.entity",
+  "pk": "NC1105",
+  "fields": {
+    "legal_name": "1105 North Circle LLC",
+    "dba_name": "",
+    "ein": "33-2053216",
+    "entity_type": "LLC",
+    "tax_filing_type": "",
+    "status": "Active",
+    "physical_address": "1105 N Circle Dr",
+    "physical_city": "Colorado Springs",
+    "physical_state": "CO",
+    "physical_zip": "80909",
+    "mailing_address": "",
+    "business_phone": "",
+    "website": "",
+    "manager_name": "",
+    "manager_phone": "",
+    "manager_email": "",
+    "sos_number": "",
+    "sos_state": "",
+    "sos_renewal_date": null,
+    "partnership_splits": "",
+    "formation_date": null,
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.entity",
+  "pk": "NCPIC",
+  "fields": {
+    "legal_name": "North Circle Public Improvement Corporation LLC",
+    "dba_name": "",
+    "ein": "33-2925546",
+    "entity_type": "LLC",
+    "tax_filing_type": "",
+    "status": "Public improvement fund for 1105 North Circle",
+    "physical_address": "",
+    "physical_city": "",
+    "physical_state": "CO",
+    "physical_zip": "",
+    "mailing_address": "",
+    "business_phone": "",
+    "website": "",
+    "manager_name": "",
+    "manager_phone": "",
+    "manager_email": "",
+    "sos_number": "",
+    "sos_state": "",
+    "sos_renewal_date": null,
+    "partnership_splits": "",
+    "formation_date": null,
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.entity",
+  "pk": "NGB",
+  "fields": {
+    "legal_name": "NGB Solutions Consulting",
+    "dba_name": "",
+    "ein": "",
+    "entity_type": "Sole Proprietorship",
+    "tax_filing_type": "",
+    "status": "Active",
+    "physical_address": "",
+    "physical_city": "",
+    "physical_state": "OR",
+    "physical_zip": "",
+    "mailing_address": "",
+    "business_phone": "",
+    "website": "",
+    "manager_name": "",
+    "manager_phone": "",
+    "manager_email": "",
+    "sos_number": "",
+    "sos_state": "",
+    "sos_renewal_date": null,
+    "partnership_splits": "",
+    "formation_date": null,
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.entity",
+  "pk": "NWNINTH",
+  "fields": {
+    "legal_name": "NW Ninth LLC",
+    "dba_name": "",
+    "ein": "47-4243998",
+    "entity_type": "LLC",
+    "tax_filing_type": "",
+    "status": "Active",
+    "physical_address": "2200 NW 9th St",
+    "physical_city": "Corvallis",
+    "physical_state": "OR",
+    "physical_zip": "97330",
+    "mailing_address": "",
+    "business_phone": "",
+    "website": "",
+    "manager_name": "",
+    "manager_phone": "",
+    "manager_email": "",
+    "sos_number": "",
+    "sos_state": "",
+    "sos_renewal_date": null,
+    "partnership_splits": "",
+    "formation_date": null,
+    "notes": "Real estate holding - commercial"
+  }
+},
+{
+  "model": "deadlines.entity",
+  "pk": "PATLIQ",
+  "fields": {
+    "legal_name": "BG Capital LLC",
+    "dba_name": "Patriots Liquor",
+    "ein": "47-5087666",
+    "entity_type": "LLC",
+    "tax_filing_type": "",
+    "status": "Active",
+    "physical_address": "7935 Constitution Ave #140",
+    "physical_city": "Colorado Springs",
+    "physical_state": "CO",
+    "physical_zip": "80951",
+    "mailing_address": "",
+    "business_phone": "(719) 574-2050",
+    "website": "",
+    "manager_name": "",
+    "manager_phone": "",
+    "manager_email": "",
+    "sos_number": "",
+    "sos_state": "",
+    "sos_renewal_date": null,
+    "partnership_splits": "",
+    "formation_date": null,
+    "notes": "Retail liquor store"
+  }
+},
+{
+  "model": "deadlines.entity",
+  "pk": "PERSONAL",
+  "fields": {
+    "legal_name": "Personal",
+    "dba_name": "",
+    "ein": "",
+    "entity_type": "Personal",
+    "tax_filing_type": "",
+    "status": "Active",
+    "physical_address": "",
+    "physical_city": "",
+    "physical_state": "",
+    "physical_zip": "",
+    "mailing_address": "",
+    "business_phone": "",
+    "website": "",
+    "manager_name": "",
+    "manager_phone": "",
+    "manager_email": "",
+    "sos_number": "",
+    "sos_state": "",
+    "sos_renewal_date": null,
+    "partnership_splits": "",
+    "formation_date": null,
+    "notes": "Personal accounts"
+  }
+},
+{
+  "model": "deadlines.entity",
+  "pk": "RETREAT",
+  "fields": {
+    "legal_name": "Retreat Day Spa LLC",
+    "dba_name": "The Retreat",
+    "ein": "47-1171748",
+    "entity_type": "LLC",
+    "tax_filing_type": "",
+    "status": "Day spa in NW Ninth building (dissolved)",
+    "physical_address": "",
+    "physical_city": "",
+    "physical_state": "OR",
+    "physical_zip": "",
+    "mailing_address": "",
+    "business_phone": "",
+    "website": "",
+    "manager_name": "",
+    "manager_phone": "",
+    "manager_email": "",
+    "sos_number": "",
+    "sos_state": "",
+    "sos_renewal_date": null,
+    "partnership_splits": "",
+    "formation_date": null,
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.entity",
+  "pk": "TIMBER",
+  "fields": {
+    "legal_name": "Timberhill Sports LLC",
+    "dba_name": "Timberhill Athletic Club",
+    "ein": "82-3614475",
+    "entity_type": "LLC",
+    "tax_filing_type": "",
+    "status": "Active",
+    "physical_address": "2855 NW 29th St",
+    "physical_city": "Corvallis",
+    "physical_state": "OR",
+    "physical_zip": "97330-3516",
+    "mailing_address": "",
+    "business_phone": "(541) 757-8559",
+    "website": "",
+    "manager_name": "",
+    "manager_phone": "",
+    "manager_email": "",
+    "sos_number": "",
+    "sos_state": "",
+    "sos_renewal_date": null,
+    "partnership_splits": "",
+    "formation_date": null,
+    "notes": "Retail gym and health club"
+  }
+},
+{
+  "model": "deadlines.entity",
+  "pk": "XBIZ",
+  "fields": {
+    "legal_name": "Cross-Business",
+    "dba_name": "",
+    "ein": "",
+    "entity_type": "",
+    "tax_filing_type": "",
+    "status": "Cross-business items (payroll taxes etc)",
+    "physical_address": "",
+    "physical_city": "",
+    "physical_state": "",
+    "physical_zip": "",
+    "mailing_address": "",
+    "business_phone": "",
+    "website": "",
+    "manager_name": "",
+    "manager_phone": "",
+    "manager_email": "",
+    "sos_number": "",
+    "sos_state": "",
+    "sos_renewal_date": null,
+    "partnership_splits": "",
+    "formation_date": null,
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 1,
+  "fields": {
+    "title": "Colorado Sales Tax Filing",
+    "entity": "PATLIQ",
+    "category": "Sales Tax",
+    "frequency": "Monthly",
+    "next_due": "2026-02-20",
+    "due_day": 20,
+    "remind_days_before": 10,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": "8000.00",
+    "status": "Active",
+    "notes": "Due 20th of each month. If weekend/holiday, next business day.",
+    "created_at": "2026-01-20T01:34:06.396Z",
+    "updated_at": "2026-01-26T23:21:45.360Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 2,
+  "fields": {
+    "title": "Colorado Sales Tax Filing",
+    "entity": "CHEERS",
+    "category": "Sales Tax",
+    "frequency": "Monthly",
+    "next_due": "2026-02-20",
+    "due_day": 20,
+    "remind_days_before": 10,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": "8000.00",
+    "status": "Active",
+    "notes": "Due 20th of each month. If weekend/holiday, next business day. Oregon DOR: https://revenueonline.dor.oregon.gov/",
+    "created_at": "2026-01-20T01:34:06.398Z",
+    "updated_at": "2026-01-26T23:21:45.355Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 3,
+  "fields": {
+    "title": "Pacific Power (GXM Main)",
+    "entity": "GXM",
+    "category": "Utility",
+    "frequency": "Monthly",
+    "next_due": "2026-01-24",
+    "due_day": 24,
+    "remind_days_before": 7,
+    "autopay": false,
+    "account_number": "65040325-001 4",
+    "estimated_amount": "680.00",
+    "status": "Active",
+    "notes": "~24th monthly (variable 19 days after billing)",
+    "created_at": "2026-01-20T01:34:06.399Z",
+    "updated_at": "2026-01-20T01:34:06.399Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 4,
+  "fields": {
+    "title": "Pacific Power (GXM House)",
+    "entity": "GXM",
+    "category": "Utility",
+    "frequency": "Monthly",
+    "next_due": "2026-01-24",
+    "due_day": 24,
+    "remind_days_before": 7,
+    "autopay": false,
+    "account_number": "65040325-002 2",
+    "estimated_amount": "290.00",
+    "status": "Active",
+    "notes": "~24th monthly (variable 19 days after billing)",
+    "created_at": "2026-01-20T01:34:06.401Z",
+    "updated_at": "2026-01-20T01:34:06.401Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 5,
+  "fields": {
+    "title": "Pacific Power (NW Ninth Front)",
+    "entity": "NWNINTH",
+    "category": "Utility",
+    "frequency": "Monthly",
+    "next_due": "2026-01-23",
+    "due_day": 23,
+    "remind_days_before": 7,
+    "autopay": false,
+    "account_number": "65040325-004 8",
+    "estimated_amount": "520.00",
+    "status": "Active",
+    "notes": "~23rd monthly (variable 18 days after billing)",
+    "created_at": "2026-01-20T01:34:06.402Z",
+    "updated_at": "2026-01-20T01:34:06.402Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 6,
+  "fields": {
+    "title": "Pacific Power (NW Ninth Rear)",
+    "entity": "NWNINTH",
+    "category": "Utility",
+    "frequency": "Monthly",
+    "next_due": "2026-01-23",
+    "due_day": 23,
+    "remind_days_before": 7,
+    "autopay": false,
+    "account_number": "65040325-003 0",
+    "estimated_amount": "340.00",
+    "status": "Active",
+    "notes": "~23rd monthly (variable 18 days after billing)",
+    "created_at": "2026-01-20T01:34:06.403Z",
+    "updated_at": "2026-01-20T01:34:06.403Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 7,
+  "fields": {
+    "title": "Republic Services (GXM)",
+    "entity": "GXM",
+    "category": "Utility",
+    "frequency": "Monthly",
+    "next_due": "2026-01-20",
+    "due_day": 20,
+    "remind_days_before": 0,
+    "autopay": true,
+    "account_number": "3-0452-0049689",
+    "estimated_amount": "65.00",
+    "status": "Autopay",
+    "notes": "20th monthly (fixed)",
+    "created_at": "2026-01-20T01:34:06.404Z",
+    "updated_at": "2026-01-20T01:34:06.404Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 8,
+  "fields": {
+    "title": "City of Corvallis Water (NW Ninth + Timberhill)",
+    "entity": "NWNINTH",
+    "category": "Utility",
+    "frequency": "Monthly",
+    "next_due": "2026-01-26",
+    "due_day": 26,
+    "remind_days_before": 0,
+    "autopay": true,
+    "account_number": "554865-96810",
+    "estimated_amount": "400.00",
+    "status": "Autopay",
+    "notes": "26th monthly (fixed)",
+    "created_at": "2026-01-20T01:34:06.407Z",
+    "updated_at": "2026-01-20T01:34:06.407Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 9,
+  "fields": {
+    "title": "City of Corvallis Water (Four West)",
+    "entity": "FOURWEST",
+    "category": "Utility",
+    "frequency": "Monthly",
+    "next_due": "2026-01-26",
+    "due_day": 26,
+    "remind_days_before": 0,
+    "autopay": true,
+    "account_number": "558425-15450",
+    "estimated_amount": "150.00",
+    "status": "Autopay",
+    "notes": "26th monthly (fixed)",
+    "created_at": "2026-01-20T01:34:06.409Z",
+    "updated_at": "2026-01-20T01:34:06.409Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 10,
+  "fields": {
+    "title": "NW Natural (NW Ninth Main)",
+    "entity": "NWNINTH",
+    "category": "Utility",
+    "frequency": "Monthly",
+    "next_due": "2026-01-29",
+    "due_day": 29,
+    "remind_days_before": 0,
+    "autopay": true,
+    "account_number": "3354440-4",
+    "estimated_amount": "200.00",
+    "status": "Autopay",
+    "notes": "~29th monthly (variable 16 days after billing)",
+    "created_at": "2026-01-20T01:34:06.410Z",
+    "updated_at": "2026-01-20T01:34:06.410Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 11,
+  "fields": {
+    "title": "NW Natural (NW Ninth Front)",
+    "entity": "NWNINTH",
+    "category": "Utility",
+    "frequency": "Monthly",
+    "next_due": "2026-01-29",
+    "due_day": 29,
+    "remind_days_before": 0,
+    "autopay": true,
+    "account_number": "4499584-3",
+    "estimated_amount": "125.00",
+    "status": "Autopay",
+    "notes": "~29th monthly (variable)",
+    "created_at": "2026-01-20T01:34:06.411Z",
+    "updated_at": "2026-01-20T01:34:06.411Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 12,
+  "fields": {
+    "title": "Comcast Business (NW Ninth Front)",
+    "entity": "NWNINTH",
+    "category": "Utility",
+    "frequency": "Monthly",
+    "next_due": "2026-01-28",
+    "due_day": 28,
+    "remind_days_before": 0,
+    "autopay": true,
+    "account_number": "8778 10 601 2818009",
+    "estimated_amount": "190.00",
+    "status": "Autopay",
+    "notes": "~28th monthly (variable 20 days after billing)",
+    "created_at": "2026-01-20T01:34:06.413Z",
+    "updated_at": "2026-01-20T01:34:06.413Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 13,
+  "fields": {
+    "title": "Comcast Business (NW Ninth Back)",
+    "entity": "NWNINTH",
+    "category": "Utility",
+    "frequency": "Monthly",
+    "next_due": "2026-01-28",
+    "due_day": 28,
+    "remind_days_before": 0,
+    "autopay": true,
+    "account_number": "8778 10 601 2853261",
+    "estimated_amount": "190.00",
+    "status": "Autopay",
+    "notes": "~28th monthly (variable 20 days after billing)",
+    "created_at": "2026-01-20T01:34:06.414Z",
+    "updated_at": "2026-01-20T01:34:06.414Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 14,
+  "fields": {
+    "title": "Republic Services (NW Ninth)",
+    "entity": "NWNINTH",
+    "category": "Utility",
+    "frequency": "Monthly",
+    "next_due": "2026-01-20",
+    "due_day": 20,
+    "remind_days_before": 0,
+    "autopay": true,
+    "account_number": "3-0452-0087182",
+    "estimated_amount": "65.00",
+    "status": "Autopay",
+    "notes": "20th monthly (fixed)",
+    "created_at": "2026-01-20T01:34:06.416Z",
+    "updated_at": "2026-01-20T01:34:06.416Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 15,
+  "fields": {
+    "title": "Consumers Power (Timberhill)",
+    "entity": "TIMBER",
+    "category": "Utility",
+    "frequency": "Monthly",
+    "next_due": "2026-01-15",
+    "due_day": 15,
+    "remind_days_before": 7,
+    "autopay": false,
+    "account_number": "14241200",
+    "estimated_amount": "2850.00",
+    "status": "Active",
+    "notes": "15th monthly (fixed) autopay TBD",
+    "created_at": "2026-01-20T01:34:06.417Z",
+    "updated_at": "2026-01-20T01:34:06.417Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 16,
+  "fields": {
+    "title": "Colorado Springs Utilities (Patriots)",
+    "entity": "PATLIQ",
+    "category": "Utility",
+    "frequency": "Monthly",
+    "next_due": "2026-02-02",
+    "due_day": 2,
+    "remind_days_before": 0,
+    "autopay": true,
+    "account_number": "2195915859",
+    "estimated_amount": "400.00",
+    "status": "Autopay",
+    "notes": "~2nd of month (autopay)",
+    "created_at": "2026-01-20T01:34:06.419Z",
+    "updated_at": "2026-01-20T01:34:06.419Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 17,
+  "fields": {
+    "title": "Mountain View Electric (Patriots)",
+    "entity": "PATLIQ",
+    "category": "Utility",
+    "frequency": "Monthly",
+    "next_due": "2026-01-15",
+    "due_day": 15,
+    "remind_days_before": 0,
+    "autopay": true,
+    "account_number": "104650200",
+    "estimated_amount": "300.00",
+    "status": "Autopay",
+    "notes": "variable (autopay enrolled)",
+    "created_at": "2026-01-20T01:34:06.420Z",
+    "updated_at": "2026-01-20T01:34:06.420Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 18,
+  "fields": {
+    "title": "NW Natural Gas (Personal)",
+    "entity": "PERSONAL",
+    "category": "Utility",
+    "frequency": "Monthly",
+    "next_due": "2026-02-06",
+    "due_day": 6,
+    "remind_days_before": 0,
+    "autopay": true,
+    "account_number": "4666744-0",
+    "estimated_amount": "150.00",
+    "status": "Autopay",
+    "notes": "~6th-7th monthly autopay pulls 3rd",
+    "created_at": "2026-01-20T01:34:06.421Z",
+    "updated_at": "2026-01-20T11:41:28.435Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 19,
+  "fields": {
+    "title": "Consumers Power Electric (Personal)",
+    "entity": "PERSONAL",
+    "category": "Utility",
+    "frequency": "Monthly",
+    "next_due": "2026-01-15",
+    "due_day": 15,
+    "remind_days_before": 0,
+    "autopay": true,
+    "account_number": "15441500",
+    "estimated_amount": "200.00",
+    "status": "Autopay",
+    "notes": "15th monthly autopay pulls 12th",
+    "created_at": "2026-01-20T01:34:06.422Z",
+    "updated_at": "2026-01-20T01:34:06.422Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 20,
+  "fields": {
+    "title": "Xfinity Internet (Personal)",
+    "entity": "PERSONAL",
+    "category": "Utility",
+    "frequency": "Monthly",
+    "next_due": "2026-01-15",
+    "due_day": 15,
+    "remind_days_before": 0,
+    "autopay": true,
+    "account_number": "8778 10 601 3168586",
+    "estimated_amount": "100.00",
+    "status": "Autopay",
+    "notes": "15th monthly (fixed)",
+    "created_at": "2026-01-20T01:34:06.424Z",
+    "updated_at": "2026-01-20T01:34:06.424Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 21,
+  "fields": {
+    "title": "Xfinity Mobile (Personal)",
+    "entity": "PERSONAL",
+    "category": "Utility",
+    "frequency": "Monthly",
+    "next_due": "2026-01-16",
+    "due_day": 16,
+    "remind_days_before": 0,
+    "autopay": true,
+    "account_number": "2000354972",
+    "estimated_amount": "150.00",
+    "status": "Autopay",
+    "notes": "~16th monthly (variable 20 days after billing)",
+    "created_at": "2026-01-20T01:34:06.425Z",
+    "updated_at": "2026-01-20T01:34:06.425Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 22,
+  "fields": {
+    "title": "Republic Services Trash (Personal)",
+    "entity": "PERSONAL",
+    "category": "Utility",
+    "frequency": "Monthly",
+    "next_due": "2026-01-20",
+    "due_day": 20,
+    "remind_days_before": 0,
+    "autopay": true,
+    "account_number": "3-0452-0108699",
+    "estimated_amount": "65.00",
+    "status": "Autopay",
+    "notes": "20th monthly (fixed)",
+    "created_at": "2026-01-20T01:34:06.426Z",
+    "updated_at": "2026-01-20T01:34:06.426Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 23,
+  "fields": {
+    "title": "Quarterly IRS Estimates",
+    "entity": "PERSONAL",
+    "category": "Tax Filing",
+    "frequency": "Quarterly",
+    "next_due": "2026-01-15",
+    "due_day": 15,
+    "remind_days_before": 7,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": "10000.00",
+    "status": "Active",
+    "notes": "15th of Jan/Apr/Jun/Sep",
+    "created_at": "2026-01-20T01:34:06.427Z",
+    "updated_at": "2026-01-20T01:34:06.427Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 24,
+  "fields": {
+    "title": "Form 941 Federal Payroll Tax",
+    "entity": "XBIZ",
+    "category": "Tax Filing",
+    "frequency": "Quarterly",
+    "next_due": "2026-01-31",
+    "due_day": 31,
+    "remind_days_before": 7,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": "0.00",
+    "status": "Active",
+    "notes": "Last day of month following quarter end - Paychex handles",
+    "created_at": "2026-01-20T01:34:06.428Z",
+    "updated_at": "2026-01-20T01:34:06.428Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 25,
+  "fields": {
+    "title": "Colorado FAMLI (Patriots)",
+    "entity": "PATLIQ",
+    "category": "Tax Filing",
+    "frequency": "Quarterly",
+    "next_due": "2026-01-30",
+    "due_day": 30,
+    "remind_days_before": 7,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": "0.00",
+    "status": "Active",
+    "notes": "Quarterly filing for paid leave",
+    "created_at": "2026-01-20T01:34:06.429Z",
+    "updated_at": "2026-01-20T01:34:06.429Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 26,
+  "fields": {
+    "title": "Colorado FAMLI (Cheers)",
+    "entity": "CHEERS",
+    "category": "Tax Filing",
+    "frequency": "Quarterly",
+    "next_due": "2026-01-30",
+    "due_day": 30,
+    "remind_days_before": 7,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": "0.00",
+    "status": "Active",
+    "notes": "Quarterly filing for paid leave",
+    "created_at": "2026-01-20T01:34:06.431Z",
+    "updated_at": "2026-01-20T01:34:06.431Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 27,
+  "fields": {
+    "title": "GXM LLC Annual Report",
+    "entity": "GXM",
+    "category": "SOS Filing",
+    "frequency": "Annual",
+    "next_due": "2026-12-15",
+    "due_day": 15,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "81973894",
+    "estimated_amount": "100.00",
+    "status": "Active",
+    "notes": "Oregon SOS annual report",
+    "created_at": "2026-01-20T01:34:06.432Z",
+    "updated_at": "2026-01-20T01:34:06.432Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 28,
+  "fields": {
+    "title": "GXM ABN (G3 Sports & Fitness)",
+    "entity": "GXM",
+    "category": "SOS Filing",
+    "frequency": "Biennial",
+    "next_due": "2027-02-27",
+    "due_day": 27,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": "50.00",
+    "status": "Active",
+    "notes": "Assumed Business Name renewal",
+    "created_at": "2026-01-20T01:34:06.433Z",
+    "updated_at": "2026-01-20T01:34:06.433Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 29,
+  "fields": {
+    "title": "NW Ninth LLC Annual Report",
+    "entity": "NWNINTH",
+    "category": "SOS Filing",
+    "frequency": "Annual",
+    "next_due": "2026-06-11",
+    "due_day": 11,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "1120623-93",
+    "estimated_amount": "100.00",
+    "status": "Active",
+    "notes": "Oregon SOS annual report",
+    "created_at": "2026-01-20T01:34:06.434Z",
+    "updated_at": "2026-01-20T01:34:06.434Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 30,
+  "fields": {
+    "title": "Timberhill Sports LLC Annual Report",
+    "entity": "TIMBER",
+    "category": "SOS Filing",
+    "frequency": "Annual",
+    "next_due": "2026-08-09",
+    "due_day": 9,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "135021392",
+    "estimated_amount": "100.00",
+    "status": "Active",
+    "notes": "Oregon SOS annual report",
+    "created_at": "2026-01-20T01:34:06.435Z",
+    "updated_at": "2026-01-20T01:34:06.435Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 31,
+  "fields": {
+    "title": "Huckberry LLC Annual Report",
+    "entity": "TIMBER",
+    "category": "SOS Filing",
+    "frequency": "Annual",
+    "next_due": "2026-08-09",
+    "due_day": 9,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "1350204-93",
+    "estimated_amount": "100.00",
+    "status": "Active",
+    "notes": "Real estate holding for Timberhill",
+    "created_at": "2026-01-20T01:34:06.436Z",
+    "updated_at": "2026-01-20T01:34:06.436Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 32,
+  "fields": {
+    "title": "Four West LLC Annual Report",
+    "entity": "FOURWEST",
+    "category": "SOS Filing",
+    "frequency": "Annual",
+    "next_due": "2026-07-12",
+    "due_day": 12,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "123233496",
+    "estimated_amount": "100.00",
+    "status": "Active",
+    "notes": "Oregon SOS annual report",
+    "created_at": "2026-01-20T01:34:06.437Z",
+    "updated_at": "2026-01-20T01:34:06.437Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 33,
+  "fields": {
+    "title": "Firs Housing LLC Annual Report",
+    "entity": "FIRS",
+    "category": "SOS Filing",
+    "frequency": "Annual",
+    "next_due": "2026-07-21",
+    "due_day": 21,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": "100.00",
+    "status": "Active",
+    "notes": "Oregon SOS annual report",
+    "created_at": "2026-01-20T01:34:06.438Z",
+    "updated_at": "2026-01-20T01:34:06.438Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 34,
+  "fields": {
+    "title": "Retreat Day Spa LLC Annual Report",
+    "entity": "PERSONAL",
+    "category": "SOS Filing",
+    "frequency": "Annual",
+    "next_due": "2026-06-23",
+    "due_day": 23,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": "100.00",
+    "status": "Active",
+    "notes": "Verify status - wound up during COVID",
+    "created_at": "2026-01-20T01:34:06.439Z",
+    "updated_at": "2026-01-20T01:34:06.439Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 35,
+  "fields": {
+    "title": "BG Capital LLC Periodic Report",
+    "entity": "PATLIQ",
+    "category": "SOS Filing",
+    "frequency": "Annual",
+    "next_due": "2026-09-09",
+    "due_day": 9,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "20151595484",
+    "estimated_amount": "25.00",
+    "status": "Active",
+    "notes": "Colorado SOS - last filed 09/09/2025",
+    "created_at": "2026-01-20T01:34:06.440Z",
+    "updated_at": "2026-01-20T01:34:06.440Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 36,
+  "fields": {
+    "title": "Victory Spirits LLC Biennial Report",
+    "entity": "CHEERS",
+    "category": "SOS Filing",
+    "frequency": "Biennial",
+    "next_due": "2026-11-18",
+    "due_day": 18,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "20248215072",
+    "estimated_amount": "25.00",
+    "status": "Active",
+    "notes": "Colorado SOS - formed Nov 2024",
+    "created_at": "2026-01-20T01:34:06.442Z",
+    "updated_at": "2026-01-20T01:34:06.442Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 37,
+  "fields": {
+    "title": "1105 North Circle LLC Biennial Report",
+    "entity": "NC1105",
+    "category": "SOS Filing",
+    "frequency": "Biennial",
+    "next_due": "2026-11-18",
+    "due_day": 18,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "20248215095",
+    "estimated_amount": "25.00",
+    "status": "Active",
+    "notes": "Real estate holding for Cheers",
+    "created_at": "2026-01-20T01:34:06.443Z",
+    "updated_at": "2026-01-20T01:34:06.443Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 38,
+  "fields": {
+    "title": "North Circle PIC LLC Biennial Report",
+    "entity": "NCPIC",
+    "category": "SOS Filing",
+    "frequency": "Biennial",
+    "next_due": "2027-01-17",
+    "due_day": 17,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "20251058921",
+    "estimated_amount": "25.00",
+    "status": "Active",
+    "notes": "Public Improvement Fund for 1105 North Circle",
+    "created_at": "2026-01-20T01:34:06.445Z",
+    "updated_at": "2026-01-20T01:34:06.445Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 39,
+  "fields": {
+    "title": "Property Tax - NW Ninth 2200 NW 9th",
+    "entity": "NWNINTH",
+    "category": "Property Tax",
+    "frequency": "Annual",
+    "next_due": "2026-11-15",
+    "due_day": 15,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "063457",
+    "estimated_amount": "13168.00",
+    "status": "Active",
+    "notes": "Full payment Nov 15 for 3% discount",
+    "created_at": "2026-01-20T01:34:06.446Z",
+    "updated_at": "2026-01-20T01:34:06.446Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 40,
+  "fields": {
+    "title": "Property Tax - NW Ninth 907 Sycamore",
+    "entity": "NWNINTH",
+    "category": "Property Tax",
+    "frequency": "Annual",
+    "next_due": "2026-11-15",
+    "due_day": 15,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "063465",
+    "estimated_amount": "4755.00",
+    "status": "Active",
+    "notes": "Full payment Nov 15 for 3% discount",
+    "created_at": "2026-01-20T01:34:06.447Z",
+    "updated_at": "2026-01-20T01:34:06.447Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 41,
+  "fields": {
+    "title": "Property Tax - GXM Personal Property",
+    "entity": "GXM",
+    "category": "Property Tax",
+    "frequency": "Annual",
+    "next_due": "2026-11-15",
+    "due_day": 15,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "701877",
+    "estimated_amount": "3074.00",
+    "status": "Active",
+    "notes": "Full payment Nov 15 for 3% discount",
+    "created_at": "2026-01-20T01:34:06.448Z",
+    "updated_at": "2026-01-20T01:34:06.448Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 42,
+  "fields": {
+    "title": "Property Tax - GXM 5520 NW Hwy 99W",
+    "entity": "GXM",
+    "category": "Property Tax",
+    "frequency": "Annual",
+    "next_due": "2026-11-15",
+    "due_day": 15,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "042634",
+    "estimated_amount": "33439.00",
+    "status": "Active",
+    "notes": "Full payment Nov 15 for 3% discount",
+    "created_at": "2026-01-20T01:34:06.449Z",
+    "updated_at": "2026-01-20T01:34:06.449Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 43,
+  "fields": {
+    "title": "Property Tax - GXM 5640 NW Hwy 99W",
+    "entity": "GXM",
+    "category": "Property Tax",
+    "frequency": "Annual",
+    "next_due": "2026-11-15",
+    "due_day": 15,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "042642",
+    "estimated_amount": "5699.00",
+    "status": "Active",
+    "notes": "Full payment Nov 15 for 3% discount",
+    "created_at": "2026-01-20T01:34:06.450Z",
+    "updated_at": "2026-01-20T01:34:06.450Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 44,
+  "fields": {
+    "title": "Property Tax - Timberhill 2865 NW 29th",
+    "entity": "TIMBER",
+    "category": "Property Tax",
+    "frequency": "Annual",
+    "next_due": "2026-11-15",
+    "due_day": 15,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "049613",
+    "estimated_amount": "75796.00",
+    "status": "Active",
+    "notes": "Beth handles installments",
+    "created_at": "2026-01-20T01:34:06.451Z",
+    "updated_at": "2026-01-20T01:34:06.451Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 45,
+  "fields": {
+    "title": "Property Tax - Timberhill Personal Property",
+    "entity": "TIMBER",
+    "category": "Tax Filing",
+    "frequency": "Annual",
+    "next_due": "2026-11-15",
+    "due_day": 15,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "036623",
+    "estimated_amount": "3090.00",
+    "status": "Active",
+    "notes": "Region: Oregon - Benton County",
+    "created_at": "2026-01-20T01:34:06.453Z",
+    "updated_at": "2026-01-26T19:23:01.386Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 46,
+  "fields": {
+    "title": "CO Sales Tax License - Cheers CO Springs",
+    "entity": "CHEERS",
+    "category": "License",
+    "frequency": "Annual",
+    "next_due": "2026-12-31",
+    "due_day": 31,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "00092998",
+    "estimated_amount": "16.00",
+    "status": "Active",
+    "notes": "Expires December 31 annually",
+    "created_at": "2026-01-20T01:34:06.453Z",
+    "updated_at": "2026-01-20T01:34:06.453Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 47,
+  "fields": {
+    "title": "CO Sales Tax License - Cheers Denver",
+    "entity": "CHEERS",
+    "category": "License",
+    "frequency": "Annual",
+    "next_due": "2026-12-31",
+    "due_day": 31,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "513738",
+    "estimated_amount": "16.00",
+    "status": "Active",
+    "notes": "Expires December 31 annually",
+    "created_at": "2026-01-20T01:34:06.454Z",
+    "updated_at": "2026-01-20T01:34:06.454Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 48,
+  "fields": {
+    "title": "CO Sales Tax License - Patriots CO Springs",
+    "entity": "PATLIQ",
+    "category": "License",
+    "frequency": "Annual",
+    "next_due": "2026-12-31",
+    "due_day": 31,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "29910166",
+    "estimated_amount": "16.00",
+    "status": "Active",
+    "notes": "Expires December 31 annually",
+    "created_at": "2026-01-20T01:34:06.455Z",
+    "updated_at": "2026-01-20T01:34:06.455Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 49,
+  "fields": {
+    "title": "Colorado Lottery License (Cheers)",
+    "entity": "CHEERS",
+    "category": "License",
+    "frequency": "Annual",
+    "next_due": "2026-02-07",
+    "due_day": 7,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "140408",
+    "estimated_amount": "100.00",
+    "status": "Active",
+    "notes": "Expires 02/07/2026",
+    "created_at": "2026-01-20T01:34:06.457Z",
+    "updated_at": "2026-01-20T01:34:06.457Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 50,
+  "fields": {
+    "title": "Tobacco/Nicotine Retailer (Cheers)",
+    "entity": "CHEERS",
+    "category": "License",
+    "frequency": "Annual",
+    "next_due": "2026-02-05",
+    "due_day": 5,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "TOB-007248",
+    "estimated_amount": "50.00",
+    "status": "Active",
+    "notes": "Expires 02/05/2026",
+    "created_at": "2026-01-20T01:34:06.458Z",
+    "updated_at": "2026-01-20T01:34:06.458Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 51,
+  "fields": {
+    "title": "Tobacco Retailer (Patriots)",
+    "entity": "PATLIQ",
+    "category": "License",
+    "frequency": "Annual",
+    "next_due": "2026-02-05",
+    "due_day": 5,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "TOB-007248",
+    "estimated_amount": "50.00",
+    "status": "Active",
+    "notes": "Expires 02/05/2026",
+    "created_at": "2026-01-20T01:34:06.459Z",
+    "updated_at": "2026-01-20T01:34:06.459Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 52,
+  "fields": {
+    "title": "Insurance Property/GL/Liquor (Cheers)",
+    "entity": "CHEERS",
+    "category": "Insurance",
+    "frequency": "Annual",
+    "next_due": "2026-02-06",
+    "due_day": 6,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": "12000.00",
+    "status": "Active",
+    "notes": "Cincinnati Insurance - start reviewing quotes in January",
+    "created_at": "2026-01-20T01:34:06.460Z",
+    "updated_at": "2026-01-20T01:34:06.460Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 53,
+  "fields": {
+    "title": "Insurance Commercial Auto (Cheers)",
+    "entity": "CHEERS",
+    "category": "Insurance",
+    "frequency": "Annual",
+    "next_due": "2026-02-06",
+    "due_day": 6,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": "3000.00",
+    "status": "Active",
+    "notes": "Progressive",
+    "created_at": "2026-01-20T01:34:06.461Z",
+    "updated_at": "2026-01-20T01:34:06.461Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 54,
+  "fields": {
+    "title": "Insurance Workers Comp (Cheers)",
+    "entity": "CHEERS",
+    "category": "Insurance",
+    "frequency": "Annual",
+    "next_due": "2026-02-07",
+    "due_day": 7,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": "5000.00",
+    "status": "Active",
+    "notes": "Pinnacol",
+    "created_at": "2026-01-20T01:34:06.462Z",
+    "updated_at": "2026-01-20T01:34:06.462Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 55,
+  "fields": {
+    "title": "Insurance Workers Comp (GXM)",
+    "entity": "GXM",
+    "category": "Insurance",
+    "frequency": "Annual",
+    "next_due": "2026-03-01",
+    "due_day": 1,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": "8000.00",
+    "status": "Active",
+    "notes": "Employers Insurance - audit requests Apr-May",
+    "created_at": "2026-01-20T01:34:06.463Z",
+    "updated_at": "2026-01-20T01:34:06.463Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 56,
+  "fields": {
+    "title": "Insurance Workers Comp (Timberhill)",
+    "entity": "TIMBER",
+    "category": "Insurance",
+    "frequency": "Annual",
+    "next_due": "2026-04-01",
+    "due_day": 1,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": "15000.00",
+    "status": "Active",
+    "notes": "SAIF Oregon",
+    "created_at": "2026-01-20T01:34:06.464Z",
+    "updated_at": "2026-01-20T01:34:06.464Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 57,
+  "fields": {
+    "title": "Insurance Commercial Package (Timberhill)",
+    "entity": "TIMBER",
+    "category": "Insurance",
+    "frequency": "Annual",
+    "next_due": "2026-12-28",
+    "due_day": 28,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": "25000.00",
+    "status": "Active",
+    "notes": "Philadelphia Indemnity GL/Property - quarterly payment",
+    "created_at": "2026-01-20T01:34:06.465Z",
+    "updated_at": "2026-01-20T01:34:06.465Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 58,
+  "fields": {
+    "title": "Insurance Liquor Liability (Timberhill)",
+    "entity": "TIMBER",
+    "category": "Insurance",
+    "frequency": "Annual",
+    "next_due": "2026-04-19",
+    "due_day": 19,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": "3000.00",
+    "status": "Active",
+    "notes": "Mt Vernon Fire Insurance",
+    "created_at": "2026-01-20T01:34:06.466Z",
+    "updated_at": "2026-01-20T01:34:06.466Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 59,
+  "fields": {
+    "title": "W-2/1099 Filing Deadline",
+    "entity": "XBIZ",
+    "category": "Payroll",
+    "frequency": "Annual",
+    "next_due": "2026-01-31",
+    "due_day": 31,
+    "remind_days_before": 14,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": "0.00",
+    "status": "Active",
+    "notes": "For prior year - Paychex handles for GXM Timberhill Patriots",
+    "created_at": "2026-01-20T01:34:06.467Z",
+    "updated_at": "2026-01-20T01:34:06.467Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 60,
+  "fields": {
+    "title": "Oregon Annual Report (OQ)",
+    "entity": "XBIZ",
+    "category": "Payroll",
+    "frequency": "Annual",
+    "next_due": "2026-01-31",
+    "due_day": 31,
+    "remind_days_before": 14,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": "0.00",
+    "status": "Active",
+    "notes": "Due with Q4 filing",
+    "created_at": "2026-01-20T01:34:06.469Z",
+    "updated_at": "2026-01-20T01:34:06.469Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 61,
+  "fields": {
+    "title": "Colorado Annual Reconciliation",
+    "entity": "XBIZ",
+    "category": "Payroll",
+    "frequency": "Annual",
+    "next_due": "2026-01-31",
+    "due_day": 31,
+    "remind_days_before": 14,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": "0.00",
+    "status": "Active",
+    "notes": "Due with Q4 filing (Patriots Cheers)",
+    "created_at": "2026-01-20T01:34:06.470Z",
+    "updated_at": "2026-01-20T01:34:06.470Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 62,
+  "fields": {
+    "title": "Thanksgiving Bonus Planning",
+    "entity": "XBIZ",
+    "category": "Seasonal",
+    "frequency": "Annual",
+    "next_due": "2026-10-31",
+    "due_day": 31,
+    "remind_days_before": 7,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": "0.00",
+    "status": "Active",
+    "notes": "End of October annually",
+    "created_at": "2026-01-20T01:34:06.471Z",
+    "updated_at": "2026-01-20T01:34:06.471Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 63,
+  "fields": {
+    "title": "Christmas Bonus Planning",
+    "entity": "XBIZ",
+    "category": "Seasonal",
+    "frequency": "Annual",
+    "next_due": "2026-12-01",
+    "due_day": 1,
+    "remind_days_before": 7,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": "0.00",
+    "status": "Active",
+    "notes": "First Monday after Thanksgiving",
+    "created_at": "2026-01-20T01:34:06.472Z",
+    "updated_at": "2026-01-20T01:34:06.472Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 64,
+  "fields": {
+    "title": "General Liability & Property Renewal",
+    "entity": "CHEERS",
+    "category": "Insurance",
+    "frequency": "Annual",
+    "next_due": "2026-02-06",
+    "due_day": null,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Carrier: Auto-Owners Insurance",
+    "created_at": "2026-01-26T19:23:01.325Z",
+    "updated_at": "2026-01-26T19:23:01.325Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 65,
+  "fields": {
+    "title": "Commercial Auto Renewal",
+    "entity": "CHEERS",
+    "category": "Insurance",
+    "frequency": "Annual",
+    "next_due": "2026-02-06",
+    "due_day": null,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Carrier: Progressive (Artisan and Truckers Casualty Co)",
+    "created_at": "2026-01-26T19:23:01.327Z",
+    "updated_at": "2026-01-26T19:23:01.327Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 66,
+  "fields": {
+    "title": "Workers Compensation Renewal",
+    "entity": "CHEERS",
+    "category": "Insurance",
+    "frequency": "Annual",
+    "next_due": "2026-02-07",
+    "due_day": null,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Carrier: Pinnacol",
+    "created_at": "2026-01-26T19:23:01.329Z",
+    "updated_at": "2026-01-26T19:23:01.329Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 67,
+  "fields": {
+    "title": "Commercial Package (Philadelphia Insurance) Renewal",
+    "entity": "GXM",
+    "category": "Insurance",
+    "frequency": "Annual",
+    "next_due": "2025-03-01",
+    "due_day": null,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Carrier: Philadelphia Insurance",
+    "created_at": "2026-01-26T19:23:01.330Z",
+    "updated_at": "2026-01-26T19:23:01.330Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 68,
+  "fields": {
+    "title": "Umbrella Renewal",
+    "entity": "GXM",
+    "category": "Insurance",
+    "frequency": "Annual",
+    "next_due": "2025-03-01",
+    "due_day": null,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Carrier: Philadelphia Insurance",
+    "created_at": "2026-01-26T19:23:01.332Z",
+    "updated_at": "2026-01-26T19:23:01.332Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 69,
+  "fields": {
+    "title": "Employment Practices Liability Renewal",
+    "entity": "GXM",
+    "category": "Insurance",
+    "frequency": "Annual",
+    "next_due": "2025-03-01",
+    "due_day": null,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Carrier: Philadelphia Insurance",
+    "created_at": "2026-01-26T19:23:01.333Z",
+    "updated_at": "2026-01-26T19:23:01.333Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 70,
+  "fields": {
+    "title": "Workers Compensation Renewal",
+    "entity": "GXM",
+    "category": "Insurance",
+    "frequency": "Annual",
+    "next_due": "2025-03-11",
+    "due_day": null,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Carrier: Employers Preferred Insurance Company",
+    "created_at": "2026-01-26T19:23:01.335Z",
+    "updated_at": "2026-01-26T19:23:01.335Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 71,
+  "fields": {
+    "title": "Dwelling and Liability (Retreat) Renewal",
+    "entity": "GXM",
+    "category": "Insurance",
+    "frequency": "Annual",
+    "next_due": "2025-05-05",
+    "due_day": null,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Carrier: Westchester Surplus Lines",
+    "created_at": "2026-01-26T19:23:01.337Z",
+    "updated_at": "2026-01-26T19:23:01.337Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 72,
+  "fields": {
+    "title": "Commercial Package (General Liability & Property) Renewal",
+    "entity": "TIMBER",
+    "category": "Insurance",
+    "frequency": "Annual",
+    "next_due": "2024-12-28",
+    "due_day": null,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Carrier: Venture Insurance Programs",
+    "created_at": "2026-01-26T19:23:01.338Z",
+    "updated_at": "2026-01-26T19:23:01.338Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 73,
+  "fields": {
+    "title": "Excess/Umbrella Liability Renewal",
+    "entity": "TIMBER",
+    "category": "Insurance",
+    "frequency": "Annual",
+    "next_due": "2024-12-28",
+    "due_day": null,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Carrier: Venture Insurance Programs",
+    "created_at": "2026-01-26T19:23:01.340Z",
+    "updated_at": "2026-01-26T19:23:01.340Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 74,
+  "fields": {
+    "title": "Liquor Liability Renewal",
+    "entity": "TIMBER",
+    "category": "Insurance",
+    "frequency": "Annual",
+    "next_due": "2025-04-19",
+    "due_day": null,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Carrier: Everspan Indemnity Insurance",
+    "created_at": "2026-01-26T19:23:01.341Z",
+    "updated_at": "2026-01-26T19:23:01.341Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 75,
+  "fields": {
+    "title": "Workers Compensation Renewal",
+    "entity": "TIMBER",
+    "category": "Insurance",
+    "frequency": "Annual",
+    "next_due": "2026-01-26",
+    "due_day": null,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Carrier: SAIF Oregon",
+    "created_at": "2026-01-26T19:23:01.344Z",
+    "updated_at": "2026-01-26T19:23:01.344Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 76,
+  "fields": {
+    "title": "Property, GL, Liquor Liability, EPLI, Umbrella Renewal",
+    "entity": "PATLIQ",
+    "category": "Insurance",
+    "frequency": "Annual",
+    "next_due": "2024-12-21",
+    "due_day": null,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Carrier: Hartford Insurance",
+    "created_at": "2026-01-26T19:23:01.345Z",
+    "updated_at": "2026-01-26T19:23:01.345Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 77,
+  "fields": {
+    "title": "Workers Compensation Renewal",
+    "entity": "PATLIQ",
+    "category": "Insurance",
+    "frequency": "Annual",
+    "next_due": "2025-04-01",
+    "due_day": null,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Carrier: Pinnacle Assurance",
+    "created_at": "2026-01-26T19:23:01.346Z",
+    "updated_at": "2026-01-26T19:23:01.346Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 78,
+  "fields": {
+    "title": "Businessowners Policy Renewal",
+    "entity": "NWNINTH",
+    "category": "Insurance",
+    "frequency": "Annual",
+    "next_due": "2026-01-26",
+    "due_day": null,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Carrier: State Farm / American Family",
+    "created_at": "2026-01-26T19:23:01.348Z",
+    "updated_at": "2026-01-26T19:23:01.348Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 79,
+  "fields": {
+    "title": "Colorado Sales Tax License - Colorado Springs Expiration",
+    "entity": "CHEERS",
+    "category": "License",
+    "frequency": "Annual",
+    "next_due": "2025-12-31",
+    "due_day": null,
+    "remind_days_before": 60,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Authority: City of Colorado Springs, Dept of Finance",
+    "created_at": "2026-01-26T19:23:01.349Z",
+    "updated_at": "2026-01-26T19:23:01.349Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 80,
+  "fields": {
+    "title": "Colorado Sales Tax License - Denver Expiration",
+    "entity": "CHEERS",
+    "category": "License",
+    "frequency": "Annual",
+    "next_due": "2025-12-31",
+    "due_day": null,
+    "remind_days_before": 60,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Authority: City and County of Denver",
+    "created_at": "2026-01-26T19:23:01.351Z",
+    "updated_at": "2026-01-26T19:23:01.351Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 81,
+  "fields": {
+    "title": "Colorado Lottery License Expiration",
+    "entity": "CHEERS",
+    "category": "License",
+    "frequency": "Annual",
+    "next_due": "2026-02-07",
+    "due_day": null,
+    "remind_days_before": 60,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Authority: Colorado Dept of Revenue",
+    "created_at": "2026-01-26T19:23:01.353Z",
+    "updated_at": "2026-01-26T19:23:01.353Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 82,
+  "fields": {
+    "title": "Tobacco/Nicotine Retailer License Expiration",
+    "entity": "CHEERS",
+    "category": "License",
+    "frequency": "Annual",
+    "next_due": "2026-02-05",
+    "due_day": null,
+    "remind_days_before": 60,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Authority: Colorado Liquor & Tobacco Enforcement",
+    "created_at": "2026-01-26T19:23:01.354Z",
+    "updated_at": "2026-01-26T19:23:01.354Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 83,
+  "fields": {
+    "title": "Colorado Sales Tax License Expiration",
+    "entity": "PATLIQ",
+    "category": "License",
+    "frequency": "Annual",
+    "next_due": "2025-12-31",
+    "due_day": null,
+    "remind_days_before": 60,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Authority: Colorado Department of Revenue",
+    "created_at": "2026-01-26T19:23:01.356Z",
+    "updated_at": "2026-01-26T19:23:01.356Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 84,
+  "fields": {
+    "title": "Retail Liquor License Expiration",
+    "entity": "PATLIQ",
+    "category": "License",
+    "frequency": "Annual",
+    "next_due": "2026-05-10",
+    "due_day": null,
+    "remind_days_before": 60,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Authority: Colorado Dept of Revenue (County)",
+    "created_at": "2026-01-26T19:23:01.358Z",
+    "updated_at": "2026-01-26T19:23:01.358Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 85,
+  "fields": {
+    "title": "Tobacco Retailer License Expiration",
+    "entity": "PATLIQ",
+    "category": "License",
+    "frequency": "Annual",
+    "next_due": "2026-06-29",
+    "due_day": null,
+    "remind_days_before": 60,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Authority: Colorado Liquor & Tobacco Enforcement",
+    "created_at": "2026-01-26T19:23:01.360Z",
+    "updated_at": "2026-01-26T19:23:01.360Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 86,
+  "fields": {
+    "title": "Oregon Assumed Business Name (G3 Sports & Fitness) Expiration",
+    "entity": "GXM",
+    "category": "License",
+    "frequency": "Annual",
+    "next_due": "2025-02-27",
+    "due_day": null,
+    "remind_days_before": 60,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Authority: Oregon Secretary of State",
+    "created_at": "2026-01-26T19:23:01.361Z",
+    "updated_at": "2026-01-26T19:23:01.361Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 87,
+  "fields": {
+    "title": "Loan Payment - —",
+    "entity": "FOURWEST",
+    "category": "Loan Payment",
+    "frequency": "Monthly",
+    "next_due": "2026-02-01",
+    "due_day": 1,
+    "remind_days_before": 5,
+    "autopay": false,
+    "account_number": "871009323",
+    "estimated_amount": "4607.15",
+    "status": "Active",
+    "notes": "Lender: —",
+    "created_at": "2026-01-26T19:23:01.362Z",
+    "updated_at": "2026-01-26T19:23:01.362Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 88,
+  "fields": {
+    "title": "Loan Payment - —",
+    "entity": "TIMBER",
+    "category": "Loan Payment",
+    "frequency": "Monthly",
+    "next_due": "2026-02-01",
+    "due_day": 1,
+    "remind_days_before": 5,
+    "autopay": false,
+    "account_number": "871009297",
+    "estimated_amount": "27989.69",
+    "status": "Active",
+    "notes": "Lender: —",
+    "created_at": "2026-01-26T19:23:01.364Z",
+    "updated_at": "2026-01-26T19:23:01.364Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 89,
+  "fields": {
+    "title": "Loan Payment - Beneficial State Bank",
+    "entity": "NWNINTH",
+    "category": "Loan Payment",
+    "frequency": "Monthly",
+    "next_due": "2026-02-01",
+    "due_day": 1,
+    "remind_days_before": 5,
+    "autopay": false,
+    "account_number": "200534001",
+    "estimated_amount": "5753.48",
+    "status": "Active",
+    "notes": "Lender: Beneficial State Bank",
+    "created_at": "2026-01-26T19:23:01.366Z",
+    "updated_at": "2026-01-26T19:23:01.366Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 90,
+  "fields": {
+    "title": "Loan Payment - —",
+    "entity": "NWNINTH",
+    "category": "Loan Payment",
+    "frequency": "Monthly",
+    "next_due": "2026-02-01",
+    "due_day": 1,
+    "remind_days_before": 5,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": "5531.16",
+    "status": "Active",
+    "notes": "Lender: —",
+    "created_at": "2026-01-26T19:23:01.367Z",
+    "updated_at": "2026-01-26T19:23:01.367Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 91,
+  "fields": {
+    "title": "Loan Payment - Beneficial State Bank",
+    "entity": "PERSONAL",
+    "category": "Loan Payment",
+    "frequency": "Monthly",
+    "next_due": "2026-02-01",
+    "due_day": 1,
+    "remind_days_before": 5,
+    "autopay": false,
+    "account_number": "200543001",
+    "estimated_amount": "1479.02",
+    "status": "Active",
+    "notes": "Lender: Beneficial State Bank",
+    "created_at": "2026-01-26T19:23:01.368Z",
+    "updated_at": "2026-01-26T19:23:01.374Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 92,
+  "fields": {
+    "title": "Loan Payment - Beneficial State Bank",
+    "entity": "FIRS",
+    "category": "Loan Payment",
+    "frequency": "Monthly",
+    "next_due": "2026-02-01",
+    "due_day": 1,
+    "remind_days_before": 5,
+    "autopay": false,
+    "account_number": "200545001",
+    "estimated_amount": "9860.48",
+    "status": "Active",
+    "notes": "Lender: Beneficial State Bank",
+    "created_at": "2026-01-26T19:23:01.370Z",
+    "updated_at": "2026-01-26T19:23:01.370Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 93,
+  "fields": {
+    "title": "Loan Payment - Beneficial State Bank",
+    "entity": "GXM",
+    "category": "Loan Payment",
+    "frequency": "Monthly",
+    "next_due": "2026-02-01",
+    "due_day": 1,
+    "remind_days_before": 5,
+    "autopay": false,
+    "account_number": "200500001",
+    "estimated_amount": "3356.44",
+    "status": "Active",
+    "notes": "Lender: Beneficial State Bank",
+    "created_at": "2026-01-26T19:23:01.371Z",
+    "updated_at": "2026-01-26T19:23:01.371Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 94,
+  "fields": {
+    "title": "Loan Payment - SBA (EIDL)",
+    "entity": "GXM",
+    "category": "Loan Payment",
+    "frequency": "Monthly",
+    "next_due": "2026-02-01",
+    "due_day": 1,
+    "remind_days_before": 5,
+    "autopay": false,
+    "account_number": "1118589105",
+    "estimated_amount": "2505.00",
+    "status": "Active",
+    "notes": "Lender: SBA (EIDL)",
+    "created_at": "2026-01-26T19:23:01.375Z",
+    "updated_at": "2026-01-26T19:23:01.375Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 95,
+  "fields": {
+    "title": "Loan Payment - SBA (EIDL)",
+    "entity": "TIMBER",
+    "category": "Loan Payment",
+    "frequency": "Monthly",
+    "next_due": "2026-02-01",
+    "due_day": 1,
+    "remind_days_before": 5,
+    "autopay": false,
+    "account_number": "9972629001",
+    "estimated_amount": "2505.00",
+    "status": "Active",
+    "notes": "Lender: SBA (EIDL)",
+    "created_at": "2026-01-26T19:23:01.377Z",
+    "updated_at": "2026-01-26T19:23:01.377Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 98,
+  "fields": {
+    "title": "Property Tax - Spa Personal Property",
+    "entity": "NWNINTH",
+    "category": "Tax Filing",
+    "frequency": "Annual",
+    "next_due": "2026-11-15",
+    "due_day": null,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "700685",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Region: Oregon - Benton County",
+    "created_at": "2026-01-26T19:23:01.381Z",
+    "updated_at": "2026-01-26T19:23:01.381Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 103,
+  "fields": {
+    "title": "Property Tax - Bensons Main",
+    "entity": "FOURWEST",
+    "category": "Tax Filing",
+    "frequency": "Annual",
+    "next_due": "2026-11-15",
+    "due_day": null,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "137566",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Region: Oregon - Benton County",
+    "created_at": "2026-01-26T19:23:01.386Z",
+    "updated_at": "2026-01-26T19:23:01.386Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 104,
+  "fields": {
+    "title": "Property Tax - Bensons Adjacent Lot #1",
+    "entity": "FOURWEST",
+    "category": "Tax Filing",
+    "frequency": "Annual",
+    "next_due": "2026-11-15",
+    "due_day": null,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "137657",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Region: Oregon - Benton County",
+    "created_at": "2026-01-26T19:23:01.387Z",
+    "updated_at": "2026-01-26T19:23:01.387Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 105,
+  "fields": {
+    "title": "Property Tax - Bensons Adjacent Lot #2",
+    "entity": "FOURWEST",
+    "category": "Tax Filing",
+    "frequency": "Annual",
+    "next_due": "2026-11-15",
+    "due_day": null,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "137574",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Region: Oregon - Benton County",
+    "created_at": "2026-01-26T19:23:01.388Z",
+    "updated_at": "2026-01-26T19:23:01.388Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 106,
+  "fields": {
+    "title": "Property Tax - Bensons Adjacent Lot #3",
+    "entity": "FOURWEST",
+    "category": "Tax Filing",
+    "frequency": "Annual",
+    "next_due": "2026-11-15",
+    "due_day": null,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "137665",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Region: Oregon - Benton County",
+    "created_at": "2026-01-26T19:23:01.390Z",
+    "updated_at": "2026-01-26T19:23:01.390Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 107,
+  "fields": {
+    "title": "Property Tax - Homeless Shelter / Car Wash",
+    "entity": "FOURWEST",
+    "category": "Tax Filing",
+    "frequency": "Annual",
+    "next_due": "2026-11-15",
+    "due_day": null,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "137582",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Region: Oregon - Benton County",
+    "created_at": "2026-01-26T19:23:01.391Z",
+    "updated_at": "2026-01-26T19:23:01.391Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 108,
+  "fields": {
+    "title": "Property Tax - Homeless Shelter / Car Wash",
+    "entity": "FOURWEST",
+    "category": "Tax Filing",
+    "frequency": "Annual",
+    "next_due": "2026-11-15",
+    "due_day": null,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "137590",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Region: Oregon - Benton County",
+    "created_at": "2026-01-26T19:23:01.392Z",
+    "updated_at": "2026-01-26T19:23:01.392Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 109,
+  "fields": {
+    "title": "Property Tax - Homeless Shelter / Car Wash",
+    "entity": "FOURWEST",
+    "category": "Tax Filing",
+    "frequency": "Annual",
+    "next_due": "2026-11-15",
+    "due_day": null,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "269344",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Region: Oregon - Benton County",
+    "created_at": "2026-01-26T19:23:01.393Z",
+    "updated_at": "2026-01-26T19:23:01.393Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 110,
+  "fields": {
+    "title": "Property Tax - The Firs Apartments",
+    "entity": "FIRS",
+    "category": "Tax Filing",
+    "frequency": "Annual",
+    "next_due": "2026-11-15",
+    "due_day": null,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "531920",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Region: Oregon - Marion County",
+    "created_at": "2026-01-26T19:23:01.393Z",
+    "updated_at": "2026-01-26T19:23:01.393Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 111,
+  "fields": {
+    "title": "Property Tax - Cheers Personal Property",
+    "entity": "CHEERS",
+    "category": "Tax Filing",
+    "frequency": "Annual",
+    "next_due": "2026-04-30",
+    "due_day": null,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "40539",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Region: Colorado - El Paso County",
+    "created_at": "2026-01-26T19:23:01.394Z",
+    "updated_at": "2026-01-26T19:23:01.394Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 112,
+  "fields": {
+    "title": "Property Tax - 1105 N Circle LLC",
+    "entity": "CHEERS",
+    "category": "Tax Filing",
+    "frequency": "Annual",
+    "next_due": "2026-04-30",
+    "due_day": null,
+    "remind_days_before": 30,
+    "autopay": false,
+    "account_number": "6410213021",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Region: Colorado - El Paso County",
+    "created_at": "2026-01-26T19:23:01.396Z",
+    "updated_at": "2026-01-26T19:23:01.396Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 113,
+  "fields": {
+    "title": "Health Insurance (Anthem) - Monthly Premium",
+    "entity": "PATLIQ",
+    "category": "Insurance",
+    "frequency": "Monthly",
+    "next_due": "2026-02-01",
+    "due_day": 1,
+    "remind_days_before": 7,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Anthem health insurance monthly billing",
+    "created_at": "2026-01-26T20:26:30.212Z",
+    "updated_at": "2026-01-26T20:26:30.212Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 114,
+  "fields": {
+    "title": "Business Owners Insurance Renewal (State Farm)",
+    "entity": "FOURWEST",
+    "category": "Insurance",
+    "frequency": "Annual",
+    "next_due": "2026-09-01",
+    "due_day": 1,
+    "remind_days_before": 7,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Policy #36X54-90201-85",
+    "created_at": "2026-01-26T20:26:30.213Z",
+    "updated_at": "2026-01-26T20:26:30.213Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 115,
+  "fields": {
+    "title": "Loan Payment - Castle Pines (Beneficial State Bank)",
+    "entity": "PERSONAL",
+    "category": "Loan Payment",
+    "frequency": "Monthly",
+    "next_due": "2026-02-01",
+    "due_day": null,
+    "remind_days_before": 7,
+    "autopay": false,
+    "account_number": "200407001",
+    "estimated_amount": "2045.77",
+    "status": "Active",
+    "notes": "Castle Pines Apartments LLC - entity closed.",
+    "created_at": "2026-01-26T20:26:51.152Z",
+    "updated_at": "2026-01-26T20:26:51.153Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 116,
+  "fields": {
+    "title": "Business License - City of Colorado Springs",
+    "entity": "PATLIQ",
+    "category": "License",
+    "frequency": "Annual",
+    "next_due": "2026-01-31",
+    "due_day": null,
+    "remind_days_before": 7,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "City business license renewal",
+    "created_at": "2026-01-26T20:26:51.152Z",
+    "updated_at": "2026-01-26T20:26:51.153Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 117,
+  "fields": {
+    "title": "ASCAP Music License Renewal",
+    "entity": "GXM",
+    "category": "License",
+    "frequency": "Annual",
+    "next_due": "2026-03-01",
+    "due_day": null,
+    "remind_days_before": 7,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Music licensing for gym",
+    "created_at": "2026-01-26T20:26:51.155Z",
+    "updated_at": "2026-01-26T20:26:51.155Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 118,
+  "fields": {
+    "title": "Q1 IRS Estimated Tax Payment",
+    "entity": "PERSONAL",
+    "category": "Tax Filing",
+    "frequency": "Quarterly",
+    "next_due": "2027-01-15",
+    "due_day": 15,
+    "remind_days_before": 7,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Due January 15. IRS Direct Pay: https://www.irs.gov/payments/direct-pay or EFTPS: https://www.eftps.gov/",
+    "created_at": "2026-01-26T23:21:31.768Z",
+    "updated_at": "2026-01-26T23:21:31.768Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 119,
+  "fields": {
+    "title": "Q2 IRS Estimated Tax Payment",
+    "entity": "PERSONAL",
+    "category": "Tax Filing",
+    "frequency": "Quarterly",
+    "next_due": "2026-04-15",
+    "due_day": 15,
+    "remind_days_before": 7,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Due April 15. IRS Direct Pay: https://www.irs.gov/payments/direct-pay or EFTPS: https://www.eftps.gov/",
+    "created_at": "2026-01-26T23:21:31.770Z",
+    "updated_at": "2026-01-26T23:21:31.770Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 120,
+  "fields": {
+    "title": "Q3 IRS Estimated Tax Payment",
+    "entity": "PERSONAL",
+    "category": "Tax Filing",
+    "frequency": "Quarterly",
+    "next_due": "2026-06-15",
+    "due_day": 15,
+    "remind_days_before": 7,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Due June 15. IRS Direct Pay: https://www.irs.gov/payments/direct-pay or EFTPS: https://www.eftps.gov/",
+    "created_at": "2026-01-26T23:21:31.771Z",
+    "updated_at": "2026-01-26T23:21:31.771Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 121,
+  "fields": {
+    "title": "Q4 IRS Estimated Tax Payment",
+    "entity": "PERSONAL",
+    "category": "Tax Filing",
+    "frequency": "Quarterly",
+    "next_due": "2026-09-15",
+    "due_day": 15,
+    "remind_days_before": 7,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Due September 15. IRS Direct Pay: https://www.irs.gov/payments/direct-pay or EFTPS: https://www.eftps.gov/",
+    "created_at": "2026-01-26T23:21:31.775Z",
+    "updated_at": "2026-01-26T23:21:31.775Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 122,
+  "fields": {
+    "title": "NW Natural (GXM - Gas)",
+    "entity": "GXM",
+    "category": "Utility",
+    "frequency": "Monthly",
+    "next_due": "2026-02-13",
+    "due_day": 13,
+    "remind_days_before": 7,
+    "autopay": true,
+    "account_number": "2724772-5",
+    "estimated_amount": null,
+    "status": "Autopay",
+    "notes": "Service Address: 5520 NW Highway 99 #2, Corvallis OR\\nContact: 800-422-4012, nwnatural.com\\nAutopay: Enrolled",
+    "created_at": "2026-01-26T23:22:46.574Z",
+    "updated_at": "2026-01-26T23:22:46.575Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 123,
+  "fields": {
+    "title": "Comcast Business (GXM - Internet/Phone/TV)",
+    "entity": "GXM",
+    "category": "Utility",
+    "frequency": "Monthly",
+    "next_due": "2026-02-09",
+    "due_day": 9,
+    "remind_days_before": 7,
+    "autopay": true,
+    "account_number": "8778 10 604 0750208",
+    "estimated_amount": null,
+    "status": "Autopay",
+    "notes": "Service Address: 5520 NW Highway 99 OFC, Corvallis OR 97330-9484\\nContact: 1-800-391-3000, business.comcast.com\\nAutopay: Enrolled",
+    "created_at": "2026-01-26T23:22:46.577Z",
+    "updated_at": "2026-01-26T23:22:46.577Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 124,
+  "fields": {
+    "title": "City of Corvallis (TIMBER - Water/Sewer)",
+    "entity": "TIMBER",
+    "category": "Utility",
+    "frequency": "Monthly",
+    "next_due": "2026-02-26",
+    "due_day": 26,
+    "remind_days_before": 7,
+    "autopay": true,
+    "account_number": "(verify account number)",
+    "estimated_amount": null,
+    "status": "Autopay",
+    "notes": "Service Address: 2855 NW 29th St, Corvallis OR (Timberhill Athletic Club)\\nContact: 541-766-6949, City of Corvallis Utility Billing\\nAutopay: Enrolled",
+    "created_at": "2026-01-26T23:22:46.578Z",
+    "updated_at": "2026-01-26T23:22:46.578Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 125,
+  "fields": {
+    "title": "NW Natural (TIMBER - Gas)",
+    "entity": "TIMBER",
+    "category": "Utility",
+    "frequency": "Monthly",
+    "next_due": "2026-02-28",
+    "due_day": 29,
+    "remind_days_before": 7,
+    "autopay": true,
+    "account_number": "3595727-3",
+    "estimated_amount": null,
+    "status": "Autopay",
+    "notes": "Service Address: 2855 NW 29th St, Corvallis OR 97330-3516\\nContact: 800-422-4012, nwnatural.com\\nAutopay: Enrolled",
+    "created_at": "2026-01-26T23:22:46.579Z",
+    "updated_at": "2026-01-26T23:22:46.579Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 126,
+  "fields": {
+    "title": "Comcast Business (TIMBER - Internet/Phone/TV)",
+    "entity": "TIMBER",
+    "category": "Utility",
+    "frequency": "Monthly",
+    "next_due": "2026-02-21",
+    "due_day": 21,
+    "remind_days_before": 7,
+    "autopay": true,
+    "account_number": "8778 10 601 2116719",
+    "estimated_amount": null,
+    "status": "Autopay",
+    "notes": "Service Address: 2855 NW 29TH ST BOX, Corvallis OR 97330-3516\\nContact: 1-800-391-3000, business.comcast.com\\nAutopay: Enrolled",
+    "created_at": "2026-01-26T23:22:46.581Z",
+    "updated_at": "2026-01-26T23:22:46.581Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 127,
+  "fields": {
+    "title": "Send W-2 dual-form notice to employees (QBO→Paychex transition)",
+    "entity": "GXM",
+    "category": "Payroll",
+    "frequency": "One-Time",
+    "next_due": "2026-01-28",
+    "due_day": null,
+    "remind_days_before": 1,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Employees may receive two W-2 forms due to switch from QBO to Paychex mid-year. Send notification ASAP.",
+    "created_at": "2026-01-27T12:51:08.273Z",
+    "updated_at": "2026-01-27T12:51:08.273Z"
+  }
+},
+{
+  "model": "deadlines.deadline",
+  "pk": 128,
+  "fields": {
+    "title": "Cut and send 1099s",
+    "entity": "GXM",
+    "category": "Tax Filing",
+    "frequency": "Annual",
+    "next_due": "2026-01-31",
+    "due_day": 31,
+    "remind_days_before": 3,
+    "autopay": false,
+    "account_number": "",
+    "estimated_amount": null,
+    "status": "Active",
+    "notes": "Deadline: Jan 31. Must be postmarked by this date.",
+    "created_at": "2026-01-27T12:51:08.275Z",
+    "updated_at": "2026-01-27T12:51:08.275Z"
+  }
+},
+{
+  "model": "deadlines.bankaccount",
+  "pk": 1,
+  "fields": {
+    "entity": "TIMBER",
+    "bank_name": "Citizens Bank",
+    "account_type": "Checking",
+    "account_number_last4": "3794",
+    "full_account_number": "",
+    "routing_number": "123204013",
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.bankaccount",
+  "pk": 2,
+  "fields": {
+    "entity": "HUCKBERRY",
+    "bank_name": "Citizens Bank",
+    "account_type": "Checking",
+    "account_number_last4": "4719",
+    "full_account_number": "",
+    "routing_number": "123204013",
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.bankaccount",
+  "pk": 3,
+  "fields": {
+    "entity": "GXM",
+    "bank_name": "Wells Fargo",
+    "account_type": "Checking",
+    "account_number_last4": "3777",
+    "full_account_number": "",
+    "routing_number": "102000076",
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.bankaccount",
+  "pk": 4,
+  "fields": {
+    "entity": "CHEERS",
+    "bank_name": "Bank of Colorado",
+    "account_type": "Checking",
+    "account_number_last4": "2409",
+    "full_account_number": "",
+    "routing_number": "107002448",
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.bankaccount",
+  "pk": 5,
+  "fields": {
+    "entity": "NC1105",
+    "bank_name": "Bank of Colorado",
+    "account_type": "Checking",
+    "account_number_last4": "2433",
+    "full_account_number": "",
+    "routing_number": "107002448",
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.bankaccount",
+  "pk": 6,
+  "fields": {
+    "entity": "NCPIC",
+    "bank_name": "Bank of Colorado",
+    "account_type": "Checking",
+    "account_number_last4": "4053",
+    "full_account_number": "",
+    "routing_number": "107002448",
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.bankaccount",
+  "pk": 7,
+  "fields": {
+    "entity": "PATLIQ",
+    "bank_name": "Bank of Colorado",
+    "account_type": "Checking",
+    "account_number_last4": "2073",
+    "full_account_number": "",
+    "routing_number": "107002448",
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.bankaccount",
+  "pk": 8,
+  "fields": {
+    "entity": "NWNINTH",
+    "bank_name": "Wells Fargo",
+    "account_type": "Checking",
+    "account_number_last4": "8010",
+    "full_account_number": "",
+    "routing_number": "123006800",
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.bankaccount",
+  "pk": 9,
+  "fields": {
+    "entity": "FOURWEST",
+    "bank_name": "Wells Fargo",
+    "account_type": "Checking",
+    "account_number_last4": "6795",
+    "full_account_number": "",
+    "routing_number": "123006800",
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.bankaccount",
+  "pk": 10,
+  "fields": {
+    "entity": "FIRS",
+    "bank_name": "Wells Fargo",
+    "account_type": "Checking",
+    "account_number_last4": "9267",
+    "full_account_number": "",
+    "routing_number": "123006800",
+    "status": "Closed",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.bankaccount",
+  "pk": 11,
+  "fields": {
+    "entity": "RETREAT",
+    "bank_name": "Wells Fargo",
+    "account_type": "Checking",
+    "account_number_last4": "7918",
+    "full_account_number": "",
+    "routing_number": "123006800",
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.bankaccount",
+  "pk": 12,
+  "fields": {
+    "entity": "PERSONAL",
+    "bank_name": "Wells Fargo",
+    "account_type": "Checking",
+    "account_number_last4": "8485",
+    "full_account_number": "",
+    "routing_number": "102000076",
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.creditcard",
+  "pk": 1,
+  "fields": {
+    "entity": "TIMBER",
+    "card_name": "Business Card",
+    "last4": "4691",
+    "full_card_number": "",
+    "expiration": "",
+    "cvv": "",
+    "network": "",
+    "credit_limit": null,
+    "status": "Active",
+    "notes": "2020+, Current"
+  }
+},
+{
+  "model": "deadlines.creditcard",
+  "pk": 2,
+  "fields": {
+    "entity": "TIMBER",
+    "card_name": "Business Card",
+    "last4": "7739",
+    "full_card_number": "",
+    "expiration": "",
+    "cvv": "",
+    "network": "",
+    "credit_limit": null,
+    "status": "Closed",
+    "notes": "2018-19, Historical"
+  }
+},
+{
+  "model": "deadlines.creditcard",
+  "pk": 3,
+  "fields": {
+    "entity": "TIMBER",
+    "card_name": "Alt Card",
+    "last4": "8259",
+    "full_card_number": "",
+    "expiration": "",
+    "cvv": "",
+    "network": "",
+    "credit_limit": null,
+    "status": "Active",
+    "notes": "Current"
+  }
+},
+{
+  "model": "deadlines.creditcard",
+  "pk": 4,
+  "fields": {
+    "entity": "CHEERS",
+    "card_name": "Business Card",
+    "last4": "6636",
+    "full_card_number": "",
+    "expiration": "",
+    "cvv": "",
+    "network": "",
+    "credit_limit": null,
+    "status": "Active",
+    "notes": "Current"
+  }
+},
+{
+  "model": "deadlines.creditcard",
+  "pk": 5,
+  "fields": {
+    "entity": "PATLIQ",
+    "card_name": "Business Card",
+    "last4": "8531",
+    "full_card_number": "",
+    "expiration": "",
+    "cvv": "",
+    "network": "",
+    "credit_limit": null,
+    "status": "Closed",
+    "notes": "2023"
+  }
+},
+{
+  "model": "deadlines.creditcard",
+  "pk": 6,
+  "fields": {
+    "entity": "PATLIQ",
+    "card_name": "Business Card",
+    "last4": "2073",
+    "full_card_number": "",
+    "expiration": "",
+    "cvv": "",
+    "network": "",
+    "credit_limit": null,
+    "status": "Active",
+    "notes": "2021-22, 2024-25"
+  }
+},
+{
+  "model": "deadlines.creditcard",
+  "pk": 7,
+  "fields": {
+    "entity": "GXM",
+    "card_name": "Business Card",
+    "last4": "3986",
+    "full_card_number": "",
+    "expiration": "",
+    "cvv": "",
+    "network": "",
+    "credit_limit": null,
+    "status": "Active",
+    "notes": "2023+, Current"
+  }
+},
+{
+  "model": "deadlines.creditcard",
+  "pk": 8,
+  "fields": {
+    "entity": "GXM",
+    "card_name": "Business Card",
+    "last4": "1512",
+    "full_card_number": "",
+    "expiration": "",
+    "cvv": "",
+    "network": "",
+    "credit_limit": null,
+    "status": "Closed",
+    "notes": "2021-22, Historical"
+  }
+},
+{
+  "model": "deadlines.creditcard",
+  "pk": 9,
+  "fields": {
+    "entity": "GXM",
+    "card_name": "Business Card",
+    "last4": "9993",
+    "full_card_number": "",
+    "expiration": "",
+    "cvv": "",
+    "network": "",
+    "credit_limit": null,
+    "status": "Closed",
+    "notes": "2019-20, Historical"
+  }
+},
+{
+  "model": "deadlines.creditcard",
+  "pk": 10,
+  "fields": {
+    "entity": "NWNINTH",
+    "card_name": "Retreat Ink",
+    "last4": "5853",
+    "full_card_number": "",
+    "expiration": "",
+    "cvv": "",
+    "network": "",
+    "credit_limit": null,
+    "status": "Active",
+    "notes": "Current"
+  }
+},
+{
+  "model": "deadlines.creditcard",
+  "pk": 11,
+  "fields": {
+    "entity": "FOURWEST",
+    "card_name": "Business Card",
+    "last4": "7880",
+    "full_card_number": "",
+    "expiration": "",
+    "cvv": "",
+    "network": "",
+    "credit_limit": null,
+    "status": "Active",
+    "notes": "Current"
+  }
+},
+{
+  "model": "deadlines.creditcard",
+  "pk": 12,
+  "fields": {
+    "entity": "FOURWEST",
+    "card_name": "Alt Card",
+    "last4": "0424",
+    "full_card_number": "",
+    "expiration": "",
+    "cvv": "",
+    "network": "",
+    "credit_limit": null,
+    "status": "Active",
+    "notes": "Current"
+  }
+},
+{
+  "model": "deadlines.creditcard",
+  "pk": 13,
+  "fields": {
+    "entity": "PERSONAL",
+    "card_name": "Chase Sapphire Preferred",
+    "last4": "1827",
+    "full_card_number": "",
+    "expiration": "",
+    "cvv": "",
+    "network": "Visa",
+    "credit_limit": null,
+    "status": "Active",
+    "notes": "2016+, Current"
+  }
+},
+{
+  "model": "deadlines.creditcard",
+  "pk": 14,
+  "fields": {
+    "entity": "PERSONAL",
+    "card_name": "Chase Sapphire Reserve",
+    "last4": "4611",
+    "full_card_number": "",
+    "expiration": "",
+    "cvv": "",
+    "network": "Visa",
+    "credit_limit": null,
+    "status": "Active",
+    "notes": "2018+, Current"
+  }
+},
+{
+  "model": "deadlines.creditcard",
+  "pk": 15,
+  "fields": {
+    "entity": "PERSONAL",
+    "card_name": "Chase Sapphire Reserve",
+    "last4": "5835",
+    "full_card_number": "",
+    "expiration": "",
+    "cvv": "",
+    "network": "Visa",
+    "credit_limit": null,
+    "status": "Active",
+    "notes": "Current, Per OneNote"
+  }
+},
+{
+  "model": "deadlines.creditcard",
+  "pk": 16,
+  "fields": {
+    "entity": "PERSONAL",
+    "card_name": "Wells Fargo Debit",
+    "last4": "8282",
+    "full_card_number": "",
+    "expiration": "",
+    "cvv": "",
+    "network": "Visa",
+    "credit_limit": null,
+    "status": "Active",
+    "notes": "Current, Personal checking"
+  }
+},
+{
+  "model": "deadlines.creditcard",
+  "pk": 17,
+  "fields": {
+    "entity": "PERSONAL",
+    "card_name": "Chase Sapphire Reserve",
+    "last4": "5993",
+    "full_card_number": "",
+    "expiration": "",
+    "cvv": "",
+    "network": "Visa",
+    "credit_limit": null,
+    "status": "Closed",
+    "notes": "2016-17, Historical"
+  }
+},
+{
+  "model": "deadlines.creditcard",
+  "pk": 18,
+  "fields": {
+    "entity": "PERSONAL",
+    "card_name": "United MileagePlus",
+    "last4": "1533",
+    "full_card_number": "",
+    "expiration": "",
+    "cvv": "",
+    "network": "Visa",
+    "credit_limit": null,
+    "status": "Active",
+    "notes": "2018+, Current"
+  }
+},
+{
+  "model": "deadlines.creditcard",
+  "pk": 19,
+  "fields": {
+    "entity": "PERSONAL",
+    "card_name": "United MileagePlus",
+    "last4": "3471",
+    "full_card_number": "",
+    "expiration": "",
+    "cvv": "",
+    "network": "Visa",
+    "credit_limit": null,
+    "status": "Closed",
+    "notes": "2017, Historical"
+  }
+},
+{
+  "model": "deadlines.creditcard",
+  "pk": 20,
+  "fields": {
+    "entity": "PERSONAL",
+    "card_name": "United MileagePlus",
+    "last4": "8987",
+    "full_card_number": "",
+    "expiration": "",
+    "cvv": "",
+    "network": "Visa",
+    "credit_limit": null,
+    "status": "Closed",
+    "notes": "2014-16, Historical"
+  }
+},
+{
+  "model": "deadlines.creditcard",
+  "pk": 21,
+  "fields": {
+    "entity": "PERSONAL",
+    "card_name": "United MileagePlus",
+    "last4": "2788",
+    "full_card_number": "",
+    "expiration": "",
+    "cvv": "",
+    "network": "Visa",
+    "credit_limit": null,
+    "status": "Closed",
+    "notes": "2012-13, Historical"
+  }
+},
+{
+  "model": "deadlines.insurancepolicy",
+  "pk": 1,
+  "fields": {
+    "entity": "CHEERS",
+    "policy_type": "Commercial Auto",
+    "carrier": "Progressive (Artisan and Truckers Casualty Co)",
+    "policy_number": "992781945",
+    "coverage_amount": null,
+    "premium_amount": "11906.00",
+    "renewal_date": "2026-02-06",
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.insurancepolicy",
+  "pk": 2,
+  "fields": {
+    "entity": "GXM",
+    "policy_type": "Commercial Package (Philadelphia Insurance)",
+    "carrier": "Philadelphia Insurance",
+    "policy_number": "PHPK2661182",
+    "coverage_amount": null,
+    "premium_amount": "22140.00",
+    "renewal_date": "2025-03-01",
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.insurancepolicy",
+  "pk": 3,
+  "fields": {
+    "entity": "GXM",
+    "policy_type": "Umbrella",
+    "carrier": "Philadelphia Insurance",
+    "policy_number": "PHUB902515",
+    "coverage_amount": null,
+    "premium_amount": "1000.00",
+    "renewal_date": "2025-03-01",
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.insurancepolicy",
+  "pk": 4,
+  "fields": {
+    "entity": "GXM",
+    "policy_type": "Employment Practices Liability",
+    "carrier": "Philadelphia Insurance",
+    "policy_number": "PHSD1852807",
+    "coverage_amount": null,
+    "premium_amount": "1387.00",
+    "renewal_date": "2025-03-01",
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.insurancepolicy",
+  "pk": 5,
+  "fields": {
+    "entity": "GXM",
+    "policy_type": "Workers Compensation",
+    "carrier": "Employers Preferred Insurance Company",
+    "policy_number": "EIG1651181",
+    "coverage_amount": null,
+    "premium_amount": "1255.00",
+    "renewal_date": "2025-03-11",
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.insurancepolicy",
+  "pk": 6,
+  "fields": {
+    "entity": "GXM",
+    "policy_type": "Dwelling and Liability (Retreat)",
+    "carrier": "Westchester Surplus Lines",
+    "policy_number": "FSF17063972002",
+    "coverage_amount": null,
+    "premium_amount": "2176.71",
+    "renewal_date": "2025-05-05",
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.insurancepolicy",
+  "pk": 7,
+  "fields": {
+    "entity": "TIMBER",
+    "policy_type": "Commercial Package (General Liability & Property)",
+    "carrier": "Venture Insurance Programs",
+    "policy_number": "VFC100000100",
+    "coverage_amount": null,
+    "premium_amount": "58292.36",
+    "renewal_date": "2024-12-28",
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.insurancepolicy",
+  "pk": 8,
+  "fields": {
+    "entity": "TIMBER",
+    "policy_type": "Excess/Umbrella Liability",
+    "carrier": "Venture Insurance Programs",
+    "policy_number": "EBU019197183",
+    "coverage_amount": null,
+    "premium_amount": "5589.00",
+    "renewal_date": "2024-12-28",
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.insurancepolicy",
+  "pk": 9,
+  "fields": {
+    "entity": "TIMBER",
+    "policy_type": "Liquor Liability",
+    "carrier": "Everspan Indemnity Insurance",
+    "policy_number": "CE1EII00430601",
+    "coverage_amount": null,
+    "premium_amount": "3776.69",
+    "renewal_date": "2025-04-19",
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.insurancepolicy",
+  "pk": 10,
+  "fields": {
+    "entity": "PATLIQ",
+    "policy_type": "Property, GL, Liquor Liability, EPLI, Umbrella",
+    "carrier": "Hartford Insurance",
+    "policy_number": "41SBAAF0801SA",
+    "coverage_amount": null,
+    "premium_amount": "7608.00",
+    "renewal_date": "2024-12-21",
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.insurancepolicy",
+  "pk": 11,
+  "fields": {
+    "entity": "PATLIQ",
+    "policy_type": "Workers Compensation",
+    "carrier": "Pinnacle Assurance",
+    "policy_number": "4208737",
+    "coverage_amount": null,
+    "premium_amount": "1720.00",
+    "renewal_date": "2025-04-01",
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.insurancepolicy",
+  "pk": 12,
+  "fields": {
+    "entity": "NWNINTH",
+    "policy_type": "Businessowners Policy",
+    "carrier": "State Farm / American Family",
+    "policy_number": "91003-44311-44",
+    "coverage_amount": null,
+    "premium_amount": null,
+    "renewal_date": null,
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.license",
+  "pk": 1,
+  "fields": {
+    "entity": "CHEERS",
+    "license_type": "Colorado Sales Tax License - Colorado Springs",
+    "license_number": "00092998",
+    "issuing_authority": "City of Colorado Springs, Dept of Finance",
+    "issue_date": null,
+    "expiration_date": "2025-12-31",
+    "renewal_fee": null,
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.license",
+  "pk": 2,
+  "fields": {
+    "entity": "CHEERS",
+    "license_type": "Colorado Sales Tax License - Denver",
+    "license_number": "513738",
+    "issuing_authority": "City and County of Denver",
+    "issue_date": null,
+    "expiration_date": "2025-12-31",
+    "renewal_fee": null,
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.license",
+  "pk": 3,
+  "fields": {
+    "entity": "CHEERS",
+    "license_type": "Colorado Lottery License",
+    "license_number": "140408",
+    "issuing_authority": "Colorado Dept of Revenue",
+    "issue_date": null,
+    "expiration_date": "2026-02-07",
+    "renewal_fee": null,
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.license",
+  "pk": 4,
+  "fields": {
+    "entity": "CHEERS",
+    "license_type": "Tobacco/Nicotine Retailer License",
+    "license_number": "TOB-007248",
+    "issuing_authority": "Colorado Liquor & Tobacco Enforcement",
+    "issue_date": null,
+    "expiration_date": "2026-02-05",
+    "renewal_fee": null,
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.license",
+  "pk": 5,
+  "fields": {
+    "entity": "PATLIQ",
+    "license_type": "Colorado Sales Tax License",
+    "license_number": "29910166",
+    "issuing_authority": "Colorado Department of Revenue",
+    "issue_date": null,
+    "expiration_date": "2025-12-31",
+    "renewal_fee": null,
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.license",
+  "pk": 6,
+  "fields": {
+    "entity": "PATLIQ",
+    "license_type": "Retail Liquor License",
+    "license_number": "03-06231",
+    "issuing_authority": "Colorado Dept of Revenue (County)",
+    "issue_date": null,
+    "expiration_date": "2026-05-10",
+    "renewal_fee": null,
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.license",
+  "pk": 7,
+  "fields": {
+    "entity": "PATLIQ",
+    "license_type": "Tobacco Retailer License",
+    "license_number": "TOB-000632",
+    "issuing_authority": "Colorado Liquor & Tobacco Enforcement",
+    "issue_date": null,
+    "expiration_date": "2026-06-29",
+    "renewal_fee": null,
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.loan",
+  "pk": 1,
+  "fields": {
+    "entity": "FOURWEST",
+    "loan_type": "Business Loan",
+    "lender": "—",
+    "account_number": "871009323",
+    "original_amount": null,
+    "current_balance": null,
+    "interest_rate": null,
+    "payment_amount": "4607.15",
+    "payment_frequency": "Monthly",
+    "origination_date": null,
+    "maturity_date": null,
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.loan",
+  "pk": 2,
+  "fields": {
+    "entity": "TIMBER",
+    "loan_type": "Business Loan",
+    "lender": "—",
+    "account_number": "871009297",
+    "original_amount": null,
+    "current_balance": null,
+    "interest_rate": null,
+    "payment_amount": "27989.69",
+    "payment_frequency": "Monthly",
+    "origination_date": null,
+    "maturity_date": null,
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.loan",
+  "pk": 3,
+  "fields": {
+    "entity": "NWNINTH",
+    "loan_type": "Business Loan",
+    "lender": "Beneficial State Bank",
+    "account_number": "200534001",
+    "original_amount": null,
+    "current_balance": null,
+    "interest_rate": null,
+    "payment_amount": "5753.48",
+    "payment_frequency": "Monthly",
+    "origination_date": null,
+    "maturity_date": null,
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.loan",
+  "pk": 4,
+  "fields": {
+    "entity": "PERSONAL",
+    "loan_type": "Business Loan",
+    "lender": "Beneficial State Bank",
+    "account_number": "200407001",
+    "original_amount": null,
+    "current_balance": null,
+    "interest_rate": null,
+    "payment_amount": "2045.77",
+    "payment_frequency": "Monthly",
+    "origination_date": null,
+    "maturity_date": null,
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.loan",
+  "pk": 5,
+  "fields": {
+    "entity": "FIRS",
+    "loan_type": "Business Loan",
+    "lender": "Beneficial State Bank",
+    "account_number": "200545001",
+    "original_amount": null,
+    "current_balance": null,
+    "interest_rate": null,
+    "payment_amount": "9860.48",
+    "payment_frequency": "Monthly",
+    "origination_date": null,
+    "maturity_date": null,
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.loan",
+  "pk": 6,
+  "fields": {
+    "entity": "GXM",
+    "loan_type": "Business Loan",
+    "lender": "Beneficial State Bank",
+    "account_number": "200500001",
+    "original_amount": null,
+    "current_balance": null,
+    "interest_rate": null,
+    "payment_amount": "3356.44",
+    "payment_frequency": "Monthly",
+    "origination_date": null,
+    "maturity_date": null,
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.loan",
+  "pk": 7,
+  "fields": {
+    "entity": "PERSONAL",
+    "loan_type": "Business Loan",
+    "lender": "Beneficial State Bank",
+    "account_number": "200543001",
+    "original_amount": null,
+    "current_balance": null,
+    "interest_rate": null,
+    "payment_amount": "1479.02",
+    "payment_frequency": "Monthly",
+    "origination_date": null,
+    "maturity_date": null,
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.loan",
+  "pk": 8,
+  "fields": {
+    "entity": "GXM",
+    "loan_type": "SBA EIDL",
+    "lender": "SBA (EIDL)",
+    "account_number": "1118589105",
+    "original_amount": null,
+    "current_balance": null,
+    "interest_rate": null,
+    "payment_amount": "2505.00",
+    "payment_frequency": "Monthly",
+    "origination_date": null,
+    "maturity_date": null,
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.loan",
+  "pk": 9,
+  "fields": {
+    "entity": "TIMBER",
+    "loan_type": "SBA EIDL",
+    "lender": "SBA (EIDL)",
+    "account_number": "9972629001",
+    "original_amount": null,
+    "current_balance": null,
+    "interest_rate": null,
+    "payment_amount": "2505.00",
+    "payment_frequency": "Monthly",
+    "origination_date": null,
+    "maturity_date": null,
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.contact",
+  "pk": 1,
+  "fields": {
+    "entity": null,
+    "contact_type": "Partner",
+    "company_name": "",
+    "first_name": "Jeff",
+    "last_name": "Megy",
+    "title": "",
+    "email": "megy@comcast.net",
+    "phone": "(541) 760-0197",
+    "mobile": "",
+    "address": "4036 NW Live Oak Pl, Corvallis OR 97330",
+    "ssn": "",
+    "notes": "Partner in all entities except Victory Spirits, 1105 North Circle LLC, North Circle PIC; DOB November 20, 1967"
+  }
+},
+{
+  "model": "deadlines.contact",
+  "pk": 2,
+  "fields": {
+    "entity": null,
+    "contact_type": "Partner",
+    "company_name": "",
+    "first_name": "Brent",
+    "last_name": "Baldwin",
+    "title": "",
+    "email": "baldwinbrent@yahoo.com",
+    "phone": "(719) 640-2359",
+    "mobile": "",
+    "address": "4431 College Park Ct, Colorado Springs CO 80918",
+    "ssn": "",
+    "notes": "Dear friend, de facto co-owner Patriots (not official for liquor license reasons); DOB December 22, 1979"
+  }
+},
+{
+  "model": "deadlines.contact",
+  "pk": 3,
+  "fields": {
+    "entity": null,
+    "contact_type": "Partner",
+    "company_name": "",
+    "first_name": "Merrisue",
+    "last_name": "Baldwin",
+    "title": "",
+    "email": "merrisue67@yahoo.com",
+    "phone": "(719) 640-0163",
+    "mobile": "",
+    "address": "4431 College Park Ct, Colorado Springs CO 80918",
+    "ssn": "",
+    "notes": "Co-owner Patriots Liquor, co-owner Cheers Liquor Mart"
+  }
+},
+{
+  "model": "deadlines.contact",
+  "pk": 4,
+  "fields": {
+    "entity": null,
+    "contact_type": "Partner",
+    "company_name": "",
+    "first_name": "Rob",
+    "last_name": "McNeely",
+    "title": "",
+    "email": "robertpaulmcneely@gmail.com",
+    "phone": "(719) 229-8469",
+    "mobile": "",
+    "address": "1413 Jester Ct, Colorado Springs CO 80904-1735",
+    "ssn": "",
+    "notes": "Co-owner Cheers Liquor Mart, Manager at Cheers; Alt email: rob@cheersliquormart.com"
+  }
+},
+{
+  "model": "deadlines.contact",
+  "pk": 5,
+  "fields": {
+    "entity": "GXM",
+    "contact_type": "Employee",
+    "company_name": "",
+    "first_name": "Travis",
+    "last_name": "Thiel",
+    "title": "Manager",
+    "email": "travis@gthreesports.com",
+    "phone": "(541) 228-5996",
+    "mobile": "",
+    "address": "",
+    "ssn": "",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.contact",
+  "pk": 6,
+  "fields": {
+    "entity": "GXM",
+    "contact_type": "Employee",
+    "company_name": "",
+    "first_name": "JR",
+    "last_name": "Prieto-Romero",
+    "title": "Head Trainer",
+    "email": "jr@timberhillsports.com",
+    "phone": "(503) 779-4853",
+    "mobile": "",
+    "address": "",
+    "ssn": "",
+    "notes": "Also works at Timberhill"
+  }
+},
+{
+  "model": "deadlines.contact",
+  "pk": 7,
+  "fields": {
+    "entity": "TIMBER",
+    "contact_type": "Employee",
+    "company_name": "",
+    "first_name": "Kyle",
+    "last_name": "Larkin",
+    "title": "General Manager",
+    "email": "kyle@timberhillsports.com",
+    "phone": "(503) 528-6864",
+    "mobile": "",
+    "address": "",
+    "ssn": "",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.contact",
+  "pk": 8,
+  "fields": {
+    "entity": "TIMBER",
+    "contact_type": "Employee",
+    "company_name": "",
+    "first_name": "Beth",
+    "last_name": "King",
+    "title": "Business Office Manager",
+    "email": "beth@timberhillsports.com",
+    "phone": "(541) 936-2564",
+    "mobile": "",
+    "address": "",
+    "ssn": "",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.contact",
+  "pk": 9,
+  "fields": {
+    "entity": "CHEERS",
+    "contact_type": "Employee",
+    "company_name": "",
+    "first_name": "Christina",
+    "last_name": "Grigg",
+    "title": "Finance Manager",
+    "email": "Christina@cheersliquormart.com",
+    "phone": "(719) 651-6260",
+    "mobile": "",
+    "address": "",
+    "ssn": "",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.contact",
+  "pk": 10,
+  "fields": {
+    "entity": "CHEERS",
+    "contact_type": "Employee",
+    "company_name": "",
+    "first_name": "Kyle",
+    "last_name": "Thruston",
+    "title": "Assistant Manager",
+    "email": "kyle@cheersliquormart.com",
+    "phone": "(719) 964-3790",
+    "mobile": "",
+    "address": "",
+    "ssn": "",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.contact",
+  "pk": 11,
+  "fields": {
+    "entity": "CHEERS",
+    "contact_type": "Employee",
+    "company_name": "",
+    "first_name": "Jack",
+    "last_name": "Backman",
+    "title": "Operations",
+    "email": "jack@cheersliquormart.com",
+    "phone": "(303) 916-6843",
+    "mobile": "",
+    "address": "",
+    "ssn": "",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.contact",
+  "pk": 12,
+  "fields": {
+    "entity": "PATLIQ",
+    "contact_type": "Employee",
+    "company_name": "",
+    "first_name": "Mariah",
+    "last_name": "Wiseman",
+    "title": "Manager",
+    "email": "mariah@patriotsliquor.com",
+    "phone": "",
+    "mobile": "",
+    "address": "",
+    "ssn": "",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.contact",
+  "pk": 13,
+  "fields": {
+    "entity": "PATLIQ",
+    "contact_type": "Employee",
+    "company_name": "",
+    "first_name": "Cian",
+    "last_name": "Watford",
+    "title": "Assistant Manager",
+    "email": "cian@patriotsliquor.com",
+    "phone": "",
+    "mobile": "",
+    "address": "",
+    "ssn": "",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.contact",
+  "pk": 14,
+  "fields": {
+    "entity": "PATLIQ",
+    "contact_type": "Employee",
+    "company_name": "",
+    "first_name": "Lieserl",
+    "last_name": "Lu",
+    "title": "Assistant Manager",
+    "email": "",
+    "phone": "",
+    "mobile": "",
+    "address": "",
+    "ssn": "",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.contact",
+  "pk": 15,
+  "fields": {
+    "entity": "NWNINTH",
+    "contact_type": "Customer",
+    "company_name": "Mid-Valley Tile & Design",
+    "first_name": "Sarra",
+    "last_name": "Ott",
+    "title": "Owner",
+    "email": "sarra@mid-valleytile.com",
+    "phone": "(541) 745-5305",
+    "mobile": "",
+    "address": "907 NW Sycamore Ave",
+    "ssn": "",
+    "notes": "New owner as of Jan 2026; formerly Bert Schoenfeld"
+  }
+},
+{
+  "model": "deadlines.contact",
+  "pk": 16,
+  "fields": {
+    "entity": "NWNINTH",
+    "contact_type": "Customer",
+    "company_name": "Haven Spa",
+    "first_name": "Laura",
+    "last_name": "Tunison",
+    "title": "Owner",
+    "email": "laurahendershot@gmail.com",
+    "phone": "(541) 738-7328",
+    "mobile": "(541) 760-7255",
+    "address": "2200 NW 9th St #110",
+    "ssn": "",
+    "notes": "Formerly The Retreat; Last name also Hendershot"
+  }
+},
+{
+  "model": "deadlines.contact",
+  "pk": 17,
+  "fields": {
+    "entity": "FIRS",
+    "contact_type": "Service Provider",
+    "company_name": "Centurion Real Estate Management, LLC",
+    "first_name": "Candace",
+    "last_name": "Craven",
+    "title": "Day-to-day Contact",
+    "email": "candace@c-rem.com",
+    "phone": "(503) 610-3402",
+    "mobile": "",
+    "address": "1365 Commercial St SE, Salem OR 97302",
+    "ssn": "",
+    "notes": "Manages The Firs Apartments; Office: (503) 588-0940"
+  }
+},
+{
+  "model": "deadlines.contact",
+  "pk": 18,
+  "fields": {
+    "entity": "FIRS",
+    "contact_type": "Service Provider",
+    "company_name": "Centurion Real Estate Management, LLC",
+    "first_name": "Mendell",
+    "last_name": "Gosnell",
+    "title": "Owner",
+    "email": "mendell@c-rem.com",
+    "phone": "(503) 999-8723",
+    "mobile": "",
+    "address": "1365 Commercial St SE, Salem OR 97302",
+    "ssn": "",
+    "notes": "Escalations only"
+  }
+},
+{
+  "model": "deadlines.contact",
+  "pk": 19,
+  "fields": {
+    "entity": null,
+    "contact_type": "Service Provider",
+    "company_name": "Marsh McLennan Agency (MMA)",
+    "first_name": "Patti",
+    "last_name": "Huber",
+    "title": "Client Executive/Team Lead",
+    "email": "Patti.Huber@MarshMMA.com",
+    "phone": "(701) 333-0201",
+    "mobile": "",
+    "address": "",
+    "ssn": "",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.contact",
+  "pk": 20,
+  "fields": {
+    "entity": null,
+    "contact_type": "Service Provider",
+    "company_name": "Marsh McLennan Agency (MMA)",
+    "first_name": "Chad",
+    "last_name": "Renner",
+    "title": "Account Manager",
+    "email": "Chad.Renner@MarshMMA.com",
+    "phone": "(701) 400-4689",
+    "mobile": "",
+    "address": "",
+    "ssn": "",
+    "notes": "Personal Friend; Personal email: cwwrenner@yahoo.com"
+  }
+},
+{
+  "model": "deadlines.contact",
+  "pk": 21,
+  "fields": {
+    "entity": null,
+    "contact_type": "Service Provider",
+    "company_name": "Paychex",
+    "first_name": "Carol",
+    "last_name": "Boney",
+    "title": "PEO Client Advocate",
+    "email": "cboney@paychex.com",
+    "phone": "(800) 741-6277 ext 5152884",
+    "mobile": "",
+    "address": "",
+    "ssn": "",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.contact",
+  "pk": 22,
+  "fields": {
+    "entity": null,
+    "contact_type": "Service Provider",
+    "company_name": "Paychex",
+    "first_name": "Lauren",
+    "last_name": "Lomax",
+    "title": "Client HR Business Partner",
+    "email": "llomax@paychex.com",
+    "phone": "(214) 461-1140 ext 5001829",
+    "mobile": "",
+    "address": "",
+    "ssn": "",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.contact",
+  "pk": 23,
+  "fields": {
+    "entity": null,
+    "contact_type": "Service Provider",
+    "company_name": "Paychex",
+    "first_name": "Ashley",
+    "last_name": "Whitelock",
+    "title": "HR Business Partner II",
+    "email": "awhitelock@paychex.com",
+    "phone": "(800) 472-0072 ext 5000156",
+    "mobile": "",
+    "address": "",
+    "ssn": "",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.contact",
+  "pk": 24,
+  "fields": {
+    "entity": null,
+    "contact_type": "Service Provider",
+    "company_name": "Paychex",
+    "first_name": "John",
+    "last_name": "Wheeler",
+    "title": "Safety/Injury Reporting",
+    "email": "jwheeler@paychex.com",
+    "phone": "",
+    "mobile": "",
+    "address": "",
+    "ssn": "",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.contact",
+  "pk": 25,
+  "fields": {
+    "entity": null,
+    "contact_type": "Service Provider",
+    "company_name": "Bank of Colorado",
+    "first_name": "Bryce",
+    "last_name": "Schuettpelz",
+    "title": "Senior Vice President, Loan Officer",
+    "email": "bryce.schuettpelz@bankofcolorado.com",
+    "phone": "(719) 227-0100",
+    "mobile": "",
+    "address": "421 N Tejon St, Colorado Springs CO 80903",
+    "ssn": "",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.contact",
+  "pk": 26,
+  "fields": {
+    "entity": null,
+    "contact_type": "Service Provider",
+    "company_name": "MKCPA",
+    "first_name": "Michele",
+    "last_name": "Kellison",
+    "title": "CPA",
+    "email": "michele@mkcpa.us",
+    "phone": "",
+    "mobile": "",
+    "address": "",
+    "ssn": "",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.contact",
+  "pk": 27,
+  "fields": {
+    "entity": null,
+    "contact_type": "Service Provider",
+    "company_name": "MKCPA",
+    "first_name": "Kristal",
+    "last_name": "Morvay",
+    "title": "Assistant",
+    "email": "kristal@mkcpa.us",
+    "phone": "",
+    "mobile": "",
+    "address": "",
+    "ssn": "",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.contact",
+  "pk": 28,
+  "fields": {
+    "entity": null,
+    "contact_type": "Vendor",
+    "company_name": "Gym Management Solutions (GMS)",
+    "first_name": "Dave",
+    "last_name": "Matthews",
+    "title": "Architect/Developer",
+    "email": "",
+    "phone": "",
+    "mobile": "",
+    "address": "",
+    "ssn": "",
+    "notes": "Independent Contractor; Multi-tenant gym management software"
+  }
+},
+{
+  "model": "deadlines.contact",
+  "pk": 29,
+  "fields": {
+    "entity": null,
+    "contact_type": "Vendor",
+    "company_name": "Retail Information Consultants",
+    "first_name": "Bob",
+    "last_name": "D'Addario",
+    "title": "Account Manager",
+    "email": "bob@retailinfo.net",
+    "phone": "303-257-2353",
+    "mobile": "",
+    "address": "",
+    "ssn": "",
+    "notes": "POS systems, technology, and equipment vendor for Cheers Liquor Mart"
+  }
+},
+{
+  "model": "deadlines.stateaccount",
+  "pk": 1,
+  "fields": {
+    "entity": "CHEERS",
+    "state": "CO",
+    "account_type": "Unemployment Insurance",
+    "account_number": "06887657",
+    "portal_name": "MYUI",
+    "portal_url": "",
+    "login_email": "",
+    "status": "Active",
+    "notes": "Login via password manager"
+  }
+},
+{
+  "model": "deadlines.stateaccount",
+  "pk": 2,
+  "fields": {
+    "entity": "PATLIQ",
+    "state": "CO",
+    "account_type": "Unemployment Insurance",
+    "account_number": "904489002",
+    "portal_name": "MYUI",
+    "portal_url": "",
+    "login_email": "",
+    "status": "Active",
+    "notes": "Login via password manager"
+  }
+},
+{
+  "model": "deadlines.stateaccount",
+  "pk": 3,
+  "fields": {
+    "entity": "CHEERS",
+    "state": "CO",
+    "account_type": "Sales Tax",
+    "account_number": "",
+    "portal_name": "",
+    "portal_url": "",
+    "login_email": "",
+    "status": "Active",
+    "notes": "See deadlines for filing schedule"
+  }
+},
+{
+  "model": "deadlines.stateaccount",
+  "pk": 4,
+  "fields": {
+    "entity": "PATLIQ",
+    "state": "CO",
+    "account_type": "Sales Tax",
+    "account_number": "",
+    "portal_name": "",
+    "portal_url": "",
+    "login_email": "",
+    "status": "Active",
+    "notes": "See deadlines for filing schedule"
+  }
+},
+{
+  "model": "deadlines.stateaccount",
+  "pk": 5,
+  "fields": {
+    "entity": "TIMBER",
+    "state": "OR",
+    "account_type": "Unemployment Insurance",
+    "account_number": "",
+    "portal_name": "",
+    "portal_url": "",
+    "login_email": "",
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.stateaccount",
+  "pk": 6,
+  "fields": {
+    "entity": "GXM",
+    "state": "OR",
+    "account_type": "Unemployment Insurance",
+    "account_number": "",
+    "portal_name": "",
+    "portal_url": "",
+    "login_email": "",
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.stateaccount",
+  "pk": 7,
+  "fields": {
+    "entity": "HUCKBERRY",
+    "state": "OR",
+    "account_type": "Revenue Online",
+    "account_number": "",
+    "portal_name": "Revenue Online",
+    "portal_url": "",
+    "login_email": "les.gutches+huckberry@gmail.com",
+    "status": "Active",
+    "notes": "PTE Elective - Commenced 1/1/2024"
+  }
+},
+{
+  "model": "deadlines.stateaccount",
+  "pk": 8,
+  "fields": {
+    "entity": "FIRS",
+    "state": "OR",
+    "account_type": "Revenue Online",
+    "account_number": "",
+    "portal_name": "Revenue Online",
+    "portal_url": "",
+    "login_email": "les.gutches+firs@gmail.com",
+    "status": "Active",
+    "notes": "PTE Elective - Commenced 1/1/2024"
+  }
+},
+{
+  "model": "deadlines.merchantprocessor",
+  "pk": 1,
+  "fields": {
+    "entity": "PATLIQ",
+    "processor_name": "Till Payments",
+    "merchant_id": "984255991882",
+    "terminal_id": "",
+    "portal_url": "https://us.merchant.tillpayments.com/login",
+    "dba_name": "",
+    "status": "Active",
+    "notes": "Switched March 2025; login: les.gutches@gmail.com"
+  }
+},
+{
+  "model": "deadlines.merchantprocessor",
+  "pk": 2,
+  "fields": {
+    "entity": "PATLIQ",
+    "processor_name": "WorldPay",
+    "merchant_id": "4445056774391",
+    "terminal_id": "",
+    "portal_url": "https://www.accessmyiq.com/login",
+    "dba_name": "",
+    "status": "Inactive",
+    "notes": "OLD PROCESSOR"
+  }
+},
+{
+  "model": "deadlines.merchantprocessor",
+  "pk": 3,
+  "fields": {
+    "entity": "CHEERS",
+    "processor_name": "AccessOne",
+    "merchant_id": "498478863885",
+    "terminal_id": "9660336",
+    "portal_url": "https://www.youraccessone.com/",
+    "dba_name": "CHEERS LIQUOR MART",
+    "status": "Active",
+    "notes": "Card entitlements: Visa, MC, Discover, Amex Opt Blue"
+  }
+},
+{
+  "model": "deadlines.merchantprocessor",
+  "pk": 4,
+  "fields": {
+    "entity": "GXM",
+    "processor_name": "Square",
+    "merchant_id": "",
+    "terminal_id": "",
+    "portal_url": "https://squareup.com/dashboard/",
+    "dba_name": "",
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.merchantprocessor",
+  "pk": 5,
+  "fields": {
+    "entity": "TIMBER",
+    "processor_name": "Toast",
+    "merchant_id": "",
+    "terminal_id": "",
+    "portal_url": "",
+    "dba_name": "",
+    "status": "Active",
+    "notes": ""
+  }
+},
+{
+  "model": "deadlines.vendor",
+  "pk": 1,
+  "fields": {
+    "entity": "GXM",
+    "vendor_name": "Pepsi",
+    "account_number": "9928274",
+    "service_location": "5520 NW Highway 99, Corvallis OR (Recreation Center)",
+    "purpose": "Beverage vending/supply",
+    "contact_phone": "",
+    "website": "",
+    "status": "Active",
+    "notes": ""
+  }
+}
+]

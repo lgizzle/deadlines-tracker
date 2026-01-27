@@ -1,0 +1,98 @@
+{% extends "deadlines/base.html" %}
+{% load static %}
+
+{% block title %}Delete Contact - Business Deadlines{% endblock %}
+{% block nav_contacts %}active{% endblock %}
+{% block bottom_nav_contacts %}active{% endblock %}
+
+{% block content %}
+<div class="header">
+  <div class="header-row">
+    <h1>Delete Contact</h1>
+  </div>
+</div>
+
+<style>
+  .delete-confirmation {
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .delete-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+  .delete-message {
+    font-size: 16px;
+    color: #374151;
+    margin-bottom: 10px;
+  }
+  .delete-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 20px;
+  }
+  .delete-warning {
+    font-size: 13px;
+    color: #ef4444;
+    margin-bottom: 30px;
+  }
+  .delete-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+  }
+  .btn-cancel {
+    padding: 14px 32px;
+    background: #f3f4f6;
+    color: #374151;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.15s;
+  }
+  .btn-cancel:hover {
+    background: #e5e7eb;
+  }
+  .btn-delete-confirm {
+    padding: 14px 32px;
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn-delete-confirm:hover {
+    background: #dc2626;
+  }
+</style>
+
+<div class="detail-content">
+  <div class="detail-card">
+    <div class="delete-confirmation">
+      <div class="delete-icon">&#9888;</div>
+      <div class="delete-message">Are you sure you want to delete this contact?</div>
+      <div class="delete-name">{{ contact.full_name }}</div>
+      {% if contact.company_name %}
+      <div style="color: #6b7280; margin-bottom: 20px;">{{ contact.company_name }}</div>
+      {% endif %}
+      <div class="delete-warning">This action cannot be undone.</div>
+
+      <div class="delete-actions">
+        <a href="{% url 'deadlines:contact_detail' contact.pk %}" class="btn-cancel">Cancel</a>
+        <form method="post" style="display: inline;">
+          {% csrf_token %}
+          <button type="submit" class="btn-delete-confirm">Delete Contact</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

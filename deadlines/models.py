@@ -16,7 +16,7 @@ class Entity(models.Model):
     # Classification
     entity_type = models.CharField(max_length=50, blank=True)
     tax_filing_type = models.CharField(max_length=50, blank=True)
-    status = models.CharField(max_length=20, default="Active")
+    status = models.CharField(max_length=100, default="Active")
 
     # Contact & Location
     physical_address = models.TextField(blank=True)
@@ -24,12 +24,12 @@ class Entity(models.Model):
     physical_state = models.CharField(max_length=2, blank=True)
     physical_zip = models.CharField(max_length=10, blank=True)
     mailing_address = models.TextField(blank=True)
-    business_phone = models.CharField(max_length=20, blank=True)
+    business_phone = models.CharField(max_length=50, blank=True)
     website = models.URLField(blank=True)
 
     # Manager info
     manager_name = models.CharField(max_length=100, blank=True)
-    manager_phone = models.CharField(max_length=20, blank=True)
+    manager_phone = models.CharField(max_length=50, blank=True)
     manager_email = models.EmailField(blank=True)
 
     # Secretary of State info
@@ -115,7 +115,7 @@ class Deadline(models.Model):
         max_digits=10, decimal_places=2, null=True, blank=True
     )
 
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="Active")
+    status = models.CharField(max_length=100, choices=STATUS_CHOICES, default="Active")
     notes = models.TextField(blank=True)
 
     # Tracking
@@ -165,7 +165,7 @@ class BankAccount(models.Model):
         max_length=50, blank=True, help_text="Full account number (encrypted)"
     )
     routing_number = models.CharField(max_length=9, blank=True)
-    status = models.CharField(max_length=20, default="Active")
+    status = models.CharField(max_length=100, default="Active")
     notes = models.TextField(blank=True)
 
     class Meta:
@@ -198,7 +198,7 @@ class CreditCard(models.Model):
     credit_limit = models.DecimalField(
         max_digits=10, decimal_places=2, null=True, blank=True
     )
-    status = models.CharField(max_length=20, default="Active")
+    status = models.CharField(max_length=100, default="Active")
     notes = models.TextField(blank=True)
 
     class Meta:
@@ -224,7 +224,7 @@ class InsurancePolicy(models.Model):
         max_digits=10, decimal_places=2, null=True, blank=True
     )
     renewal_date = models.DateField(null=True, blank=True)
-    status = models.CharField(max_length=20, default="Active")
+    status = models.CharField(max_length=100, default="Active")
     notes = models.TextField(blank=True)
 
     class Meta:
@@ -249,7 +249,7 @@ class License(models.Model):
     renewal_fee = models.DecimalField(
         max_digits=10, decimal_places=2, null=True, blank=True
     )
-    status = models.CharField(max_length=20, default="Active")
+    status = models.CharField(max_length=100, default="Active")
     notes = models.TextField(blank=True)
 
     class Meta:
@@ -281,7 +281,7 @@ class Loan(models.Model):
     payment_frequency = models.CharField(max_length=20, blank=True)
     origination_date = models.DateField(null=True, blank=True)
     maturity_date = models.DateField(null=True, blank=True)
-    status = models.CharField(max_length=20, default="Active")
+    status = models.CharField(max_length=100, default="Active")
     notes = models.TextField(blank=True)
 
     class Meta:
@@ -313,8 +313,8 @@ class Contact(models.Model):
     last_name = models.CharField(max_length=100)
     title = models.CharField(max_length=100, blank=True)
     email = models.EmailField(blank=True)
-    phone = models.CharField(max_length=20, blank=True)
-    mobile = models.CharField(max_length=20, blank=True)
+    phone = models.CharField(max_length=50, blank=True)
+    mobile = models.CharField(max_length=50, blank=True)
     address = models.TextField(blank=True)
     ssn = EncryptedCharField(
         max_length=11, blank=True, help_text="SSN: XXX-XX-XXXX (encrypted)"
@@ -364,7 +364,7 @@ class StateAccount(models.Model):
     )
     portal_url = models.URLField(blank=True)
     login_email = models.EmailField(blank=True, help_text="Login email (not password)")
-    status = models.CharField(max_length=20, default="Active")
+    status = models.CharField(max_length=100, default="Active")
     notes = models.TextField(blank=True)
 
     class Meta:
@@ -387,7 +387,7 @@ class MerchantProcessor(models.Model):
     terminal_id = models.CharField(max_length=100, blank=True)
     portal_url = models.URLField(blank=True)
     dba_name = models.CharField(max_length=200, blank=True, verbose_name="DBA Name on Processor")
-    status = models.CharField(max_length=20, default="Active")
+    status = models.CharField(max_length=100, default="Active")
     notes = models.TextField(blank=True)
 
     class Meta:
@@ -409,9 +409,9 @@ class Vendor(models.Model):
     account_number = models.CharField(max_length=100, blank=True)
     service_location = models.TextField(blank=True, help_text="Address where service is provided")
     purpose = models.CharField(max_length=200, blank=True, help_text="What this vendor provides")
-    contact_phone = models.CharField(max_length=20, blank=True)
+    contact_phone = models.CharField(max_length=50, blank=True)
     website = models.URLField(blank=True)
-    status = models.CharField(max_length=20, default="Active")
+    status = models.CharField(max_length=100, default="Active")
     notes = models.TextField(blank=True)
 
     class Meta:

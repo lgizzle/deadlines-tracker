@@ -1,0 +1,206 @@
+{% extends "deadlines/base.html" %}
+{% load static %}
+
+{% block title %}{{ contact.full_name }} - Business Deadlines{% endblock %}
+{% block nav_contacts %}active{% endblock %}
+{% block bottom_nav_contacts %}active{% endblock %}
+
+{% block content %}
+<div class="detail-header">
+  <a href="{% url 'deadlines:contact_list' %}" class="detail-back">
+    <- Back to Contacts
+  </a>
+  <div class="detail-title">{{ contact.full_name }}</div>
+  <div class="detail-meta">
+    <span class="detail-entity-badge">{{ contact.contact_type }}</span>
+    {% if contact.entity %}
+    <span>{{ contact.entity.entity_code }}</span>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+  .contact-card {
+    background: #f8f9fa;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+  }
+  .contact-name {
+    font-weight: 600;
+    font-size: 15px;
+    color: #1f2937;
+    margin-bottom: 5px;
+  }
+  .contact-detail {
+    font-size: 13px;
+    color: #6b7280;
+    margin: 3px 0;
+  }
+  .financial-item {
+    background: #f8f9fa;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 6px;
+    border-left: 3px solid #6366f1;
+  }
+  .financial-item-header {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #1f2937;
+  }
+  .financial-item-detail {
+    font-size: 12px;
+    color: #6b7280;
+    margin: 3px 0;
+  }
+  .action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .btn-edit {
+    flex: 1;
+    padding: 14px;
+    background: #6366f1;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.15s;
+  }
+  .btn-edit:hover {
+    background: #5558e3;
+  }
+  .btn-delete {
+    padding: 14px 24px;
+    background: #f3f4f6;
+    color: #ef4444;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.15s;
+  }
+  .btn-delete:hover {
+    background: #fef2f2;
+  }
+</style>
+
+<div class="detail-content">
+  <div class="detail-card">
+    <h3>Contact Information</h3>
+    <div class="detail-grid">
+      <div class="detail-field">
+        <span class="detail-label">First Name</span>
+        <span class="detail-value">{{ contact.first_name }}</span>
+      </div>
+      <div class="detail-field">
+        <span class="detail-label">Last Name</span>
+        <span class="detail-value">{{ contact.last_name }}</span>
+      </div>
+      {% if contact.title %}
+      <div class="detail-field">
+        <span class="detail-label">Title</span>
+        <span class="detail-value">{{ contact.title }}</span>
+      </div>
+      {% endif %}
+      {% if contact.company_name %}
+      <div class="detail-field">
+        <span class="detail-label">Company</span>
+        <span class="detail-value">{{ contact.company_name }}</span>
+      </div>
+      {% endif %}
+      <div class="detail-field">
+        <span class="detail-label">Contact Type</span>
+        <span class="detail-value">{{ contact.contact_type }}</span>
+      </div>
+      <div class="detail-field">
+        <span class="detail-label">Entity</span>
+        <span class="detail-value">
+          {% if contact.entity %}
+          <a href="{% url 'deadlines:entity_detail' contact.entity.pk %}?tab=contacts" style="color: #6366f1; text-decoration: none;">
+            {{ contact.entity.entity_code }}
+          </a>
+          {% else %}
+          <span style="color: #9ca3af;">No Entity</span>
+          {% endif %}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail-card">
+    <h3>Contact Details</h3>
+    {% if contact.email %}
+    <div class="financial-item">
+      <div class="financial-item-header">Email</div>
+      <div class="financial-item-detail">
+        <a href="mailto:{{ contact.email }}" style="color: #6366f1; text-decoration: none;">
+          {{ contact.email }}
+        </a>
+      </div>
+    </div>
+    {% endif %}
+    {% if contact.phone %}
+    <div class="financial-item">
+      <div class="financial-item-header">Phone</div>
+      <div class="financial-item-detail">
+        <a href="tel:{{ contact.phone }}" style="color: #6366f1; text-decoration: none;">
+          {{ contact.phone }}
+        </a>
+      </div>
+    </div>
+    {% endif %}
+    {% if contact.mobile %}
+    <div class="financial-item">
+      <div class="financial-item-header">Mobile</div>
+      <div class="financial-item-detail">
+        <a href="tel:{{ contact.mobile }}" style="color: #6366f1; text-decoration: none;">
+          {{ contact.mobile }}
+        </a>
+      </div>
+    </div>
+    {% endif %}
+    {% if contact.address %}
+    <div class="financial-item">
+      <div class="financial-item-header">Address</div>
+      <div class="financial-item-detail" style="white-space: pre-line;">{{ contact.address }}</div>
+    </div>
+    {% endif %}
+    {% if contact.ssn_masked %}
+    <div class="financial-item">
+      <div class="financial-item-header">SSN</div>
+      <div class="financial-item-detail" style="font-family: monospace;">{{ contact.ssn_masked }}</div>
+    </div>
+    {% endif %}
+    {% if not contact.email and not contact.phone and not contact.mobile and not contact.address and not contact.ssn_masked %}
+    <div style="text-align: center; padding: 20px; color: #9ca3af; font-size: 13px;">
+      No contact details on file
+    </div>
+    {% endif %}
+  </div>
+
+  {% if contact.notes %}
+  <div class="detail-card">
+    <h3>Notes</h3>
+    <div style="font-size: 14px; color: #374151; line-height: 1.6; white-space: pre-wrap;">{{ contact.notes }}</div>
+  </div>
+  {% endif %}
+
+  <div class="action-buttons">
+    <a href="{% url 'deadlines:contact_edit' contact.pk %}" class="btn-edit">Edit Contact</a>
+    <a href="{% url 'deadlines:contact_delete' contact.pk %}" class="btn-delete">Delete</a>
+  </div>
+</div>
+{% endblock %}

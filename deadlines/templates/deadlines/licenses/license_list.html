@@ -1,0 +1,209 @@
+{% extends "deadlines/base.html" %}
+{% load static %}
+
+{% block title %}Licenses - Business Deadlines{% endblock %}
+
+{% block nav_licenses %}active{% endblock %}
+
+{% block content %}
+<div class="header">
+  <div class="header-row">
+    <h1>Licenses & Permits</h1>
+    <a href="{% url 'deadlines:license_add' %}" class="add-btn">+</a>
+    <div class="header-actions">
+      <a href="{% url 'deadlines:license_add' %}" class="btn-primary">+ Add License</a>
+    </div>
+  </div>
+  <div class="entity-filter" style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px;">
+    <select onchange="applyFilters()" id="entity-filter" class="filter-dropdown">
+      <option value="">All Entities</option>
+      {% for entity in entities %}
+      <option value="{{ entity.entity_code }}" {% if entity.entity_code == entity_filter %}selected{% endif %}>
+        {{ entity.entity_code }}
+      </option>
+      {% endfor %}
+    </select>
+    <select onchange="applyFilters()" id="type-filter" class="filter-dropdown">
+      <option value="">All Types</option>
+      {% for type in license_types %}
+      <option value="{{ type }}" {% if type == type_filter %}selected{% endif %}>
+        {{ type }}
+      </option>
+      {% endfor %}
+    </select>
+    <select onchange="applyFilters()" id="authority-filter" class="filter-dropdown">
+      <option value="">All Authorities</option>
+      {% for authority in issuing_authorities %}
+      <option value="{{ authority }}" {% if authority == authority_filter %}selected{% endif %}>
+        {{ authority }}
+      </option>
+      {% endfor %}
+    </select>
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-number red">{{ stats.expired }}</div>
+    <div class="stat-label">Expired</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number" style="color: #f97316;">{{ stats.critical }}</div>
+    <div class="stat-label">30 Days</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number yellow">{{ stats.warning }}</div>
+    <div class="stat-label">90 Days</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number green">{{ stats.total }}</div>
+    <div class="stat-label">Total</div>
+  </div>
+</div>
+
+<div class="content">
+  {% if licenses %}
+
+  <!-- Expired Section -->
+  {% for license in licenses %}
+  {% if license.urgency_status == 'expired' and forloop.first or license.urgency_status == 'expired' and forloop.parentloop.first %}
+  <div class="section-header" style="color: #dc2626;">EXPIRED</div>
+  {% endif %}
+  {% if license.urgency_status == 'expired' %}
+  <a href="{% url 'deadlines:license_detail' license.pk %}" class="list-item" style="border-left: 4px solid #ef4444;">
+    <div class="list-item-title">{{ license.license_type }}</div>
+    <div class="list-item-meta">
+      <span>
+        <span class="entity-badge">{{ license.entity.entity_code }}</span>
+        {{ license.issuing_authority }}
+      </span>
+      <span style="color: #dc2626; font-weight: 600;">
+        Expired {{ license.expiration_date|date:"M j, Y" }}
+      </span>
+    </div>
+    {% if license.renewal_fee %}
+    <div class="list-item-meta" style="margin-top: 4px;">
+      <span class="list-item-amount">${{ license.renewal_fee|floatformat:2 }} renewal fee</span>
+    </div>
+    {% endif %}
+  </a>
+  {% endif %}
+  {% endfor %}
+
+  <!-- Critical (30 days) Section -->
+  {% with has_critical=False %}
+  {% for license in licenses %}
+  {% if license.urgency_status == 'critical' %}
+  {% if not has_critical %}
+  <div class="section-header" style="color: #f97316;">EXPIRES WITHIN 30 DAYS</div>
+  {% endif %}
+  <a href="{% url 'deadlines:license_detail' license.pk %}" class="list-item" style="border-left: 4px solid #f97316;">
+    <div class="list-item-title">{{ license.license_type }}</div>
+    <div class="list-item-meta">
+      <span>
+        <span class="entity-badge">{{ license.entity.entity_code }}</span>
+        {{ license.issuing_authority }}
+      </span>
+      <span style="color: #f97316; font-weight: 600;">
+        {{ license.days_until }} days - {{ license.expiration_date|date:"M j, Y" }}
+      </span>
+    </div>
+    {% if license.renewal_fee %}
+    <div class="list-item-meta" style="margin-top: 4px;">
+      <span class="list-item-amount">${{ license.renewal_fee|floatformat:2 }} renewal fee</span>
+    </div>
+    {% endif %}
+  </a>
+  {% endif %}
+  {% endfor %}
+  {% endwith %}
+
+  <!-- Warning (90 days) Section -->
+  {% with has_warning=False %}
+  {% for license in licenses %}
+  {% if license.urgency_status == 'warning' %}
+  {% if not has_warning %}
+  <div class="section-header" style="color: #d97706;">EXPIRES WITHIN 90 DAYS</div>
+  {% endif %}
+  <a href="{% url 'deadlines:license_detail' license.pk %}" class="list-item" style="border-left: 4px solid #f59e0b;">
+    <div class="list-item-title">{{ license.license_type }}</div>
+    <div class="list-item-meta">
+      <span>
+        <span class="entity-badge">{{ license.entity.entity_code }}</span>
+        {{ license.issuing_authority }}
+      </span>
+      <span style="color: #d97706; font-weight: 600;">
+        {{ license.days_until }} days - {{ license.expiration_date|date:"M j, Y" }}
+      </span>
+    </div>
+    {% if license.renewal_fee %}
+    <div class="list-item-meta" style="margin-top: 4px;">
+      <span class="list-item-amount">${{ license.renewal_fee|floatformat:2 }} renewal fee</span>
+    </div>
+    {% endif %}
+  </a>
+  {% endif %}
+  {% endfor %}
+  {% endwith %}
+
+  <!-- Normal Section -->
+  {% with has_normal=False %}
+  {% for license in licenses %}
+  {% if license.urgency_status == 'normal' %}
+  {% if not has_normal %}
+  <div class="section-header" style="color: #22c55e;">CURRENT</div>
+  {% endif %}
+  <a href="{% url 'deadlines:license_detail' license.pk %}" class="list-item" style="border-left: 4px solid #22c55e;">
+    <div class="list-item-title">{{ license.license_type }}</div>
+    <div class="list-item-meta">
+      <span>
+        <span class="entity-badge">{{ license.entity.entity_code }}</span>
+        {{ license.issuing_authority }}
+      </span>
+      {% if license.expiration_date %}
+      <span style="color: #22c55e;">
+        {{ license.expiration_date|date:"M j, Y" }}
+      </span>
+      {% else %}
+      <span style="color: #9ca3af;">No expiration</span>
+      {% endif %}
+    </div>
+    {% if license.renewal_fee %}
+    <div class="list-item-meta" style="margin-top: 4px;">
+      <span class="list-item-amount">${{ license.renewal_fee|floatformat:2 }} renewal fee</span>
+    </div>
+    {% endif %}
+  </a>
+  {% endif %}
+  {% endfor %}
+  {% endwith %}
+
+  {% else %}
+  <div class="empty-state">
+    <div class="empty-state-icon">📄</div>
+    <div class="empty-state-text">No licenses found</div>
+    <a href="{% url 'deadlines:license_add' %}" class="btn-primary" style="display: inline-flex; margin-top: 16px;">
+      + Add License
+    </a>
+  </div>
+  {% endif %}
+</div>
+
+<script>
+function applyFilters() {
+  const entity = document.getElementById('entity-filter').value;
+  const type = document.getElementById('type-filter').value;
+  const authority = document.getElementById('authority-filter').value;
+
+  let url = '{% url "deadlines:license_list" %}?';
+  const params = [];
+
+  if (entity) params.push('entity=' + encodeURIComponent(entity));
+  if (type) params.push('license_type=' + encodeURIComponent(type));
+  if (authority) params.push('issuing_authority=' + encodeURIComponent(authority));
+
+  window.location.href = url + params.join('&');
+}
+</script>
+{% endblock %}

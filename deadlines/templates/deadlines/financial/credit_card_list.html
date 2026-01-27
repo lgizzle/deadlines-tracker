@@ -1,0 +1,74 @@
+{% extends "deadlines/base.html" %}
+{% load static %}
+
+{% block title %}Credit Cards - Business Deadlines{% endblock %}
+{% block nav_entities %}active{% endblock %}
+{% block bottom_nav_entities %}active{% endblock %}
+
+{% block content %}
+<div class="header">
+  <div class="header-row">
+    <h1>Credit Cards</h1>
+    <div class="header-actions">
+      <form method="get" style="margin: 0; display: flex; gap: 8px;">
+        <select name="entity" class="filter-dropdown" onchange="this.form.submit()">
+          <option value="">All Entities</option>
+          {% for entity in entities %}
+          <option value="{{ entity.entity_code }}" {% if entity_filter == entity.entity_code %}selected{% endif %}>
+            {{ entity.entity_code }}
+          </option>
+          {% endfor %}
+        </select>
+        <select name="network" class="filter-dropdown" onchange="this.form.submit()">
+          <option value="">All Networks</option>
+          {% for network in networks %}
+          <option value="{{ network }}" {% if network_filter == network %}selected{% endif %}>
+            {{ network }}
+          </option>
+          {% endfor %}
+        </select>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+  {% if cards %}
+  <div class="financial-list">
+    {% for card in cards %}
+    <a href="{% url 'deadlines:credit_card_detail' card.pk %}" class="list-item normal">
+      <div class="list-item-title">{{ card.card_name }}</div>
+      <div class="list-item-meta">
+        <span>
+          <span class="entity-badge">{{ card.entity.entity_code }}</span>
+          <span style="margin-left: 8px;">
+            •••• {{ card.last4 }}
+            {% if card.network %}({{ card.network }}){% endif %}
+          </span>
+        </span>
+        {% if card.credit_limit %}
+        <span class="list-item-amount">Limit: ${{ card.credit_limit|floatformat:0 }}</span>
+        {% endif %}
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-state">
+    <div class="empty-state-icon">💳</div>
+    <div class="empty-state-text">No credit cards found.</div>
+  </div>
+  {% endif %}
+</div>
+
+<style>
+  .financial-list {
+    padding: 14px;
+  }
+  @media (min-width: 1024px) {
+    .financial-list {
+      padding: 0;
+    }
+  }
+</style>
+{% endblock %}

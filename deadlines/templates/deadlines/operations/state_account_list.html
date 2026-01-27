@@ -1,0 +1,121 @@
+{% extends "deadlines/base.html" %}
+{% load static %}
+
+{% block title %}State Accounts - Business Deadlines{% endblock %}
+
+{% block content %}
+<div class="header">
+  <div class="header-row">
+    <h1>State Accounts</h1>
+    <div class="header-actions">
+      <form method="get" style="margin: 0; display: flex; gap: 8px;">
+        <select name="state" class="filter-dropdown" onchange="this.form.submit()">
+          <option value="">All States</option>
+          {% for state in states %}
+            <option value="{{ state }}" {% if state == state_filter %}selected{% endif %}>
+              {{ state }}
+            </option>
+          {% endfor %}
+        </select>
+        <select name="account_type" class="filter-dropdown" onchange="this.form.submit()">
+          <option value="">All Types</option>
+          {% for account_type in account_types %}
+            <option value="{{ account_type }}" {% if account_type == account_type_filter %}selected{% endif %}>
+              {{ account_type }}
+            </option>
+          {% endfor %}
+        </select>
+      </form>
+    </div>
+  </div>
+</div>
+
+<style>
+  .financial-item {
+    background: #f8f9fa;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 6px;
+    border-left: 3px solid #6366f1;
+  }
+  .financial-item-header {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #1f2937;
+  }
+  .financial-item-detail {
+    font-size: 12px;
+    color: #6b7280;
+    margin: 3px 0;
+  }
+  .operations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 12px;
+    padding: 16px;
+  }
+  .operations-card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .operations-card:hover .financial-item {
+    border-left-color: #4f46e5;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  .entity-badge {
+    display: inline-block;
+    background: #e0e7ff;
+    color: #4338ca;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: 8px;
+  }
+  .state-badge {
+    display: inline-block;
+    background: #dbeafe;
+    color: #1d4ed8;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+</style>
+
+<div class="content">
+  <div class="operations-grid">
+    {% for account in accounts %}
+    <a href="{% url 'deadlines:state_account_detail' account.pk %}" class="operations-card">
+      <div class="financial-item">
+        <div class="financial-item-header">
+          <span class="state-badge">{{ account.state }}</span>
+          {{ account.account_type }}
+          <span class="entity-badge">{{ account.entity.entity_code }}</span>
+        </div>
+        {% if account.account_number %}
+        <div class="financial-item-detail">Account #: {{ account.account_number }}</div>
+        {% endif %}
+        {% if account.portal_name %}
+        <div class="financial-item-detail">Portal: {{ account.portal_name }}</div>
+        {% endif %}
+        {% if account.portal_url %}
+        <div class="financial-item-detail">
+          <a href="{{ account.portal_url }}" target="_blank" style="color: #6366f1; text-decoration: none" onclick="event.stopPropagation();">Portal Link</a>
+        </div>
+        {% endif %}
+        {% if account.login_email %}
+        <div class="financial-item-detail">Login: {{ account.login_email }}</div>
+        {% endif %}
+      </div>
+    </a>
+    {% empty %}
+    <div class="empty-state" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+      <div class="empty-state-icon">📋</div>
+      <div class="empty-state-text">No state accounts found.</div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

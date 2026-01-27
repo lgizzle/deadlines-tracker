@@ -1,0 +1,135 @@
+{% extends "deadlines/base.html" %}
+{% load static %}
+
+{% block title %}Vendors - Business Deadlines{% endblock %}
+
+{% block content %}
+<div class="header">
+  <div class="header-row">
+    <h1>Vendors</h1>
+    <div class="header-actions">
+      <form method="get" style="margin: 0; display: flex; gap: 8px;">
+        <input
+          type="text"
+          name="q"
+          placeholder="Search vendors..."
+          value="{{ search_query }}"
+          class="search-input"
+          style="padding: 8px 12px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; width: 180px;"
+        >
+        <select name="entity" class="filter-dropdown" onchange="this.form.submit()">
+          <option value="">All Entities</option>
+          {% for entity in entities %}
+            <option value="{{ entity.entity_code }}" {% if entity.entity_code == entity_filter %}selected{% endif %}>
+              {{ entity.entity_code }}
+            </option>
+          {% endfor %}
+        </select>
+        <button type="submit" class="btn-primary" style="padding: 8px 16px; background: #6366f1; color: white; border: none; border-radius: 6px; cursor: pointer;">Search</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<style>
+  .financial-item {
+    background: #f8f9fa;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 6px;
+    border-left: 3px solid #6366f1;
+  }
+  .financial-item-header {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #1f2937;
+  }
+  .financial-item-detail {
+    font-size: 12px;
+    color: #6b7280;
+    margin: 3px 0;
+  }
+  .operations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 12px;
+    padding: 16px;
+  }
+  .operations-card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .operations-card:hover .financial-item {
+    border-left-color: #4f46e5;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  .entity-badge {
+    display: inline-block;
+    background: #e0e7ff;
+    color: #4338ca;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: 8px;
+  }
+  .search-results-info {
+    padding: 8px 16px;
+    font-size: 13px;
+    color: #6b7280;
+  }
+</style>
+
+<div class="content">
+  {% if search_query %}
+  <div class="search-results-info">
+    Showing results for "{{ search_query }}"
+    {% if vendors %} - {{ vendors|length }} vendor{{ vendors|length|pluralize }} found{% endif %}
+  </div>
+  {% endif %}
+
+  <div class="operations-grid">
+    {% for vendor in vendors %}
+    <a href="{% url 'deadlines:vendor_detail' vendor.pk %}" class="operations-card">
+      <div class="financial-item">
+        <div class="financial-item-header">
+          {{ vendor.vendor_name }}
+          <span class="entity-badge">{{ vendor.entity.entity_code }}</span>
+        </div>
+        {% if vendor.purpose %}
+        <div class="financial-item-detail">Purpose: {{ vendor.purpose }}</div>
+        {% endif %}
+        {% if vendor.account_number %}
+        <div class="financial-item-detail">Account: {{ vendor.account_number }}</div>
+        {% endif %}
+        {% if vendor.service_location %}
+        <div class="financial-item-detail">Location: {{ vendor.service_location|truncatewords:10 }}</div>
+        {% endif %}
+        {% if vendor.contact_phone %}
+        <div class="financial-item-detail">
+          <a href="tel:{{ vendor.contact_phone }}" style="color: #6366f1; text-decoration: none" onclick="event.stopPropagation();">{{ vendor.contact_phone }}</a>
+        </div>
+        {% endif %}
+        {% if vendor.website %}
+        <div class="financial-item-detail">
+          <a href="{{ vendor.website }}" target="_blank" style="color: #6366f1; text-decoration: none" onclick="event.stopPropagation();">Website</a>
+        </div>
+        {% endif %}
+      </div>
+    </a>
+    {% empty %}
+    <div class="empty-state" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+      <div class="empty-state-icon">🏪</div>
+      <div class="empty-state-text">
+        {% if search_query %}
+        No vendors found matching "{{ search_query }}".
+        {% else %}
+        No vendors found.
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

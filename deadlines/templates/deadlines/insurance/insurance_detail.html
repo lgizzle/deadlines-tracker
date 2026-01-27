@@ -1,0 +1,120 @@
+{% extends "deadlines/base.html" %}
+{% load static %}
+
+{% block title %}{{ policy.policy_type }} - {{ policy.carrier }} | Business Deadlines{% endblock %}
+
+{% block nav_entities %}active{% endblock %}
+
+{% block content %}
+<div class="header">
+  <div class="header-row">
+    <div>
+      <a href="{% url 'deadlines:insurance_list' %}" style="color: white; text-decoration: none; font-size: 14px; opacity: 0.8;">
+        &larr; All Policies
+      </a>
+      <h1 style="margin-top: 4px;">{{ policy.policy_type }}</h1>
+      <div style="font-size: 14px; opacity: 0.9; margin-top: 4px;">{{ policy.carrier }}</div>
+    </div>
+    <a href="{% url 'deadlines:insurance_edit' policy.pk %}" class="add-btn">Edit</a>
+  </div>
+</div>
+
+<div class="detail-content" style="background: #f5f5f5;">
+  <!-- Status Banner -->
+  {% if policy.is_overdue %}
+  <div style="background: #f8d7da; color: #721c24; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; font-weight: 600;">
+    OVERDUE - Renewal was {{ policy.renewal_date|date:"M j, Y" }} ({{ policy.days_until_renewal|abs }} days ago)
+  </div>
+  {% elif policy.is_due_soon %}
+  <div style="background: #fff3cd; color: #856404; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; font-weight: 600;">
+    Renewal Due Soon - {{ policy.renewal_date|date:"M j, Y" }} ({{ policy.days_until_renewal }} days)
+  </div>
+  {% endif %}
+
+  <!-- Policy Details -->
+  <div class="detail-card">
+    <h3>Policy Details</h3>
+
+    <div class="financial-item">
+      <div class="financial-item-header">Entity</div>
+      <div class="financial-item-detail">
+        <a href="{% url 'deadlines:entity_detail' policy.entity.pk %}?tab=insurance" style="color: #007bff; text-decoration: none;">
+          {{ policy.entity.entity_code }} - {{ policy.entity.dba_name|default:policy.entity.legal_name }}
+        </a>
+      </div>
+    </div>
+
+    <div class="financial-item">
+      <div class="financial-item-header">Policy Number</div>
+      <div class="financial-item-detail">{{ policy.policy_number|default:"--" }}</div>
+    </div>
+
+    <div class="financial-item">
+      <div class="financial-item-header">Coverage Amount</div>
+      <div class="financial-item-detail">
+        {% if policy.coverage_amount %}
+        ${{ policy.coverage_amount|floatformat:0 }}
+        {% else %}
+        --
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="financial-item">
+      <div class="financial-item-header">Premium Amount</div>
+      <div class="financial-item-detail">
+        {% if policy.premium_amount %}
+        ${{ policy.premium_amount|floatformat:2 }}
+        {% else %}
+        --
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="financial-item">
+      <div class="financial-item-header">Renewal Date</div>
+      <div class="financial-item-detail" style="{% if policy.is_overdue %}color: #dc3545; font-weight: 600;{% elif policy.is_due_soon %}color: #856404; font-weight: 600;{% endif %}">
+        {% if policy.renewal_date %}
+        {{ policy.renewal_date|date:"F j, Y" }}
+        {% if policy.days_until_renewal != None %}
+        <span style="font-weight: normal; font-size: 13px;">
+          {% if policy.days_until_renewal < 0 %}
+          ({{ policy.days_until_renewal|abs }} days overdue)
+          {% elif policy.days_until_renewal == 0 %}
+          (Today!)
+          {% else %}
+          (in {{ policy.days_until_renewal }} days)
+          {% endif %}
+        </span>
+        {% endif %}
+        {% else %}
+        --
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="financial-item">
+      <div class="financial-item-header">Status</div>
+      <div class="financial-item-detail">
+        <span style="display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; {% if policy.status == 'Active' %}background: #d4edda; color: #155724;{% else %}background: #e2e3e5; color: #383d41;{% endif %}">
+          {{ policy.status }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notes -->
+  {% if policy.notes %}
+  <div class="detail-card">
+    <h3>Notes</h3>
+    <div style="white-space: pre-wrap; color: #555; line-height: 1.6;">{{ policy.notes }}</div>
+  </div>
+  {% endif %}
+
+  <!-- Actions -->
+  <div style="display: flex; gap: 12px; margin-top: 16px;">
+    <a href="{% url 'deadlines:insurance_edit' policy.pk %}" class="action-button">Edit Policy</a>
+    <a href="{% url 'deadlines:insurance_list' %}" class="action-button secondary">Back to List</a>
+  </div>
+</div>
+{% endblock %}

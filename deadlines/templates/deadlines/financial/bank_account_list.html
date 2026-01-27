@@ -1,0 +1,73 @@
+{% extends "deadlines/base.html" %}
+{% load static %}
+
+{% block title %}Bank Accounts - Business Deadlines{% endblock %}
+{% block nav_entities %}active{% endblock %}
+{% block bottom_nav_entities %}active{% endblock %}
+
+{% block content %}
+<div class="header">
+  <div class="header-row">
+    <h1>Bank Accounts</h1>
+    <div class="header-actions">
+      <form method="get" style="margin: 0; display: flex; gap: 8px;">
+        <select name="entity" class="filter-dropdown" onchange="this.form.submit()">
+          <option value="">All Entities</option>
+          {% for entity in entities %}
+          <option value="{{ entity.entity_code }}" {% if entity_filter == entity.entity_code %}selected{% endif %}>
+            {{ entity.entity_code }}
+          </option>
+          {% endfor %}
+        </select>
+        <select name="bank" class="filter-dropdown" onchange="this.form.submit()">
+          <option value="">All Banks</option>
+          {% for bank in banks %}
+          <option value="{{ bank }}" {% if bank_filter == bank %}selected{% endif %}>
+            {{ bank }}
+          </option>
+          {% endfor %}
+        </select>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+  {% if accounts %}
+  <div class="financial-list">
+    {% for account in accounts %}
+    <a href="{% url 'deadlines:bank_account_detail' account.pk %}" class="list-item normal">
+      <div class="list-item-title">
+        {{ account.bank_name }} - {{ account.account_type }}
+      </div>
+      <div class="list-item-meta">
+        <span>
+          <span class="entity-badge">{{ account.entity.entity_code }}</span>
+          <span style="margin-left: 8px;">Account ending in {{ account.account_number_last4 }}</span>
+        </span>
+        {% if account.routing_number %}
+        <span class="list-item-date">Routing: {{ account.routing_number }}</span>
+        {% endif %}
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-state">
+    <div class="empty-state-icon">🏦</div>
+    <div class="empty-state-text">No bank accounts found.</div>
+  </div>
+  {% endif %}
+</div>
+
+<style>
+  .financial-list {
+    padding: 14px;
+  }
+  @media (min-width: 1024px) {
+    .financial-list {
+      padding: 0;
+    }
+  }
+</style>
+{% endblock %}

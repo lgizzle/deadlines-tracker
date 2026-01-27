@@ -1,0 +1,162 @@
+{% extends "deadlines/base.html" %}
+{% load static %}
+
+{% block title %}{{ processor.processor_name }} - {{ processor.entity.entity_code }} - Business Deadlines{% endblock %}
+
+{% block content %}
+<div class="detail-header">
+  <a href="{% url 'deadlines:merchant_processor_list' %}" class="detail-back">
+    &larr; Back to Merchant Processors
+  </a>
+  <div class="detail-title">{{ processor.processor_name }}</div>
+  <div class="detail-meta">
+    <span class="detail-entity-badge">{{ processor.entity.entity_code }}</span>
+    <span>{{ processor.entity.dba_name|default:processor.entity.legal_name }}</span>
+  </div>
+</div>
+
+<style>
+  .financial-item {
+    background: #f8f9fa;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 6px;
+    border-left: 3px solid #6366f1;
+  }
+  .financial-item-header {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #1f2937;
+  }
+  .financial-item-detail {
+    font-size: 12px;
+    color: #6b7280;
+    margin: 3px 0;
+  }
+  .detail-card {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  .detail-card h3 {
+    margin: 0 0 16px 0;
+    font-size: 16px;
+    color: #374151;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 8px;
+  }
+  .detail-row {
+    display: flex;
+    padding: 10px 0;
+    border-bottom: 1px solid #f3f4f6;
+  }
+  .detail-row:last-child {
+    border-bottom: none;
+  }
+  .detail-label {
+    font-weight: 500;
+    color: #6b7280;
+    width: 140px;
+    flex-shrink: 0;
+  }
+  .detail-value {
+    color: #1f2937;
+    flex: 1;
+  }
+  .detail-value a {
+    color: #6366f1;
+    text-decoration: none;
+  }
+  .detail-value a:hover {
+    text-decoration: underline;
+  }
+  .notes-section {
+    background: #fffbeb;
+    padding: 12px;
+    border-radius: 6px;
+    margin-top: 12px;
+    white-space: pre-wrap;
+    font-size: 13px;
+    color: #92400e;
+  }
+</style>
+
+<div class="content">
+  <div class="detail-card">
+    <h3>Processor Information</h3>
+
+    <div class="detail-row">
+      <div class="detail-label">Processor Name</div>
+      <div class="detail-value">{{ processor.processor_name }}</div>
+    </div>
+
+    {% if processor.merchant_id %}
+    <div class="detail-row">
+      <div class="detail-label">Merchant ID</div>
+      <div class="detail-value">{{ processor.merchant_id }}</div>
+    </div>
+    {% endif %}
+
+    {% if processor.terminal_id %}
+    <div class="detail-row">
+      <div class="detail-label">Terminal ID</div>
+      <div class="detail-value">{{ processor.terminal_id }}</div>
+    </div>
+    {% endif %}
+
+    {% if processor.dba_name %}
+    <div class="detail-row">
+      <div class="detail-label">DBA Name</div>
+      <div class="detail-value">{{ processor.dba_name }}</div>
+    </div>
+    {% endif %}
+
+    {% if processor.portal_url %}
+    <div class="detail-row">
+      <div class="detail-label">Portal URL</div>
+      <div class="detail-value">
+        <a href="{{ processor.portal_url }}" target="_blank">{{ processor.portal_url }}</a>
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="detail-row">
+      <div class="detail-label">Status</div>
+      <div class="detail-value">{{ processor.status }}</div>
+    </div>
+
+    {% if processor.notes %}
+    <div class="detail-row">
+      <div class="detail-label">Notes</div>
+      <div class="detail-value">
+        <div class="notes-section">{{ processor.notes }}</div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="detail-card">
+    <h3>Entity Information</h3>
+
+    <div class="detail-row">
+      <div class="detail-label">Entity</div>
+      <div class="detail-value">
+        <a href="{% url 'deadlines:entity_detail' processor.entity.pk %}">
+          {{ processor.entity.entity_code }} - {{ processor.entity.dba_name|default:processor.entity.legal_name }}
+        </a>
+      </div>
+    </div>
+
+    {% if processor.entity.physical_address %}
+    <div class="detail-row">
+      <div class="detail-label">Address</div>
+      <div class="detail-value">
+        {{ processor.entity.physical_address }}{% if processor.entity.physical_city %}, {{ processor.entity.physical_city }}{% endif %}{% if processor.entity.physical_state %}, {{ processor.entity.physical_state }}{% endif %} {{ processor.entity.physical_zip }}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

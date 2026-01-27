@@ -1,0 +1,94 @@
+{% extends "deadlines/base.html" %}
+{% load static %}
+
+{% block title %}{{ card.card_name }} - Credit Card - Business Deadlines{% endblock %}
+{% block nav_entities %}active{% endblock %}
+{% block bottom_nav_entities %}active{% endblock %}
+
+{% block content %}
+<div class="detail-header">
+  <a href="{% url 'deadlines:credit_card_list' %}" class="detail-back">
+    ← Back to Credit Cards
+  </a>
+  <div class="detail-title">{{ card.card_name }}</div>
+  <div class="detail-meta">
+    <span class="detail-entity-badge">{{ card.entity.entity_code }}</span>
+    {% if card.network %}<span>{{ card.network }}</span>{% endif %}
+  </div>
+</div>
+
+<div class="detail-content">
+  <div class="detail-card">
+    <h3>Card Information</h3>
+    <div class="detail-grid">
+      <div class="detail-field">
+        <span class="detail-label">Card Name</span>
+        <span class="detail-value">{{ card.card_name }}</span>
+      </div>
+      {% if card.network %}
+      <div class="detail-field">
+        <span class="detail-label">Network</span>
+        <span class="detail-value">{{ card.network }}</span>
+      </div>
+      {% endif %}
+      <div class="detail-field">
+        <span class="detail-label">Card Number</span>
+        <span class="detail-value" style="font-family: monospace;">
+          •••• •••• •••• {{ card.last4 }}
+        </span>
+      </div>
+      {% if card.credit_limit %}
+      <div class="detail-field">
+        <span class="detail-label">Credit Limit</span>
+        <span class="detail-value amount">${{ card.credit_limit|floatformat:0 }}</span>
+      </div>
+      {% endif %}
+      <div class="detail-field">
+        <span class="detail-label">Status</span>
+        <span class="detail-value">{{ card.status }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail-card">
+    <h3>Entity</h3>
+    <a href="{% url 'deadlines:entity_detail' card.entity.pk %}?tab=financial"
+       class="entity-link">
+      <div class="entity-link-code">{{ card.entity.entity_code }}</div>
+      <div class="entity-link-name">{{ card.entity.dba_name|default:card.entity.legal_name }}</div>
+    </a>
+  </div>
+
+  {% if card.notes %}
+  <div class="detail-card">
+    <h3>Notes</h3>
+    <div class="note-item">{{ card.notes }}</div>
+  </div>
+  {% endif %}
+</div>
+
+<style>
+  .entity-link {
+    display: block;
+    background: #f8f9fa;
+    padding: 12px;
+    border-radius: 6px;
+    border-left: 3px solid #6366f1;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s;
+  }
+  .entity-link:hover {
+    background: #f0f1f3;
+  }
+  .entity-link-code {
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 4px;
+  }
+  .entity-link-name {
+    font-size: 12px;
+    color: #6b7280;
+  }
+</style>
+{% endblock %}

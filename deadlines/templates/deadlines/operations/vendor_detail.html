@@ -1,0 +1,176 @@
+{% extends "deadlines/base.html" %}
+{% load static %}
+
+{% block title %}{{ vendor.vendor_name }} - {{ vendor.entity.entity_code }} - Business Deadlines{% endblock %}
+
+{% block content %}
+<div class="detail-header">
+  <a href="{% url 'deadlines:vendor_list' %}" class="detail-back">
+    &larr; Back to Vendors
+  </a>
+  <div class="detail-title">{{ vendor.vendor_name }}</div>
+  <div class="detail-meta">
+    <span class="detail-entity-badge">{{ vendor.entity.entity_code }}</span>
+    <span>{{ vendor.entity.dba_name|default:vendor.entity.legal_name }}</span>
+  </div>
+</div>
+
+<style>
+  .financial-item {
+    background: #f8f9fa;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 6px;
+    border-left: 3px solid #6366f1;
+  }
+  .financial-item-header {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #1f2937;
+  }
+  .financial-item-detail {
+    font-size: 12px;
+    color: #6b7280;
+    margin: 3px 0;
+  }
+  .detail-card {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  .detail-card h3 {
+    margin: 0 0 16px 0;
+    font-size: 16px;
+    color: #374151;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 8px;
+  }
+  .detail-row {
+    display: flex;
+    padding: 10px 0;
+    border-bottom: 1px solid #f3f4f6;
+  }
+  .detail-row:last-child {
+    border-bottom: none;
+  }
+  .detail-label {
+    font-weight: 500;
+    color: #6b7280;
+    width: 140px;
+    flex-shrink: 0;
+  }
+  .detail-value {
+    color: #1f2937;
+    flex: 1;
+  }
+  .detail-value a {
+    color: #6366f1;
+    text-decoration: none;
+  }
+  .detail-value a:hover {
+    text-decoration: underline;
+  }
+  .notes-section {
+    background: #fffbeb;
+    padding: 12px;
+    border-radius: 6px;
+    margin-top: 12px;
+    white-space: pre-wrap;
+    font-size: 13px;
+    color: #92400e;
+  }
+  .address-section {
+    white-space: pre-line;
+  }
+</style>
+
+<div class="content">
+  <div class="detail-card">
+    <h3>Vendor Information</h3>
+
+    <div class="detail-row">
+      <div class="detail-label">Vendor Name</div>
+      <div class="detail-value">{{ vendor.vendor_name }}</div>
+    </div>
+
+    {% if vendor.purpose %}
+    <div class="detail-row">
+      <div class="detail-label">Purpose</div>
+      <div class="detail-value">{{ vendor.purpose }}</div>
+    </div>
+    {% endif %}
+
+    {% if vendor.account_number %}
+    <div class="detail-row">
+      <div class="detail-label">Account Number</div>
+      <div class="detail-value">{{ vendor.account_number }}</div>
+    </div>
+    {% endif %}
+
+    {% if vendor.service_location %}
+    <div class="detail-row">
+      <div class="detail-label">Service Location</div>
+      <div class="detail-value">
+        <div class="address-section">{{ vendor.service_location }}</div>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if vendor.contact_phone %}
+    <div class="detail-row">
+      <div class="detail-label">Phone</div>
+      <div class="detail-value">
+        <a href="tel:{{ vendor.contact_phone }}">{{ vendor.contact_phone }}</a>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if vendor.website %}
+    <div class="detail-row">
+      <div class="detail-label">Website</div>
+      <div class="detail-value">
+        <a href="{{ vendor.website }}" target="_blank">{{ vendor.website }}</a>
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="detail-row">
+      <div class="detail-label">Status</div>
+      <div class="detail-value">{{ vendor.status }}</div>
+    </div>
+
+    {% if vendor.notes %}
+    <div class="detail-row">
+      <div class="detail-label">Notes</div>
+      <div class="detail-value">
+        <div class="notes-section">{{ vendor.notes }}</div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="detail-card">
+    <h3>Entity Information</h3>
+
+    <div class="detail-row">
+      <div class="detail-label">Entity</div>
+      <div class="detail-value">
+        <a href="{% url 'deadlines:entity_detail' vendor.entity.pk %}">
+          {{ vendor.entity.entity_code }} - {{ vendor.entity.dba_name|default:vendor.entity.legal_name }}
+        </a>
+      </div>
+    </div>
+
+    {% if vendor.entity.physical_address %}
+    <div class="detail-row">
+      <div class="detail-label">Entity Address</div>
+      <div class="detail-value">
+        {{ vendor.entity.physical_address }}{% if vendor.entity.physical_city %}, {{ vendor.entity.physical_city }}{% endif %}{% if vendor.entity.physical_state %}, {{ vendor.entity.physical_state }}{% endif %} {{ vendor.entity.physical_zip }}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,143 @@
+{% extends "deadlines/base.html" %}
+{% load static %}
+
+{% block title %}{{ form_action }} License - Business Deadlines{% endblock %}
+
+{% block content %}
+<div class="header">
+  <div class="header-row">
+    <h1>{{ form_action }} License</h1>
+  </div>
+</div>
+
+<div class="detail-content" style="background: #f5f5f5;">
+  <form method="post">
+    {% csrf_token %}
+
+    <div class="detail-card">
+      <div class="form-group">
+        <label class="form-label">Entity *</label>
+        <select name="entity" class="form-select" required>
+          <option value="">Select entity...</option>
+          {% for entity in entities %}
+          <option value="{{ entity.pk }}" {% if license and license.entity.pk == entity.pk %}selected{% endif %}>
+            {{ entity.entity_code }} - {{ entity.dba_name|default:entity.legal_name }}
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">License Type *</label>
+        <input
+          type="text"
+          name="license_type"
+          class="form-input"
+          required
+          list="license-types"
+          placeholder="e.g., Liquor License, Business License"
+          value="{{ license.license_type|default:'' }}"
+        />
+        <datalist id="license-types">
+          {% for type in existing_types %}
+          <option value="{{ type }}">
+          {% endfor %}
+        </datalist>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">License Number *</label>
+        <input
+          type="text"
+          name="license_number"
+          class="form-input"
+          required
+          placeholder="e.g., LIC-12345"
+          value="{{ license.license_number|default:'' }}"
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Issuing Authority</label>
+        <input
+          type="text"
+          name="issuing_authority"
+          class="form-input"
+          list="issuing-authorities"
+          placeholder="e.g., Oregon OLCC, Colorado DORA"
+          value="{{ license.issuing_authority|default:'' }}"
+        />
+        <datalist id="issuing-authorities">
+          {% for authority in existing_authorities %}
+          <option value="{{ authority }}">
+          {% endfor %}
+        </datalist>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Issue Date</label>
+        <input
+          type="date"
+          name="issue_date"
+          class="form-input"
+          {% if license.issue_date %}value="{{ license.issue_date|date:'Y-m-d' }}"{% endif %}
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Expiration Date</label>
+        <input
+          type="date"
+          name="expiration_date"
+          class="form-input"
+          {% if license.expiration_date %}value="{{ license.expiration_date|date:'Y-m-d' }}"{% endif %}
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Renewal Fee</label>
+        <input
+          type="number"
+          step="0.01"
+          name="renewal_fee"
+          class="form-input"
+          placeholder="0.00"
+          {% if license.renewal_fee %}value="{{ license.renewal_fee }}"{% endif %}
+        />
+      </div>
+
+      {% if form_action == 'Edit' %}
+      <div class="form-group">
+        <label class="form-label">Status</label>
+        <select name="status" class="form-select">
+          <option value="Active" {% if license.status == 'Active' %}selected{% endif %}>Active</option>
+          <option value="Expired" {% if license.status == 'Expired' %}selected{% endif %}>Expired</option>
+          <option value="Pending" {% if license.status == 'Pending' %}selected{% endif %}>Pending</option>
+          <option value="Inactive" {% if license.status == 'Inactive' %}selected{% endif %}>Inactive</option>
+        </select>
+      </div>
+      {% endif %}
+
+      <div class="form-group">
+        <label class="form-label">Notes</label>
+        <textarea
+          name="notes"
+          class="form-textarea"
+          placeholder="Optional notes..."
+        >{{ license.notes|default:'' }}</textarea>
+      </div>
+    </div>
+
+    <button type="submit" class="action-button">
+      {% if form_action == 'Edit' %}Save Changes{% else %}Create License{% endif %}
+    </button>
+    <button
+      type="button"
+      onclick="history.back()"
+      class="action-button secondary"
+    >
+      Cancel
+    </button>
+  </form>
+</div>
+{% endblock %}

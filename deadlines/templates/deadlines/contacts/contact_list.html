@@ -1,0 +1,164 @@
+{% extends "deadlines/base.html" %}
+{% load static %}
+
+{% block title %}Contacts - Business Deadlines{% endblock %}
+{% block nav_contacts %}active{% endblock %}
+{% block bottom_nav_contacts %}active{% endblock %}
+
+{% block content %}
+<div class="header">
+  <div class="header-row">
+    <h1>Contacts</h1>
+    <a href="{% url 'deadlines:contact_add' %}" class="add-btn">+</a>
+    <a href="{% url 'deadlines:contact_add' %}" class="btn-primary">+ Add Contact</a>
+  </div>
+  <div class="entity-filter" style="display: flex; gap: 10px; margin-top: 10px;">
+    <select
+      onchange="applyFilters()"
+      id="entity-filter"
+      class="filter-dropdown"
+    >
+      <option value="">All Entities</option>
+      {% for entity in entities %}
+      <option value="{{ entity.entity_code }}" {% if entity_filter == entity.entity_code %}selected{% endif %}>
+        {{ entity.entity_code }}
+      </option>
+      {% endfor %}
+    </select>
+    <select
+      onchange="applyFilters()"
+      id="contact-type-filter"
+      class="filter-dropdown"
+    >
+      <option value="">All Types</option>
+      {% for type in contact_types %}
+      <option value="{{ type }}" {% if contact_type_filter == type %}selected{% endif %}>
+        {{ type }}
+      </option>
+      {% endfor %}
+    </select>
+  </div>
+</div>
+
+<style>
+  .contact-card {
+    background: #f8f9fa;
+    padding: 15px;
+    margin: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: all 0.15s;
+  }
+  .contact-card:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+  }
+  .contact-name {
+    font-weight: 600;
+    font-size: 15px;
+    color: #1f2937;
+    margin-bottom: 5px;
+  }
+  .contact-detail {
+    font-size: 13px;
+    color: #6b7280;
+    margin: 3px 0;
+  }
+  .contact-type-badge {
+    display: inline-block;
+    background: #e0e7ff;
+    color: #4338ca;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    margin-top: 8px;
+  }
+  .contact-entity-badge {
+    display: inline-block;
+    background: #f3f4f6;
+    color: #6b7280;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    margin-left: 6px;
+  }
+  .empty-state-small {
+    text-align: center;
+    padding: 60px 20px;
+    color: #9ca3af;
+    font-size: 14px;
+  }
+  @media (min-width: 1024px) {
+    .contact-card {
+      margin: 10px 0;
+    }
+    .contacts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+      padding: 24px;
+    }
+    .contacts-grid .contact-card {
+      margin: 0;
+    }
+  }
+</style>
+
+<div class="content">
+  {% if contacts %}
+  <div class="contacts-grid">
+    {% for contact in contacts %}
+    <a href="{% url 'deadlines:contact_detail' contact.pk %}" class="contact-card">
+      <div class="contact-name">{{ contact.full_name }}</div>
+      {% if contact.title %}
+      <div class="contact-detail">{{ contact.title }}</div>
+      {% endif %}
+      {% if contact.company_name %}
+      <div class="contact-detail">{{ contact.company_name }}</div>
+      {% endif %}
+      {% if contact.email %}
+      <div class="contact-detail">{{ contact.email }}</div>
+      {% endif %}
+      {% if contact.phone %}
+      <div class="contact-detail">{{ contact.phone }}</div>
+      {% endif %}
+      <div style="margin-top: 10px;">
+        <span class="contact-type-badge">{{ contact.contact_type }}</span>
+        {% if contact.entity %}
+        <span class="contact-entity-badge">{{ contact.entity.entity_code }}</span>
+        {% else %}
+        <span class="contact-entity-badge">No Entity</span>
+        {% endif %}
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-state-small">
+    <p>No contacts found.</p>
+    <p style="margin-top: 10px;">
+      <a href="{% url 'deadlines:contact_add' %}" style="color: #6366f1; text-decoration: none;">
+        + Add your first contact
+      </a>
+    </p>
+  </div>
+  {% endif %}
+</div>
+
+<script>
+function applyFilters() {
+  const entity = document.getElementById('entity-filter').value;
+  const contactType = document.getElementById('contact-type-filter').value;
+  let url = '{% url "deadlines:contact_list" %}?';
+  const params = [];
+  if (entity) params.push('entity=' + encodeURIComponent(entity));
+  if (contactType) params.push('contact_type=' + encodeURIComponent(contactType));
+  window.location.href = url + params.join('&');
+}
+</script>
+{% endblock %}

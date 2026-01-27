@@ -1,0 +1,94 @@
+{% extends "deadlines/base.html" %}
+{% load static %}
+
+{% block title %}{{ account.bank_name }} - Bank Account - Business Deadlines{% endblock %}
+{% block nav_entities %}active{% endblock %}
+{% block bottom_nav_entities %}active{% endblock %}
+
+{% block content %}
+<div class="detail-header">
+  <a href="{% url 'deadlines:bank_account_list' %}" class="detail-back">
+    ← Back to Bank Accounts
+  </a>
+  <div class="detail-title">{{ account.bank_name }}</div>
+  <div class="detail-meta">
+    <span class="detail-entity-badge">{{ account.entity.entity_code }}</span>
+    <span>{{ account.account_type }}</span>
+  </div>
+</div>
+
+<div class="detail-content">
+  <div class="detail-card">
+    <h3>Account Information</h3>
+    <div class="detail-grid">
+      <div class="detail-field">
+        <span class="detail-label">Bank Name</span>
+        <span class="detail-value">{{ account.bank_name }}</span>
+      </div>
+      <div class="detail-field">
+        <span class="detail-label">Account Type</span>
+        <span class="detail-value">{{ account.account_type }}</span>
+      </div>
+      <div class="detail-field">
+        <span class="detail-label">Account Number</span>
+        <span class="detail-value" style="font-family: monospace;">
+          •••• {{ account.account_number_last4 }}
+        </span>
+      </div>
+      {% if account.routing_number %}
+      <div class="detail-field">
+        <span class="detail-label">Routing Number</span>
+        <span class="detail-value" style="font-family: monospace;">
+          {{ account.routing_number }}
+        </span>
+      </div>
+      {% endif %}
+      <div class="detail-field">
+        <span class="detail-label">Status</span>
+        <span class="detail-value">{{ account.status }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail-card">
+    <h3>Entity</h3>
+    <a href="{% url 'deadlines:entity_detail' account.entity.pk %}?tab=financial"
+       class="entity-link">
+      <div class="entity-link-code">{{ account.entity.entity_code }}</div>
+      <div class="entity-link-name">{{ account.entity.dba_name|default:account.entity.legal_name }}</div>
+    </a>
+  </div>
+
+  {% if account.notes %}
+  <div class="detail-card">
+    <h3>Notes</h3>
+    <div class="note-item">{{ account.notes }}</div>
+  </div>
+  {% endif %}
+</div>
+
+<style>
+  .entity-link {
+    display: block;
+    background: #f8f9fa;
+    padding: 12px;
+    border-radius: 6px;
+    border-left: 3px solid #6366f1;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s;
+  }
+  .entity-link:hover {
+    background: #f0f1f3;
+  }
+  .entity-link-code {
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 4px;
+  }
+  .entity-link-name {
+    font-size: 12px;
+    color: #6b7280;
+  }
+</style>
+{% endblock %}

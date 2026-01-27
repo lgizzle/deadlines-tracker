@@ -52,6 +52,75 @@
               <span class="nav-icon">🏢</span>
               Entities
             </a>
+            <a
+              href="{% url 'deadlines:insurance_list' %}"
+              class="nav-item {% block nav_insurance %}{% endblock %}"
+            >
+              <span class="nav-icon">🛡️</span>
+              Insurance
+            </a>
+            <a
+              href="{% url 'deadlines:license_list' %}"
+              class="nav-item {% block nav_licenses %}{% endblock %}"
+            >
+              <span class="nav-icon">📄</span>
+              Licenses
+            </a>
+            <a
+              href="{% url 'deadlines:contact_list' %}"
+              class="nav-item {% block nav_contacts %}{% endblock %}"
+            >
+              <span class="nav-icon">👤</span>
+              Contacts
+            </a>
+          </div>
+          <div class="nav-section">
+            <div class="nav-section-title">Financial</div>
+            <a
+              href="{% url 'deadlines:bank_account_list' %}"
+              class="nav-item {% block nav_bank_accounts %}{% endblock %}"
+            >
+              <span class="nav-icon">🏦</span>
+              Bank Accounts
+            </a>
+            <a
+              href="{% url 'deadlines:credit_card_list' %}"
+              class="nav-item {% block nav_credit_cards %}{% endblock %}"
+            >
+              <span class="nav-icon">💳</span>
+              Credit Cards
+            </a>
+            <a
+              href="{% url 'deadlines:loan_list' %}"
+              class="nav-item {% block nav_loans %}{% endblock %}"
+            >
+              <span class="nav-icon">📊</span>
+              Loans
+            </a>
+          </div>
+          <div class="nav-section">
+            <div class="nav-section-title">Operations</div>
+            <a
+              href="{% url 'deadlines:state_account_list' %}"
+              class="nav-item {% block nav_state_accounts %}{% endblock %}"
+            >
+              <span class="nav-icon">🏛️</span>
+              State Accounts
+            </a>
+            <a
+              href="{% url 'deadlines:merchant_processor_list' %}"
+              class="nav-item {% block nav_merchant_processors %}{% endblock %}"
+            >
+              <span class="nav-icon">🔄</span>
+              Merchant Processors
+            </a>
+            <a
+              href="{% url 'deadlines:vendor_list' %}"
+              class="nav-item {% block nav_vendors %}{% endblock %}"
+            >
+              <span class="nav-icon">🏪</span>
+              Vendors
+            </a>
           </div>
         </nav>
         <div class="sidebar-footer">⚙️ Settings</div>

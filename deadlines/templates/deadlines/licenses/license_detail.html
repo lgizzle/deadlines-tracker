@@ -1,0 +1,103 @@
+{% extends "deadlines/base.html" %}
+{% load static %}
+
+{% block title %}{{ license.license_type }} - Business Deadlines{% endblock %}
+
+{% block content %}
+<div class="detail-header" {% if license.urgency_status == 'expired' %}style="background: #dc2626;"{% elif license.urgency_status == 'critical' %}style="background: #f97316;"{% elif license.urgency_status == 'warning' %}style="background: #d97706;"{% endif %}>
+  <a href="{% url 'deadlines:license_list' %}" class="detail-back">
+    <span>&larr;</span> All Licenses
+  </a>
+  <div class="detail-title">{{ license.license_type }}</div>
+  <div class="detail-entity-badge">{{ license.entity.entity_code }}</div>
+  <div class="detail-meta">
+    {% if license.urgency_status == 'expired' %}
+    <span class="status-badge" style="background: rgba(255,255,255,0.2); color: white;">Expired</span>
+    {% elif license.urgency_status == 'critical' %}
+    <span class="status-badge" style="background: rgba(255,255,255,0.2); color: white;">{{ license.days_until }} days left</span>
+    {% elif license.urgency_status == 'warning' %}
+    <span class="status-badge" style="background: rgba(255,255,255,0.2); color: white;">{{ license.days_until }} days left</span>
+    {% elif license.expiration_date %}
+    <span class="status-badge" style="background: rgba(255,255,255,0.2); color: white;">{{ license.days_until }} days left</span>
+    {% endif %}
+  </div>
+</div>
+
+<div class="detail-content">
+  <div class="detail-card">
+    <h3>License Information</h3>
+    <div class="detail-grid">
+      <div class="detail-field">
+        <span class="detail-label">License Number</span>
+        <span class="detail-value">{{ license.license_number }}</span>
+      </div>
+      <div class="detail-field">
+        <span class="detail-label">Entity</span>
+        <span class="detail-value">
+          <a href="{% url 'deadlines:entity_detail' license.entity.entity_code %}?tab=licenses" style="color: #6366f1; text-decoration: none;">
+            {{ license.entity.entity_code }}
+          </a>
+        </span>
+      </div>
+    </div>
+
+    <div class="detail-row">
+      <span class="detail-label">Issuing Authority</span>
+      <span class="detail-value">{{ license.issuing_authority|default:"--" }}</span>
+    </div>
+
+    <div class="detail-row">
+      <span class="detail-label">Issue Date</span>
+      <span class="detail-value">{{ license.issue_date|date:"M j, Y"|default:"--" }}</span>
+    </div>
+
+    <div class="detail-row">
+      <span class="detail-label">Expiration Date</span>
+      <span class="detail-value {% if license.urgency_status == 'expired' %}overdue{% elif license.urgency_status == 'critical' or license.urgency_status == 'warning' %}upcoming{% endif %}">
+        {% if license.expiration_date %}
+        {{ license.expiration_date|date:"M j, Y" }}
+        {% if license.urgency_status == 'expired' %}
+        <span style="font-size: 12px; margin-left: 8px;">(Expired)</span>
+        {% elif license.days_until != None %}
+        <span style="font-size: 12px; margin-left: 8px;">({{ license.days_until }} days)</span>
+        {% endif %}
+        {% else %}
+        --
+        {% endif %}
+      </span>
+    </div>
+
+    <div class="detail-row">
+      <span class="detail-label">Renewal Fee</span>
+      <span class="detail-value amount">
+        {% if license.renewal_fee %}
+        ${{ license.renewal_fee|floatformat:2 }}
+        {% else %}
+        --
+        {% endif %}
+      </span>
+    </div>
+
+    <div class="detail-row">
+      <span class="detail-label">Status</span>
+      <span class="detail-value">{{ license.status }}</span>
+    </div>
+  </div>
+
+  {% if license.notes %}
+  <div class="detail-card">
+    <h3>Notes</h3>
+    <div class="note-item">{{ license.notes }}</div>
+  </div>
+  {% endif %}
+
+  <div class="detail-actions">
+    <a href="{% url 'deadlines:license_edit' license.pk %}" class="btn-success" style="text-decoration: none; text-align: center;">
+      Edit License
+    </a>
+    <a href="{% url 'deadlines:license_list' %}" class="btn-secondary" style="text-decoration: none; text-align: center;">
+      Back to List
+    </a>
+  </div>
+</div>
+{% endblock %}
