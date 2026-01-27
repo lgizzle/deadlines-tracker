@@ -1,0 +1,35 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv
+venv/
+ENV/
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# Local development
+.env
+*.sqlite3
+db.sqlite3
+
+# Static files (collected during build)
+staticfiles/
+
+# Documentation
+*.md
+!README.md
+
+# Tests
+tests/
+*.test.py
