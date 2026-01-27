@@ -50,9 +50,13 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "allauth.socialaccount.providers.microsoft",
     "django_extensions",
+    "encrypted_model_fields",
     # Local apps
     "deadlines",
 ]
+
+# Field-level encryption for sensitive data (CC numbers, SSNs, etc.)
+FIELD_ENCRYPTION_KEY = config("FIELD_ENCRYPTION_KEY", default="")
 
 SITE_ID = 1
 

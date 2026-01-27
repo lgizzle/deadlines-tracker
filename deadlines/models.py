@@ -2,6 +2,7 @@ from datetime import date, timedelta
 
 from django.core.validators import MinValueValidator
 from django.db import models
+from encrypted_model_fields.fields import EncryptedCharField
 
 
 class Entity(models.Model):
@@ -160,6 +161,9 @@ class BankAccount(models.Model):
     account_number_last4 = models.CharField(
         max_length=4, help_text="Last 4 digits only"
     )
+    full_account_number = EncryptedCharField(
+        max_length=50, blank=True, help_text="Full account number (encrypted)"
+    )
     routing_number = models.CharField(max_length=9, blank=True)
     status = models.CharField(max_length=20, default="Active")
     notes = models.TextField(blank=True)
@@ -179,6 +183,15 @@ class CreditCard(models.Model):
     )
     card_name = models.CharField(max_length=100)
     last4 = models.CharField(max_length=4, help_text="Last 4 digits")
+    full_card_number = EncryptedCharField(
+        max_length=20, blank=True, help_text="Full card number (encrypted)"
+    )
+    expiration = EncryptedCharField(
+        max_length=7, blank=True, help_text="MM/YYYY (encrypted)"
+    )
+    cvv = EncryptedCharField(
+        max_length=4, blank=True, help_text="CVV (encrypted)"
+    )
     network = models.CharField(
         max_length=50, blank=True, help_text="Visa, Mastercard, Amex, etc."
     )
@@ -303,6 +316,9 @@ class Contact(models.Model):
     phone = models.CharField(max_length=20, blank=True)
     mobile = models.CharField(max_length=20, blank=True)
     address = models.TextField(blank=True)
+    ssn = EncryptedCharField(
+        max_length=11, blank=True, help_text="SSN: XXX-XX-XXXX (encrypted)"
+    )
     notes = models.TextField(blank=True)
 
     class Meta:
@@ -313,6 +329,13 @@ class Contact(models.Model):
         if self.company_name:
             name += f" ({self.company_name})"
         return name
+
+    @property
+    def ssn_masked(self):
+        """Return masked SSN (XXX-XX-1234)"""
+        if self.ssn and len(self.ssn) >= 4:
+            return f"XXX-XX-{self.ssn[-4:]}"
+        return ""
 
     @property
     def full_name(self):
