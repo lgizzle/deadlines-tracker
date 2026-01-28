@@ -64,11 +64,12 @@ def todo_view(request):
     overdue.sort(key=lambda x: x.next_due)
     this_week.sort(key=lambda x: x.next_due)
 
-    # Calculate stats
+    # Calculate stats - on_track = total active minus overdue and this_week
+    on_track = deadlines.count() - len(overdue) - len(this_week)
     stats = {
         "overdue": len(overdue),
         "this_week": len(this_week),
-        "total": deadlines.count(),
+        "on_track": on_track,
     }
 
     context = {
