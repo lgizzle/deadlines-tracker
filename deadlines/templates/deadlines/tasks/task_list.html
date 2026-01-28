@@ -1,0 +1,278 @@
+{% extends "deadlines/base.html" %}
+{% load static %}
+
+{% block title %}Tasks - Business Deadlines{% endblock %}
+{% block nav_tasks %}active{% endblock %}
+{% block bottom_nav_tasks %}active{% endblock %}
+
+{% block content %}
+<div class="header">
+  <div class="header-row">
+    <h1>Tasks</h1>
+  </div>
+  <div class="entity-filter" style="display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;">
+    <select onchange="applyFilters()" id="status-filter" class="filter-dropdown">
+      <option value="">All Statuses</option>
+      {% for status in statuses %}
+      <option value="{{ status }}" {% if status_filter == status %}selected{% endif %}>
+        {{ status|title }}
+      </option>
+      {% endfor %}
+    </select>
+    <select onchange="applyFilters()" id="priority-filter" class="filter-dropdown">
+      <option value="">All Priorities</option>
+      {% for priority in priorities %}
+      <option value="{{ priority }}" {% if priority_filter == priority %}selected{% endif %}>
+        {{ priority|title }}
+      </option>
+      {% endfor %}
+    </select>
+    <select onchange="applyFilters()" id="entity-filter" class="filter-dropdown">
+      <option value="">All Entities</option>
+      {% for entity in entities %}
+      <option value="{{ entity.entity_code }}" {% if entity_filter == entity.entity_code %}selected{% endif %}>
+        {{ entity.entity_code }}
+      </option>
+      {% endfor %}
+    </select>
+    <select onchange="applyFilters()" id="task-type-filter" class="filter-dropdown">
+      <option value="">All Types</option>
+      {% for task_type in task_types %}
+      <option value="{{ task_type }}" {% if task_type_filter == task_type %}selected{% endif %}>
+        {{ task_type|title }}
+      </option>
+      {% endfor %}
+    </select>
+  </div>
+</div>
+
+<style>
+  .task-card {
+    background: #f8f9fa;
+    padding: 15px;
+    margin: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: all 0.15s;
+  }
+  .task-card:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+  }
+  .task-card.overdue {
+    border-left: 4px solid #dc3545;
+  }
+  .task-title {
+    font-weight: 600;
+    font-size: 15px;
+    color: #1f2937;
+    margin-bottom: 5px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .task-detail {
+    font-size: 13px;
+    color: #6b7280;
+    margin: 3px 0;
+  }
+  .task-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .priority-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    color: white;
+  }
+  .priority-urgent { background: #dc3545; }
+  .priority-high { background: #fd7e14; }
+  .priority-normal { background: #28a745; }
+  .priority-low { background: #6c757d; }
+  .status-badge {
+    display: inline-block;
+    background: #e0e7ff;
+    color: #4338ca;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .status-completed {
+    background: #d1fae5;
+    color: #065f46;
+  }
+  .status-in_progress {
+    background: #fef3c7;
+    color: #92400e;
+  }
+  .status-deferred {
+    background: #f3f4f6;
+    color: #6b7280;
+  }
+  .entity-badge {
+    display: inline-block;
+    background: #f3f4f6;
+    color: #6b7280;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .type-badge {
+    display: inline-block;
+    background: #fce7f3;
+    color: #be185d;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .sidebar-stats {
+    padding: 14px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 10px;
+  }
+  .stat-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 13px;
+    color: #374151;
+  }
+  .stat-count {
+    font-weight: 600;
+  }
+  .empty-state-small {
+    text-align: center;
+    padding: 60px 20px;
+    color: #9ca3af;
+    font-size: 14px;
+  }
+  @media (min-width: 1024px) {
+    .task-card {
+      margin: 10px 0;
+    }
+    .tasks-layout {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 20px;
+      padding: 24px;
+    }
+    .tasks-sidebar {
+      background: white;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+      height: fit-content;
+    }
+    .tasks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+    }
+    .tasks-grid .task-card {
+      margin: 0;
+    }
+  }
+  @media (max-width: 1023px) {
+    .tasks-sidebar {
+      display: none;
+    }
+    .tasks-layout {
+      display: block;
+    }
+  }
+</style>
+
+<div class="content">
+  <div class="tasks-layout">
+    <div class="tasks-sidebar">
+      <div class="sidebar-stats">
+        <div class="stat-row">
+          <span>Pending</span>
+          <span class="stat-count">{{ status_counts.pending }}</span>
+        </div>
+        <div class="stat-row">
+          <span>In Progress</span>
+          <span class="stat-count">{{ status_counts.in_progress }}</span>
+        </div>
+        <div class="stat-row">
+          <span>Completed</span>
+          <span class="stat-count">{{ status_counts.completed }}</span>
+        </div>
+        <div class="stat-row">
+          <span>Deferred</span>
+          <span class="stat-count">{{ status_counts.deferred }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="tasks-main">
+      {% if tasks %}
+      <div class="tasks-grid">
+        {% for task in tasks %}
+        <a href="{% url 'deadlines:task_detail' task.pk %}" class="task-card {% if task.is_overdue %}overdue{% endif %}">
+          <div class="task-title">{{ task.title }}</div>
+          {% if task.due_date %}
+          <div class="task-detail">Due: {{ task.due_date }}</div>
+          {% endif %}
+          {% if task.amount %}
+          <div class="task-detail">${{ task.amount|floatformat:2 }}</div>
+          {% endif %}
+          {% if task.description %}
+          <div class="task-detail" style="display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;">
+            {{ task.description|truncatewords:15 }}
+          </div>
+          {% endif %}
+          <div class="task-badges">
+            <span class="priority-badge priority-{{ task.priority }}">{{ task.priority|upper }}</span>
+            <span class="status-badge status-{{ task.status }}">{{ task.get_status_display }}</span>
+            <span class="type-badge">{{ task.get_task_type_display }}</span>
+            {% if task.entity %}
+            <span class="entity-badge">{{ task.entity.entity_code }}</span>
+            {% endif %}
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="empty-state-small">
+        <p>No tasks found.</p>
+        {% if status_filter or priority_filter or entity_filter or task_type_filter %}
+        <p style="margin-top: 10px;">
+          <a href="{% url 'deadlines:task_list' %}" style="color: #6366f1; text-decoration: none;">
+            Clear filters
+          </a>
+        </p>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script>
+function applyFilters() {
+  const status = document.getElementById('status-filter').value;
+  const priority = document.getElementById('priority-filter').value;
+  const entity = document.getElementById('entity-filter').value;
+  const taskType = document.getElementById('task-type-filter').value;
+  let url = '{% url "deadlines:task_list" %}?';
+  const params = [];
+  if (status) params.push('status=' + encodeURIComponent(status));
+  if (priority) params.push('priority=' + encodeURIComponent(priority));
+  if (entity) params.push('entity=' + encodeURIComponent(entity));
+  if (taskType) params.push('task_type=' + encodeURIComponent(taskType));
+  window.location.href = url + params.join('&');
+}
+</script>
+{% endblock %}

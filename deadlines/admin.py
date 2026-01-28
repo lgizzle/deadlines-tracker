@@ -6,10 +6,15 @@ from .models import (
     Contact,
     CreditCard,
     Deadline,
+    Document,
     Entity,
     InsurancePolicy,
     License,
     Loan,
+    MerchantProcessor,
+    StateAccount,
+    Task,
+    Vendor,
 )
 
 
@@ -198,3 +203,136 @@ class ContactAdmin(admin.ModelAdmin):
         ("Contact Details", {"fields": ("email", "phone", "mobile", "address")}),
         ("Notes", {"fields": ("notes",), "classes": ("collapse",)}),
     )
+
+
+# =============================================================================
+# Operations Models (Added 2026-01-28)
+# =============================================================================
+
+
+@admin.register(StateAccount)
+class StateAccountAdmin(admin.ModelAdmin):
+    list_display = ["entity", "state", "account_type", "account_number", "portal_name", "status"]
+    list_filter = ["status", "state", "account_type", "entity"]
+    search_fields = ["account_number", "portal_name", "entity__entity_code"]
+    ordering = ["entity", "state", "account_type"]
+
+
+@admin.register(MerchantProcessor)
+class MerchantProcessorAdmin(admin.ModelAdmin):
+    list_display = ["entity", "processor_name", "merchant_id", "dba_name", "status"]
+    list_filter = ["status", "processor_name", "entity"]
+    search_fields = ["processor_name", "merchant_id", "dba_name", "entity__entity_code"]
+    ordering = ["entity", "processor_name"]
+
+
+@admin.register(Vendor)
+class VendorAdmin(admin.ModelAdmin):
+    list_display = ["entity", "vendor_name", "purpose", "account_number", "status"]
+    list_filter = ["status", "entity"]
+    search_fields = ["vendor_name", "account_number", "purpose", "entity__entity_code"]
+    ordering = ["entity", "vendor_name"]
+
+
+# =============================================================================
+# Task & Document Models (Added 2026-01-28)
+# =============================================================================
+
+
+@admin.register(Task)
+class TaskAdmin(admin.ModelAdmin):
+    list_display = [
+        "title",
+        "entity",
+        "task_type",
+        "priority_badge",
+        "status",
+        "due_date",
+        "source",
+        "created_at",
+    ]
+    list_filter = ["status", "priority", "task_type", "source", "entity"]
+    search_fields = ["title", "description", "email_subject", "email_from"]
+    date_hierarchy = "created_at"
+    ordering = ["-created_at"]
+    readonly_fields = ["created_at", "updated_at", "completed_at"]
+
+    fieldsets = (
+        ("Task", {"fields": ("title", "description", "entity", "task_type", "status")}),
+        ("Priority & Due", {"fields": ("priority", "due_date", "amount")}),
+        ("Source", {"fields": ("source", "deadline")}),
+        (
+            "Email Origin",
+            {
+                "fields": ("email_id", "email_thread_id", "email_subject", "email_from", "email_date"),
+                "classes": ("collapse",),
+            },
+        ),
+        (
+            "Timestamps",
+            {"fields": ("created_at", "updated_at", "completed_at"), "classes": ("collapse",)},
+        ),
+    )
+
+    def priority_badge(self, obj):
+        """Show colored priority badge"""
+        colors = {
+            "urgent": "#dc3545",  # red
+            "high": "#fd7e14",  # orange
+            "normal": "#28a745",  # green
+            "low": "#6c757d",  # gray
+        }
+        color = colors.get(obj.priority, "#6c757d")
+        return format_html(
+            '<span style="background-color: {}; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px;">{}</span>',
+            color,
+            obj.priority.upper() if obj.priority else "N/A",
+        )
+
+    priority_badge.short_description = "Priority"
+
+
+@admin.register(Document)
+class DocumentAdmin(admin.ModelAdmin):
+    list_display = [
+        "filename",
+        "entity",
+        "document_type",
+        "source",
+        "document_date",
+        "file_size_display",
+        "created_at",
+    ]
+    list_filter = ["document_type", "source", "entity"]
+    search_fields = ["filename", "title", "email_subject", "email_from", "sha256_hash"]
+    date_hierarchy = "created_at"
+    ordering = ["-created_at"]
+    readonly_fields = ["created_at", "sha256_hash"]
+
+    fieldsets = (
+        ("Document", {"fields": ("filename", "title", "document_type", "entity")}),
+        ("File", {"fields": ("file_path", "file_size", "mime_type", "sha256_hash")}),
+        ("Dates & Amounts", {"fields": ("document_date", "due_date", "amount")}),
+        ("Source", {"fields": ("source",)}),
+        (
+            "Email Origin",
+            {
+                "fields": ("email_id", "email_subject", "email_from", "email_date"),
+                "classes": ("collapse",),
+            },
+        ),
+        ("Notes", {"fields": ("notes",), "classes": ("collapse",)}),
+    )
+
+    def file_size_display(self, obj):
+        """Show file size in human-readable format"""
+        if not obj.file_size:
+            return "-"
+        if obj.file_size < 1024:
+            return f"{obj.file_size} B"
+        elif obj.file_size < 1024 * 1024:
+            return f"{obj.file_size / 1024:.1f} KB"
+        else:
+            return f"{obj.file_size / (1024 * 1024):.1f} MB"
+
+    file_size_display.short_description = "Size"

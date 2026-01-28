@@ -1,0 +1,157 @@
+{% extends "deadlines/base.html" %}
+{% load static %}
+
+{% block title %}{{ document.filename }} - Business Deadlines{% endblock %}
+
+{% block content %}
+<div class="detail-header" style="background: {% if document.source == 'email' %}#3b82f6{% elif document.source == 'upload' %}#22c55e{% else %}#f97316{% endif %};">
+  <a href="{% url 'deadlines:document_list' %}" class="detail-back">
+    <span>&larr;</span> All Documents
+  </a>
+  <div class="detail-title">
+    {% if document.title %}{{ document.title }}{% else %}{{ document.filename }}{% endif %}
+  </div>
+  {% if document.entity %}
+  <div class="detail-entity-badge">{{ document.entity.entity_code }}</div>
+  {% endif %}
+  <div class="detail-meta">
+    <span class="status-badge" style="background: rgba(255,255,255,0.2); color: white;">
+      {{ document.document_type_display }}
+    </span>
+    <span class="status-badge" style="background: rgba(255,255,255,0.2); color: white;">
+      {{ document.source_display }}
+    </span>
+  </div>
+</div>
+
+<div class="detail-content">
+  <div class="detail-card">
+    <h3>Document Information</h3>
+    <div class="detail-grid">
+      <div class="detail-field">
+        <span class="detail-label">Filename</span>
+        <span class="detail-value">{{ document.filename }}</span>
+      </div>
+      <div class="detail-field">
+        <span class="detail-label">Document Type</span>
+        <span class="detail-value">{{ document.document_type_display }}</span>
+      </div>
+    </div>
+
+    {% if document.title %}
+    <div class="detail-row">
+      <span class="detail-label">Title</span>
+      <span class="detail-value">{{ document.title }}</span>
+    </div>
+    {% endif %}
+
+    <div class="detail-row">
+      <span class="detail-label">Entity</span>
+      <span class="detail-value">
+        {% if document.entity %}
+        <a href="{% url 'deadlines:entity_detail' document.entity.entity_code %}" style="color: #6366f1; text-decoration: none;">
+          {{ document.entity.entity_code }}
+        </a>
+        {% else %}
+        --
+        {% endif %}
+      </span>
+    </div>
+
+    <div class="detail-row">
+      <span class="detail-label">File Size</span>
+      <span class="detail-value">{{ document.file_size_display }}</span>
+    </div>
+
+    <div class="detail-row">
+      <span class="detail-label">MIME Type</span>
+      <span class="detail-value">{{ document.mime_type|default:"--" }}</span>
+    </div>
+
+    <div class="detail-row">
+      <span class="detail-label">File Path</span>
+      <span class="detail-value" style="font-family: monospace; font-size: 12px; word-break: break-all;">
+        {{ document.file_path|default:"--" }}
+      </span>
+    </div>
+
+    <div class="detail-row">
+      <span class="detail-label">SHA256 Hash</span>
+      <span class="detail-value" style="font-family: monospace; font-size: 12px;">
+        {{ document.hash_truncated }}
+      </span>
+    </div>
+
+    <div class="detail-row">
+      <span class="detail-label">Source</span>
+      <span class="detail-value">{{ document.source_display }}</span>
+    </div>
+
+    <div class="detail-row">
+      <span class="detail-label">Created</span>
+      <span class="detail-value">{{ document.created_at|date:"M j, Y g:i A" }}</span>
+    </div>
+
+    {% if document.document_date %}
+    <div class="detail-row">
+      <span class="detail-label">Document Date</span>
+      <span class="detail-value">{{ document.document_date|date:"M j, Y" }}</span>
+    </div>
+    {% endif %}
+
+    {% if document.due_date %}
+    <div class="detail-row">
+      <span class="detail-label">Due Date</span>
+      <span class="detail-value">{{ document.due_date|date:"M j, Y" }}</span>
+    </div>
+    {% endif %}
+
+    {% if document.amount %}
+    <div class="detail-row">
+      <span class="detail-label">Amount</span>
+      <span class="detail-value amount">${{ document.amount|floatformat:2 }}</span>
+    </div>
+    {% endif %}
+  </div>
+
+  {% if document.source == 'email' %}
+  <div class="detail-card">
+    <h3>Email Origin</h3>
+    <div class="detail-row">
+      <span class="detail-label">From</span>
+      <span class="detail-value">{{ document.email_from|default:"--" }}</span>
+    </div>
+
+    <div class="detail-row">
+      <span class="detail-label">Subject</span>
+      <span class="detail-value">{{ document.email_subject|default:"--" }}</span>
+    </div>
+
+    <div class="detail-row">
+      <span class="detail-label">Email Date</span>
+      <span class="detail-value">{{ document.email_date|date:"M j, Y g:i A"|default:"--" }}</span>
+    </div>
+
+    {% if document.email_id %}
+    <div class="detail-row">
+      <span class="detail-label">Email ID</span>
+      <span class="detail-value" style="font-family: monospace; font-size: 12px;">{{ document.email_id }}</span>
+    </div>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  {% if document.notes %}
+  <div class="detail-card">
+    <h3>Notes</h3>
+    <div class="note-item">{{ document.notes }}</div>
+  </div>
+  {% endif %}
+
+  <div class="detail-actions">
+    <a href="{% url 'deadlines:document_list' %}" class="btn-secondary" style="text-decoration: none; text-align: center;">
+      Back to List
+    </a>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,135 @@
+{% extends "deadlines/base.html" %}
+{% load static %}
+
+{% block title %}Documents - Business Deadlines{% endblock %}
+
+{% block nav_documents %}active{% endblock %}
+
+{% block content %}
+<div class="header">
+  <div class="header-row">
+    <h1>Documents</h1>
+    <div class="header-actions">
+    </div>
+  </div>
+  <div class="entity-filter" style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px;">
+    <select onchange="applyFilters()" id="entity-filter" class="filter-dropdown">
+      <option value="">All Entities</option>
+      {% for entity in entities %}
+      <option value="{{ entity.entity_code }}" {% if entity.entity_code == entity_filter %}selected{% endif %}>
+        {{ entity.entity_code }}
+      </option>
+      {% endfor %}
+    </select>
+    <select onchange="applyFilters()" id="type-filter" class="filter-dropdown">
+      <option value="">All Types</option>
+      {% for code, name in doctype_choices %}
+      <option value="{{ code }}" {% if code == type_filter %}selected{% endif %}>
+        {{ name }}
+      </option>
+      {% endfor %}
+    </select>
+    <select onchange="applyFilters()" id="source-filter" class="filter-dropdown">
+      <option value="">All Sources</option>
+      {% for code, name in sources %}
+      <option value="{{ code }}" {% if code == source_filter %}selected{% endif %}>
+        {{ name }}
+      </option>
+      {% endfor %}
+    </select>
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-number" style="color: #6366f1;">{{ stats.total }}</div>
+    <div class="stat-label">Total</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number" style="color: #3b82f6;">{{ stats.email }}</div>
+    <div class="stat-label">Email</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number" style="color: #22c55e;">{{ stats.upload }}</div>
+    <div class="stat-label">Upload</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number" style="color: #f97316;">{{ stats.scan }}</div>
+    <div class="stat-label">Scan</div>
+  </div>
+</div>
+
+<div class="content" style="display: flex; gap: 16px;">
+  <!-- Sidebar with type counts -->
+  <div class="sidebar-panel" style="min-width: 180px; padding: 12px; background: #f3f4f6; border-radius: 8px;">
+    <h3 style="font-size: 14px; margin-bottom: 12px; color: #374151;">By Type</h3>
+    {% for tc in type_counts %}
+    <a href="?document_type={{ tc.document_type }}{% if entity_filter %}&entity={{ entity_filter }}{% endif %}{% if source_filter %}&source={{ source_filter }}{% endif %}"
+       class="type-filter-item"
+       style="display: flex; justify-content: space-between; padding: 8px; margin-bottom: 4px; border-radius: 4px; text-decoration: none; color: #374151; {% if tc.document_type == type_filter %}background: #e5e7eb; font-weight: 600;{% endif %}">
+      <span>{{ tc.display_name }}</span>
+      <span style="background: #ddd; padding: 2px 8px; border-radius: 10px; font-size: 12px;">{{ tc.count }}</span>
+    </a>
+    {% empty %}
+    <div style="color: #9ca3af; font-size: 13px;">No documents</div>
+    {% endfor %}
+  </div>
+
+  <!-- Document List -->
+  <div class="document-list" style="flex: 1;">
+    {% if documents %}
+    {% for document in documents %}
+    <a href="{% url 'deadlines:document_detail' document.pk %}" class="list-item" style="border-left: 4px solid {% if document.source == 'email' %}#3b82f6{% elif document.source == 'upload' %}#22c55e{% else %}#f97316{% endif %};">
+      <div class="list-item-title">
+        {% if document.title %}{{ document.title }}{% else %}{{ document.filename }}{% endif %}
+      </div>
+      <div class="list-item-meta">
+        <span>
+          {% if document.entity %}
+          <span class="entity-badge">{{ document.entity.entity_code }}</span>
+          {% endif %}
+          <span style="background: #e5e7eb; padding: 2px 6px; border-radius: 4px; font-size: 11px; margin-left: 4px;">
+            {{ document.get_document_type_display }}
+          </span>
+        </span>
+        <span style="color: #6b7280;">
+          {{ document.created_at|date:"M j, Y" }}
+        </span>
+      </div>
+      <div class="list-item-meta" style="margin-top: 4px;">
+        <span style="color: #9ca3af; font-size: 12px;">
+          {{ document.filename|truncatechars:50 }}
+        </span>
+        <span style="color: #9ca3af; font-size: 12px;">
+          {{ document.file_size_display }}
+        </span>
+      </div>
+    </a>
+    {% endfor %}
+    {% else %}
+    <div class="empty-state">
+      <div class="empty-state-icon">📁</div>
+      <div class="empty-state-text">No documents found</div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<script>
+function applyFilters() {
+  const entity = document.getElementById('entity-filter').value;
+  const type = document.getElementById('type-filter').value;
+  const source = document.getElementById('source-filter').value;
+
+  let url = '{% url "deadlines:document_list" %}?';
+  const params = [];
+
+  if (entity) params.push('entity=' + encodeURIComponent(entity));
+  if (type) params.push('document_type=' + encodeURIComponent(type));
+  if (source) params.push('source=' + encodeURIComponent(source));
+
+  window.location.href = url + params.join('&');
+}
+</script>
+{% endblock %}

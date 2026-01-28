@@ -16,6 +16,11 @@
           <div class="sidebar-logo">Deadlines</div>
           <div class="sidebar-subtitle">Business Tracker</div>
         </div>
+        <div class="sidebar-search">
+          <form method="get" action="{% url 'deadlines:search' %}">
+            <input type="text" name="q" class="search-input" placeholder="Search..." value="{{ request.GET.q|default:'' }}">
+          </form>
+        </div>
         <nav class="sidebar-nav">
           <div class="nav-section">
             <div class="nav-section-title">Deadlines</div>
@@ -41,6 +46,13 @@
             >
               <span class="nav-icon">📅</span>
               Calendar
+            </a>
+            <a
+              href="{% url 'deadlines:task_list' %}"
+              class="nav-item {% block nav_tasks %}{% endblock %}"
+            >
+              <span class="nav-icon">📋</span>
+              Tasks
             </a>
           </div>
           <div class="nav-section">
@@ -72,6 +84,13 @@
             >
               <span class="nav-icon">👤</span>
               Contacts
+            </a>
+            <a
+              href="{% url 'deadlines:document_list' %}"
+              class="nav-item {% block nav_documents %}{% endblock %}"
+            >
+              <span class="nav-icon">📁</span>
+              Documents
             </a>
           </div>
           <div class="nav-section">
@@ -135,22 +154,22 @@
           href="{% url 'deadlines:todo' %}"
           class="bottom-nav-item {% block bottom_nav_todo %}{% endblock %}"
         >
-          <span class="bottom-nav-icon">✓</span>
+          <span class="bottom-nav-icon">&#10003;</span>
           To-Do
+        </a>
+        <a
+          href="{% url 'deadlines:search' %}"
+          class="bottom-nav-item {% block bottom_nav_search %}{% endblock %}"
+        >
+          <span class="bottom-nav-icon">&#128269;</span>
+          Search
         </a>
         <a
           href="{% url 'deadlines:entity_list' %}"
           class="bottom-nav-item {% block bottom_nav_entities %}{% endblock %}"
         >
-          <span class="bottom-nav-icon">🏢</span>
+          <span class="bottom-nav-icon">&#127970;</span>
           Entities
-        </a>
-        <a
-          href="{% url 'deadlines:calendar' %}"
-          class="bottom-nav-item {% block bottom_nav_settings %}{% endblock %}"
-        >
-          <span class="bottom-nav-icon">⚙️</span>
-          Settings
         </a>
       </nav>
     </div>

@@ -1,0 +1,131 @@
+{% extends "deadlines/base.html" %}
+{% load static %}
+{% block title %}Search Results - Business Deadlines{% endblock %}
+
+{% block bottom_nav_search %}active{% endblock %}
+
+{% block content %}
+<div class="header">
+  <div class="header-row">
+    <h1>Search</h1>
+  </div>
+  <div class="header-search">
+    <form method="get" action="{% url 'deadlines:search' %}">
+      <input type="text" name="q" class="mobile-search-input" placeholder="Search deadlines, entities, contacts..." value="{{ query|default:'' }}" autofocus>
+    </form>
+  </div>
+</div>
+
+<div class="content">
+  {% if query %}
+  <div class="search-summary">
+    <p>Found <strong>{{ total_count }}</strong> results for "<strong>{{ query }}</strong>"</p>
+  </div>
+
+  {% if total_count == 0 %}
+  <div class="empty-state">
+    <div class="empty-state-icon">&#128269;</div>
+    <div class="empty-state-text">No results found for "{{ query }}"</div>
+  </div>
+  {% else %}
+
+  <!-- Entities Section -->
+  {% if results.entities %}
+  <div class="section-header">Entities ({{ results.entities|length }})</div>
+  {% for entity in results.entities %}
+  <a href="{% url 'deadlines:entity_detail' entity.pk %}" class="list-item">
+    <div class="list-item-title">{{ entity.entity_code }}</div>
+    <div class="list-item-meta">
+      <span class="entity-badge">{{ entity.physical_state }}</span>
+      <span>{{ entity.dba_name|default:entity.legal_name }}</span>
+    </div>
+  </a>
+  {% endfor %}
+  {% endif %}
+
+  <!-- Deadlines Section -->
+  {% if results.deadlines %}
+  <div class="section-header">Deadlines ({{ results.deadlines|length }})</div>
+  {% for deadline in results.deadlines %}
+  <a href="{% url 'deadlines:deadline_detail' deadline.pk %}" class="list-item {{ deadline.urgency_status }}">
+    <div class="list-item-title">{{ deadline.title }}</div>
+    <div class="list-item-meta">
+      <span class="entity-badge">{{ deadline.entity.entity_code }}</span>
+      <span class="list-item-date">Due: {{ deadline.next_due|date:"M j, Y" }}</span>
+      {% if deadline.estimated_amount %}
+      <span class="list-item-amount">${{ deadline.estimated_amount }}</span>
+      {% endif %}
+    </div>
+  </a>
+  {% endfor %}
+  {% endif %}
+
+  <!-- Tasks Section -->
+  {% if results.tasks %}
+  <div class="section-header">Tasks ({{ results.tasks|length }})</div>
+  {% for task in results.tasks %}
+  <a href="{% url 'deadlines:task_detail' task.pk %}" class="list-item">
+    <div class="list-item-title">{{ task.title }}</div>
+    <div class="list-item-meta">
+      {% if task.entity %}
+      <span class="entity-badge">{{ task.entity.entity_code }}</span>
+      {% endif %}
+      <span class="status-badge {% if task.status == 'completed' %}ontrack{% elif task.is_overdue %}overdue{% else %}upcoming{% endif %}">
+        {{ task.get_status_display }}
+      </span>
+      {% if task.due_date %}
+      <span class="list-item-date">Due: {{ task.due_date|date:"M j, Y" }}</span>
+      {% endif %}
+    </div>
+  </a>
+  {% endfor %}
+  {% endif %}
+
+  <!-- Documents Section -->
+  {% if results.documents %}
+  <div class="section-header">Documents ({{ results.documents|length }})</div>
+  {% for document in results.documents %}
+  <a href="{% url 'deadlines:document_detail' document.pk %}" class="list-item">
+    <div class="list-item-title">{{ document.title|default:document.filename }}</div>
+    <div class="list-item-meta">
+      {% if document.entity %}
+      <span class="entity-badge">{{ document.entity.entity_code }}</span>
+      {% endif %}
+      <span>{{ document.get_document_type_display }}</span>
+      {% if document.document_date %}
+      <span class="list-item-date">{{ document.document_date|date:"M j, Y" }}</span>
+      {% endif %}
+    </div>
+  </a>
+  {% endfor %}
+  {% endif %}
+
+  <!-- Contacts Section -->
+  {% if results.contacts %}
+  <div class="section-header">Contacts ({{ results.contacts|length }})</div>
+  {% for contact in results.contacts %}
+  <a href="{% url 'deadlines:contact_detail' contact.pk %}" class="list-item">
+    <div class="list-item-title">{{ contact.first_name }} {{ contact.last_name }}</div>
+    <div class="list-item-meta">
+      {% if contact.entity %}
+      <span class="entity-badge">{{ contact.entity.entity_code }}</span>
+      {% endif %}
+      {% if contact.company_name %}
+      <span>{{ contact.company_name }}</span>
+      {% endif %}
+      <span>{{ contact.get_contact_type_display }}</span>
+    </div>
+  </a>
+  {% endfor %}
+  {% endif %}
+
+  {% endif %}
+
+  {% else %}
+  <div class="empty-state">
+    <div class="empty-state-icon">&#128269;</div>
+    <div class="empty-state-text">Enter a search term to find deadlines, entities, contacts, and more.</div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

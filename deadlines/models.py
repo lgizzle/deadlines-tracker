@@ -419,3 +419,178 @@ class Vendor(models.Model):
 
     def __str__(self):
         return f"{self.entity.entity_code} - {self.vendor_name}"
+
+
+class Task(models.Model):
+    """Action items from email triage and other sources."""
+
+    PRIORITY_CHOICES = [
+        ("urgent", "Urgent"),
+        ("high", "High"),
+        ("normal", "Normal"),
+        ("low", "Low"),
+    ]
+
+    STATUS_CHOICES = [
+        ("pending", "Pending"),
+        ("in_progress", "In Progress"),
+        ("completed", "Completed"),
+        ("deferred", "Deferred"),
+    ]
+
+    SOURCE_CHOICES = [
+        ("email", "Email"),
+        ("manual", "Manual"),
+        ("deadline", "Deadline"),
+        ("document", "Document"),
+    ]
+
+    TASK_TYPE_CHOICES = [
+        ("payment", "Payment"),
+        ("review", "Review"),
+        ("respond", "Respond"),
+        ("verify", "Verify"),
+        ("schedule", "Schedule"),
+        ("renew", "Renew/Cancel Decision"),
+        ("file", "File/Organize"),
+        ("other", "Other"),
+    ]
+
+    # Core fields
+    title = models.CharField(max_length=500)
+    description = models.TextField(blank=True)
+    entity = models.ForeignKey(
+        Entity, on_delete=models.SET_NULL,
+        null=True, blank=True, related_name="tasks"
+    )
+
+    # Classification
+    task_type = models.CharField(max_length=20, choices=TASK_TYPE_CHOICES, default="other")
+    priority = models.CharField(max_length=20, choices=PRIORITY_CHOICES, default="normal")
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
+    source = models.CharField(max_length=20, choices=SOURCE_CHOICES, default="email")
+
+    # Due date
+    due_date = models.DateField(null=True, blank=True)
+    amount = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+
+    # Email deduplication
+    email_id = models.CharField(max_length=255, blank=True, db_index=True,
+                                help_text="Gmail message ID for deduplication")
+    email_thread_id = models.CharField(max_length=255, blank=True)
+    email_subject = models.CharField(max_length=500, blank=True)
+    email_from = models.CharField(max_length=255, blank=True)
+    email_date = models.DateTimeField(null=True, blank=True)
+
+    # Optional linking
+    deadline = models.ForeignKey(
+        Deadline, on_delete=models.SET_NULL,
+        null=True, blank=True, related_name="tasks"
+    )
+    document = models.ForeignKey(
+        "Document", on_delete=models.SET_NULL,
+        null=True, blank=True, related_name="tasks"
+    )
+
+    # Metadata
+    metadata = models.JSONField(default=dict, blank=True,
+                                help_text="Flexible storage for source-specific data")
+
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    completed_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+        indexes = [
+            models.Index(fields=["email_id"]),
+            models.Index(fields=["status", "due_date"]),
+            models.Index(fields=["entity", "status"]),
+        ]
+
+    def __str__(self):
+        return f"{self.title} ({self.status})"
+
+    @property
+    def is_overdue(self):
+        """Check if task is past due"""
+        if self.due_date and self.status != "completed":
+            return self.due_date < date.today()
+        return False
+
+
+class Document(models.Model):
+    """Documents stored from email attachments and other sources."""
+
+    DOCTYPE_CHOICES = [
+        ("invoice", "Invoice"),
+        ("contract", "Contract"),
+        ("tax_form", "Tax Form"),
+        ("receipt", "Receipt"),
+        ("statement", "Statement"),
+        ("correspondence", "Correspondence"),
+        ("license", "License"),
+        ("insurance", "Insurance"),
+        ("report", "Report"),
+        ("notice", "Notice"),
+        ("other", "Other"),
+    ]
+
+    SOURCE_CHOICES = [
+        ("email", "Email Attachment"),
+        ("upload", "Manual Upload"),
+        ("scan", "Scanned Document"),
+    ]
+
+    # Core fields
+    filename = models.CharField(max_length=500)
+    title = models.CharField(max_length=500, blank=True)
+    document_type = models.CharField(max_length=50, choices=DOCTYPE_CHOICES, default="other")
+    entity = models.ForeignKey(
+        Entity, on_delete=models.SET_NULL,
+        null=True, blank=True, related_name="documents"
+    )
+
+    # File storage (metadata only - files in OneDrive SSOT)
+    file_path = models.CharField(max_length=1000, blank=True,
+                                 help_text="Path to file in OneDrive SSOT")
+    file_size = models.BigIntegerField(null=True, blank=True)
+    mime_type = models.CharField(max_length=100, blank=True)
+
+    # Deduplication
+    sha256_hash = models.CharField(max_length=64, db_index=True, unique=True,
+                                   help_text="SHA256 hash of file content")
+
+    # Source tracking
+    source = models.CharField(max_length=20, choices=SOURCE_CHOICES, default="email")
+    email_id = models.CharField(max_length=255, blank=True, db_index=True)
+    email_subject = models.CharField(max_length=500, blank=True)
+    email_from = models.CharField(max_length=255, blank=True)
+    email_date = models.DateTimeField(null=True, blank=True)
+
+    # Document metadata
+    document_date = models.DateField(null=True, blank=True,
+                                     help_text="Date on the document itself")
+    due_date = models.DateField(null=True, blank=True,
+                                help_text="If document has a due date (invoice, etc.)")
+    amount = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+
+    # Flexible metadata
+    metadata = models.JSONField(default=dict, blank=True)
+    notes = models.TextField(blank=True)
+
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+        indexes = [
+            models.Index(fields=["sha256_hash"]),
+            models.Index(fields=["email_id"]),
+            models.Index(fields=["entity", "document_type"]),
+        ]
+
+    def __str__(self):
+        return f"{self.filename} ({self.document_type})"

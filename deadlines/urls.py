@@ -1,12 +1,13 @@
 from django.urls import include, path
 
-from . import views, views_contacts, views_financial, views_insurance, views_licenses, views_operations
+from . import views, views_contacts, views_documents, views_financial, views_insurance, views_licenses, views_operations, views_tasks
 
 app_name = "deadlines"
 
 urlpatterns = [
     # Main dashboard views
     path("", views.todo_view, name="todo"),
+    path("search/", views.search, name="search"),
     path("list/", views.list_view, name="list"),
     path("calendar/", views.calendar_view, name="calendar"),
     # Deadline views
@@ -18,6 +19,9 @@ urlpatterns = [
     path(
         "deadline/<int:pk>/add-note/", views.deadline_add_note, name="deadline_add_note"
     ),
+    # Bulk actions
+    path("deadlines/bulk-complete/", views.bulk_complete_deadlines, name="bulk_complete"),
+    path("deadlines/export-csv/", views.export_deadlines_csv, name="export_csv"),
     # Entity views
     path("entities/", views.entity_list, name="entity_list"),
     path("entity/<str:pk>/", views.entity_detail, name="entity_detail"),
@@ -31,6 +35,13 @@ urlpatterns = [
     path("license/<int:pk>/", views_licenses.license_detail, name="license_detail"),
     path("license/add/", views_licenses.license_add, name="license_add"),
     path("license/<int:pk>/edit/", views_licenses.license_edit, name="license_edit"),
+    # Document views
+    path("documents/", views_documents.document_list, name="document_list"),
+    path("documents/<int:pk>/", views_documents.document_detail, name="document_detail"),
+    # Task views
+    path("tasks/", views_tasks.task_list, name="task_list"),
+    path("tasks/<int:pk>/", views_tasks.task_detail, name="task_detail"),
+    path("tasks/<int:pk>/status/", views_tasks.task_status_update, name="task_status_update"),
     # Contact views
     path("contacts/", views_contacts.contact_list, name="contact_list"),
     path("contact/<int:pk>/", views_contacts.contact_detail, name="contact_detail"),

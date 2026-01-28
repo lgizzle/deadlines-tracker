@@ -1,0 +1,311 @@
+{% extends "deadlines/base.html" %}
+{% load static %}
+
+{% block title %}{{ task.title|truncatewords:5 }} - Tasks{% endblock %}
+{% block nav_tasks %}active{% endblock %}
+{% block bottom_nav_tasks %}active{% endblock %}
+
+{% block content %}
+<div class="detail-header">
+  <a href="{% url 'deadlines:task_list' %}" class="detail-back">
+    <- Back to Tasks
+  </a>
+  <div class="detail-title">{{ task.title }}</div>
+  <div class="detail-meta">
+    <span class="priority-badge priority-{{ task.priority }}">{{ task.priority|upper }}</span>
+    <span class="status-badge status-{{ task.status }}">{{ task.get_status_display }}</span>
+    {% if task.entity %}
+    <span>{{ task.entity.entity_code }}</span>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+  .priority-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    color: white;
+  }
+  .priority-urgent { background: #dc3545; }
+  .priority-high { background: #fd7e14; }
+  .priority-normal { background: #28a745; }
+  .priority-low { background: #6c757d; }
+  .status-badge {
+    display: inline-block;
+    background: #e0e7ff;
+    color: #4338ca;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: 6px;
+  }
+  .status-completed {
+    background: #d1fae5;
+    color: #065f46;
+  }
+  .status-in_progress {
+    background: #fef3c7;
+    color: #92400e;
+  }
+  .status-deferred {
+    background: #f3f4f6;
+    color: #6b7280;
+  }
+  .info-item {
+    background: #f8f9fa;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 6px;
+    border-left: 3px solid #6366f1;
+  }
+  .info-item-header {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #1f2937;
+  }
+  .info-item-detail {
+    font-size: 12px;
+    color: #6b7280;
+    margin: 3px 0;
+  }
+  .email-origin-card {
+    border-left-color: #3b82f6;
+    background: #eff6ff;
+  }
+  .quick-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .btn-action {
+    flex: 1;
+    min-width: 120px;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+  .btn-in-progress {
+    background: #fef3c7;
+    color: #92400e;
+  }
+  .btn-in-progress:hover {
+    background: #fde68a;
+  }
+  .btn-complete {
+    background: #d1fae5;
+    color: #065f46;
+  }
+  .btn-complete:hover {
+    background: #a7f3d0;
+  }
+  .btn-defer {
+    background: #f3f4f6;
+    color: #6b7280;
+  }
+  .btn-defer:hover {
+    background: #e5e7eb;
+  }
+  .btn-pending {
+    background: #e0e7ff;
+    color: #4338ca;
+  }
+  .btn-pending:hover {
+    background: #c7d2fe;
+  }
+  .overdue-warning {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #b91c1c;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+</style>
+
+<div class="detail-content">
+  {% if task.is_overdue %}
+  <div class="overdue-warning">
+    This task is overdue! Due date was {{ task.due_date }}.
+  </div>
+  {% endif %}
+
+  <div class="detail-card">
+    <h3>Task Information</h3>
+    <div class="detail-grid">
+      <div class="detail-field">
+        <span class="detail-label">Task Type</span>
+        <span class="detail-value">{{ task.get_task_type_display }}</span>
+      </div>
+      <div class="detail-field">
+        <span class="detail-label">Priority</span>
+        <span class="detail-value">
+          <span class="priority-badge priority-{{ task.priority }}">{{ task.priority|upper }}</span>
+        </span>
+      </div>
+      <div class="detail-field">
+        <span class="detail-label">Status</span>
+        <span class="detail-value">{{ task.get_status_display }}</span>
+      </div>
+      <div class="detail-field">
+        <span class="detail-label">Source</span>
+        <span class="detail-value">{{ task.get_source_display }}</span>
+      </div>
+      {% if task.due_date %}
+      <div class="detail-field">
+        <span class="detail-label">Due Date</span>
+        <span class="detail-value">{{ task.due_date }}</span>
+      </div>
+      {% endif %}
+      {% if task.amount %}
+      <div class="detail-field">
+        <span class="detail-label">Amount</span>
+        <span class="detail-value">${{ task.amount|floatformat:2 }}</span>
+      </div>
+      {% endif %}
+      <div class="detail-field">
+        <span class="detail-label">Entity</span>
+        <span class="detail-value">
+          {% if task.entity %}
+          <a href="{% url 'deadlines:entity_detail' task.entity.pk %}" style="color: #6366f1; text-decoration: none;">
+            {{ task.entity.entity_code }}
+          </a>
+          {% else %}
+          <span style="color: #9ca3af;">No Entity</span>
+          {% endif %}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  {% if task.description %}
+  <div class="detail-card">
+    <h3>Description</h3>
+    <div style="font-size: 14px; color: #374151; line-height: 1.6; white-space: pre-wrap;">{{ task.description }}</div>
+  </div>
+  {% endif %}
+
+  {% if task.source == 'email' %}
+  <div class="detail-card">
+    <h3>Email Origin</h3>
+    {% if task.email_subject %}
+    <div class="info-item email-origin-card">
+      <div class="info-item-header">Subject</div>
+      <div class="info-item-detail">{{ task.email_subject }}</div>
+    </div>
+    {% endif %}
+    {% if task.email_from %}
+    <div class="info-item email-origin-card">
+      <div class="info-item-header">From</div>
+      <div class="info-item-detail">{{ task.email_from }}</div>
+    </div>
+    {% endif %}
+    {% if task.email_date %}
+    <div class="info-item email-origin-card">
+      <div class="info-item-header">Date</div>
+      <div class="info-item-detail">{{ task.email_date }}</div>
+    </div>
+    {% endif %}
+    {% if task.email_id %}
+    <div class="info-item email-origin-card">
+      <div class="info-item-header">Email ID</div>
+      <div class="info-item-detail" style="font-family: monospace; font-size: 11px;">{{ task.email_id }}</div>
+    </div>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  {% if task.deadline %}
+  <div class="detail-card">
+    <h3>Linked Deadline</h3>
+    <div class="info-item">
+      <div class="info-item-header">
+        <a href="{% url 'deadlines:deadline_detail' task.deadline.pk %}" style="color: #6366f1; text-decoration: none;">
+          {{ task.deadline.title }}
+        </a>
+      </div>
+      <div class="info-item-detail">Due: {{ task.deadline.next_due }}</div>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="detail-card">
+    <h3>Timestamps</h3>
+    <div class="detail-grid">
+      <div class="detail-field">
+        <span class="detail-label">Created</span>
+        <span class="detail-value">{{ task.created_at|date:"M d, Y H:i" }}</span>
+      </div>
+      <div class="detail-field">
+        <span class="detail-label">Updated</span>
+        <span class="detail-value">{{ task.updated_at|date:"M d, Y H:i" }}</span>
+      </div>
+      {% if task.completed_at %}
+      <div class="detail-field">
+        <span class="detail-label">Completed</span>
+        <span class="detail-value">{{ task.completed_at|date:"M d, Y H:i" }}</span>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="detail-card">
+    <h3>Quick Status Update</h3>
+    <div class="quick-actions">
+      {% if task.status != 'in_progress' %}
+      <form method="post" action="{% url 'deadlines:task_status_update' task.pk %}" style="flex: 1; min-width: 120px;">
+        {% csrf_token %}
+        <input type="hidden" name="status" value="in_progress">
+        <button type="submit" class="btn-action btn-in-progress" style="width: 100%;">
+          Mark In Progress
+        </button>
+      </form>
+      {% endif %}
+
+      {% if task.status != 'completed' %}
+      <form method="post" action="{% url 'deadlines:task_status_update' task.pk %}" style="flex: 1; min-width: 120px;">
+        {% csrf_token %}
+        <input type="hidden" name="status" value="completed">
+        <button type="submit" class="btn-action btn-complete" style="width: 100%;">
+          Mark Complete
+        </button>
+      </form>
+      {% endif %}
+
+      {% if task.status != 'deferred' %}
+      <form method="post" action="{% url 'deadlines:task_status_update' task.pk %}" style="flex: 1; min-width: 120px;">
+        {% csrf_token %}
+        <input type="hidden" name="status" value="deferred">
+        <button type="submit" class="btn-action btn-defer" style="width: 100%;">
+          Defer
+        </button>
+      </form>
+      {% endif %}
+
+      {% if task.status != 'pending' %}
+      <form method="post" action="{% url 'deadlines:task_status_update' task.pk %}" style="flex: 1; min-width: 120px;">
+        {% csrf_token %}
+        <input type="hidden" name="status" value="pending">
+        <button type="submit" class="btn-action btn-pending" style="width: 100%;">
+          Set Pending
+        </button>
+      </form>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

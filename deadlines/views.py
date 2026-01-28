@@ -1,13 +1,15 @@
 import calendar as cal
+import csv
 from datetime import datetime, timedelta
 
 from dateutil.relativedelta import relativedelta
+from django.contrib import messages
 from django.db.models import Count, Q
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 
-from .models import Contact, Deadline, Entity, MerchantProcessor, StateAccount, Vendor
+from .models import Contact, Deadline, Document, Entity, MerchantProcessor, StateAccount, Task, Vendor
 
 
 def get_deadline_status(deadline):
@@ -363,3 +365,168 @@ def entity_detail(request, pk):
     }
 
     return render(request, "deadlines/entity_detail.html", context)
+
+
+def search(request):
+    """Global search across all models."""
+    query = request.GET.get("q", "").strip()
+    results = {
+        "deadlines": [],
+        "tasks": [],
+        "documents": [],
+        "entities": [],
+        "contacts": [],
+    }
+    total_count = 0
+
+    if query:
+        # Search Deadlines (title, notes)
+        deadlines = Deadline.objects.filter(
+            Q(title__icontains=query) | Q(notes__icontains=query)
+        ).select_related("entity")[:10]
+        for deadline in deadlines:
+            deadline.urgency_status = get_deadline_status(deadline)
+        results["deadlines"] = list(deadlines)
+
+        # Search Tasks (title, description)
+        tasks = Task.objects.filter(
+            Q(title__icontains=query) | Q(description__icontains=query)
+        ).select_related("entity")[:10]
+        results["tasks"] = list(tasks)
+
+        # Search Documents (filename, title)
+        documents = Document.objects.filter(
+            Q(filename__icontains=query) | Q(title__icontains=query)
+        ).select_related("entity")[:10]
+        results["documents"] = list(documents)
+
+        # Search Entities (legal_name, dba_name)
+        entities = Entity.objects.filter(
+            Q(legal_name__icontains=query) | Q(dba_name__icontains=query)
+        )[:10]
+        results["entities"] = list(entities)
+
+        # Search Contacts (first_name, last_name, company_name)
+        contacts = Contact.objects.filter(
+            Q(first_name__icontains=query)
+            | Q(last_name__icontains=query)
+            | Q(company_name__icontains=query)
+        ).select_related("entity")[:10]
+        results["contacts"] = list(contacts)
+
+        # Calculate total
+        total_count = sum(len(v) for v in results.values())
+
+    context = {
+        "query": query,
+        "results": results,
+        "total_count": total_count,
+    }
+
+    return render(request, "deadlines/search_results.html", context)
+
+
+def advance_deadline_to_next_due(deadline):
+    """Advance a deadline's next_due date based on its frequency."""
+    if not deadline.next_due or not deadline.frequency:
+        return False
+
+    if deadline.frequency == "Daily":
+        deadline.next_due += timedelta(days=1)
+    elif deadline.frequency == "Weekly":
+        deadline.next_due += timedelta(weeks=1)
+    elif deadline.frequency == "Bi-Weekly":
+        deadline.next_due += timedelta(weeks=2)
+    elif deadline.frequency == "Monthly":
+        deadline.next_due += relativedelta(months=1)
+    elif deadline.frequency == "Quarterly":
+        deadline.next_due += relativedelta(months=3)
+    elif deadline.frequency == "Semi-Annual":
+        deadline.next_due += relativedelta(months=6)
+    elif deadline.frequency == "Annual":
+        deadline.next_due += relativedelta(years=1)
+    else:
+        # One-Time or unknown frequency - no advancement
+        return False
+
+    deadline.save()
+    return True
+
+
+def bulk_complete_deadlines(request):
+    """Mark multiple deadlines as complete and advance their dates."""
+    if request.method == "POST":
+        deadline_ids_str = request.POST.get("deadline_ids", "")
+
+        if not deadline_ids_str:
+            messages.error(request, "No deadlines selected.")
+            return redirect("deadlines:list")
+
+        # Parse comma-separated IDs
+        try:
+            deadline_ids = [int(id.strip()) for id in deadline_ids_str.split(",") if id.strip()]
+        except ValueError:
+            messages.error(request, "Invalid deadline IDs provided.")
+            return redirect("deadlines:list")
+
+        if not deadline_ids:
+            messages.error(request, "No deadlines selected.")
+            return redirect("deadlines:list")
+
+        # Process each deadline
+        completed_count = 0
+        deadlines = Deadline.objects.filter(pk__in=deadline_ids)
+
+        for deadline in deadlines:
+            if advance_deadline_to_next_due(deadline):
+                completed_count += 1
+
+        if completed_count > 0:
+            messages.success(request, f"Successfully completed {completed_count} deadline(s).")
+        else:
+            messages.warning(request, "No deadlines were advanced (may be one-time deadlines).")
+
+        return redirect("deadlines:list")
+
+    return redirect("deadlines:list")
+
+
+def export_deadlines_csv(request):
+    """Export deadlines to CSV file."""
+    deadline_ids_str = request.POST.get("deadline_ids", "") or request.GET.get("deadline_ids", "")
+
+    # Get deadlines - either selected ones or all active
+    if deadline_ids_str:
+        try:
+            deadline_ids = [int(id.strip()) for id in deadline_ids_str.split(",") if id.strip()]
+            deadlines = Deadline.objects.filter(pk__in=deadline_ids).select_related("entity")
+        except ValueError:
+            deadlines = Deadline.objects.filter(
+                status__in=["Active", "Autopay"]
+            ).select_related("entity")
+    else:
+        deadlines = Deadline.objects.filter(
+            status__in=["Active", "Autopay"]
+        ).select_related("entity")
+
+    # Sort by next_due date
+    deadlines = deadlines.order_by("next_due")
+
+    # Create CSV response
+    response = HttpResponse(content_type="text/csv")
+    response["Content-Disposition"] = 'attachment; filename="deadlines_export.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(["Entity", "Title", "Category", "Next Due", "Amount", "Status"])
+
+    for deadline in deadlines:
+        writer.writerow([
+            deadline.entity.entity_code if deadline.entity else "",
+            deadline.title,
+            deadline.category,
+            deadline.next_due.strftime("%Y-%m-%d") if deadline.next_due else "",
+            str(deadline.estimated_amount) if deadline.estimated_amount else "",
+            deadline.status,
+        ])
+
+    return response
