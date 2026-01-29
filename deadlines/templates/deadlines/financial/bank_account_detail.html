@@ -31,7 +31,12 @@
       <div class="detail-field">
         <span class="detail-label">Account Number</span>
         <span class="detail-value" style="font-family: monospace;">
-          •••• {{ account.account_number_last4 }}
+          <span class="masked-value">•••• {{ account.account_number_last4 }}</span>
+          {% if account.full_account_number %}
+          <span class="revealed-value" style="display: none;">{{ account.full_account_number }}</span>
+          <button type="button" class="reveal-btn" onclick="toggleReveal(this)">Show</button>
+          <button type="button" class="copy-btn" onclick="copyValue(this)" title="Copy to clipboard">Copy</button>
+          {% endif %}
         </span>
       </div>
       {% if account.routing_number %}
@@ -89,5 +94,50 @@
     font-size: 12px;
     color: #6b7280;
   }
+  .reveal-btn, .copy-btn {
+    margin-left: 8px;
+    padding: 2px 8px;
+    font-size: 11px;
+    border: 1px solid #d1d5db;
+    background: #f9fafb;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #4b5563;
+  }
+  .reveal-btn:hover, .copy-btn:hover {
+    background: #e5e7eb;
+  }
+  .copy-btn.copied {
+    background: #dcfce7;
+    border-color: #86efac;
+    color: #166534;
+  }
 </style>
+<script>
+function toggleReveal(btn) {
+  const parent = btn.parentElement;
+  const masked = parent.querySelector('.masked-value');
+  const revealed = parent.querySelector('.revealed-value');
+  if (revealed.style.display === 'none') {
+    masked.style.display = 'none';
+    revealed.style.display = 'inline';
+    btn.textContent = 'Hide';
+  } else {
+    masked.style.display = 'inline';
+    revealed.style.display = 'none';
+    btn.textContent = 'Show';
+  }
+}
+function copyValue(btn) {
+  const parent = btn.parentElement;
+  const revealed = parent.querySelector('.revealed-value');
+  navigator.clipboard.writeText(revealed.textContent.trim());
+  btn.textContent = 'Copied!';
+  btn.classList.add('copied');
+  setTimeout(() => {
+    btn.textContent = 'Copy';
+    btn.classList.remove('copied');
+  }, 2000);
+}
+</script>
 {% endblock %}
