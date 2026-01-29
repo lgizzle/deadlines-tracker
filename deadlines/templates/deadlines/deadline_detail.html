@@ -8,10 +8,7 @@ deadline.title }} - Business Deadlines{% endblock %}
   <div class="detail-title">{{ deadline.title }}</div>
   <div class="detail-meta">
     <span class="detail-entity-badge">{{ deadline.entity.entity_code }}</span>
-    <span
-      >{{ deadline.category|default:"General" }} · {{
-      deadline.get_frequency_display|default:"One-time" }}</span
-    >
+    <span>{{ deadline.category|default:"General" }} · {{ deadline.get_frequency_display|default:"One-time" }}</span>
   </div>
 </div>
 
@@ -29,12 +26,8 @@ deadline.title }} - Business Deadlines{% endblock %}
       </div>
       <div class="detail-field">
         <span class="detail-label">Status</span>
-        <span
-          class="detail-value {% if deadline.urgency_status == 'overdue' %}overdue{% elif deadline.urgency_status == 'upcoming' %}upcoming{% endif %}"
-        >
-          {% if deadline.urgency_status == 'overdue' %} Overdue {% elif
-          deadline.urgency_status == 'upcoming' %} Due soon {% else %} On track
-          {% endif %}
+        <span class="detail-value {% if deadline.urgency_status == 'overdue' %}overdue{% elif deadline.urgency_status == 'upcoming' %}upcoming{% endif %}">
+          {% if deadline.urgency_status == 'overdue' %}Overdue{% elif deadline.urgency_status == 'upcoming' %}Due soon{% else %}On track{% endif %}
         </span>
       </div>
       {% if deadline.estimated_amount %}
@@ -92,9 +85,7 @@ deadline.title }} - Business Deadlines{% endblock %}
 
   {% if deadline.frequency %}
   <div class="auto-advance-note">
-    → NextDue advances to {% if deadline.frequency == 'monthly' %} next month {%
-    elif deadline.frequency == 'quarterly' %} +3 months {% elif
-    deadline.frequency == 'annually' %} next year {% endif %}
+    → Next due advances to {% if deadline.frequency == 'Monthly' %}next month{% elif deadline.frequency == 'Quarterly' %}+3 months{% elif deadline.frequency == 'Annual' %}next year{% else %}next occurrence{% endif %}
   </div>
   {% endif %}
 

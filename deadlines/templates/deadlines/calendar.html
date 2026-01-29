@@ -126,11 +126,12 @@
       {% endwith %}
 {% endwith %}
 {% else %}
-      <div
-        class="day {% if day == today.day and month == today.month and year == today.year %}today{% endif %}"
+      <a
+        href="?year={{ year }}&month={{ month }}&day={{ day }}{% if entity_filter %}&entity={{ entity_filter }}{% endif %}"
+        class="day {% if day == today.day and month == today.month and year == today.year %}today{% endif %} {% if day == selected_day %}selected{% endif %}"
       >
         <div class="day-number">{{ day }}</div>
-      </div>
+      </a>
       {% endif %}
 {% endif %}
 {% endfor %}
@@ -138,10 +139,11 @@
     </div>
   </div>
 
-  {% if selected_deadlines %}
+  {% if selected_day %}
   <div class="section-header">
-    {{ month_name }} {{ selected_day }} — {{ selected_deadlines|length }} item{% if selected_deadlines|length != 1 %}s{% endif %}
+    {{ month_name }} {{ selected_day }} — {% if selected_deadlines %}{{ selected_deadlines|length }} item{% if selected_deadlines|length != 1 %}s{% endif %}{% else %}No deadlines{% endif %}
   </div>
+  {% if selected_deadlines %}
   {% for deadline in selected_deadlines %}
   <a
     href="{% url 'deadlines:deadline_detail' deadline.pk %}"
@@ -159,6 +161,11 @@
     </div>
   </a>
   {% endfor %}
+  {% else %}
+  <div class="empty-state" style="padding: 30px;">
+    <div class="empty-state-text">No deadlines on this day</div>
+  </div>
+  {% endif %}
 {% endif %}
 </div>
 {% endblock %}
