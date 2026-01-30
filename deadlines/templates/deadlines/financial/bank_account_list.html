@@ -31,42 +31,110 @@
   </div>
 </div>
 
+<style>
+  .account-card {
+    background: #f8f9fa;
+    padding: 15px;
+    margin: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: all 0.15s;
+  }
+  .account-card:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+  }
+  .account-title {
+    font-weight: 600;
+    font-size: 15px;
+    color: #1f2937;
+    margin-bottom: 5px;
+  }
+  .account-detail {
+    font-size: 13px;
+    color: #6b7280;
+    margin: 3px 0;
+  }
+  .account-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .entity-badge {
+    display: inline-block;
+    background: #f3f4f6;
+    color: #6b7280;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .type-badge {
+    display: inline-block;
+    background: #e0e7ff;
+    color: #4338ca;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .empty-state-small {
+    text-align: center;
+    padding: 60px 20px;
+    color: #9ca3af;
+    font-size: 14px;
+  }
+  @media (min-width: 1024px) {
+    .account-card {
+      margin: 0;
+    }
+    .accounts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+      padding: 24px;
+    }
+  }
+  @media (max-width: 1023px) {
+    .accounts-grid {
+      display: block;
+    }
+  }
+</style>
+
 <div class="content">
   {% if accounts %}
-  <div class="financial-list">
+  <div class="accounts-grid">
     {% for account in accounts %}
-    <a href="{% url 'deadlines:bank_account_detail' account.pk %}" class="list-item normal">
-      <div class="list-item-title">
-        {{ account.bank_name }} - {{ account.account_type }}
-      </div>
-      <div class="list-item-meta">
-        <span>
-          <span class="entity-badge">{{ account.entity.entity_code }}</span>
-          <span style="margin-left: 8px;">Account ending in {{ account.account_number_last4 }}</span>
-        </span>
-        {% if account.routing_number %}
-        <span class="list-item-date">Routing: {{ account.routing_number }}</span>
-        {% endif %}
+    <a href="{% url 'deadlines:bank_account_detail' account.pk %}" class="account-card">
+      <div class="account-title">{{ account.bank_name }}</div>
+      <div class="account-detail">Account ending in {{ account.account_number_last4 }}</div>
+      {% if account.routing_number %}
+      <div class="account-detail">Routing: {{ account.routing_number }}</div>
+      {% endif %}
+      <div class="account-badges">
+        <span class="type-badge">{{ account.account_type }}</span>
+        <span class="entity-badge">{{ account.entity.entity_code }}</span>
       </div>
     </a>
     {% endfor %}
   </div>
   {% else %}
-  <div class="empty-state">
-    <div class="empty-state-icon">🏦</div>
-    <div class="empty-state-text">No bank accounts found.</div>
+  <div class="empty-state-small">
+    <p>🏦</p>
+    <p>No bank accounts found.</p>
+    {% if entity_filter or bank_filter %}
+    <p style="margin-top: 10px;">
+      <a href="{% url 'deadlines:bank_account_list' %}" style="color: #6366f1; text-decoration: none;">
+        Clear filters
+      </a>
+    </p>
+    {% endif %}
   </div>
   {% endif %}
 </div>
-
-<style>
-  .financial-list {
-    padding: 14px;
-  }
-  @media (min-width: 1024px) {
-    .financial-list {
-      padding: 0;
-    }
-  }
-</style>
 {% endblock %}

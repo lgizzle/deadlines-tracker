@@ -62,130 +62,205 @@
   </div>
 </div>
 
+<style>
+  .license-card {
+    background: #f8f9fa;
+    padding: 15px;
+    margin: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: all 0.15s;
+  }
+  .license-card:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+  }
+  .license-card.expired { border-left: 4px solid #ef4444; }
+  .license-card.critical { border-left: 4px solid #f97316; }
+  .license-card.warning { border-left: 4px solid #f59e0b; }
+  .license-card.normal { border-left: 4px solid #22c55e; }
+  .license-title {
+    font-weight: 600;
+    font-size: 15px;
+    color: #1f2937;
+    margin-bottom: 5px;
+  }
+  .license-detail {
+    font-size: 13px;
+    color: #6b7280;
+    margin: 3px 0;
+  }
+  .license-detail.expired { color: #dc2626; font-weight: 600; }
+  .license-detail.critical { color: #f97316; font-weight: 600; }
+  .license-detail.warning { color: #d97706; font-weight: 600; }
+  .license-detail.normal { color: #22c55e; }
+  .license-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .entity-badge {
+    display: inline-block;
+    background: #f3f4f6;
+    color: #6b7280;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .status-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .status-expired { background: #fee2e2; color: #dc2626; }
+  .status-critical { background: #ffedd5; color: #ea580c; }
+  .status-warning { background: #fef3c7; color: #d97706; }
+  .section-title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 12px 14px;
+    margin-top: 16px;
+  }
+  .section-title:first-child { margin-top: 0; }
+  .empty-state-small {
+    text-align: center;
+    padding: 60px 20px;
+    color: #9ca3af;
+    font-size: 14px;
+  }
+  @media (min-width: 1024px) {
+    .license-card { margin: 0; }
+    .licenses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+      padding: 0 24px 16px;
+    }
+    .section-title { padding: 12px 24px; }
+  }
+  @media (max-width: 1023px) {
+    .licenses-grid { display: block; }
+  }
+</style>
+
 <div class="content">
   {% if licenses %}
 
   <!-- Expired Section -->
-  {% for license in licenses %}
-  {% if license.urgency_status == 'expired' and forloop.first or license.urgency_status == 'expired' and forloop.parentloop.first %}
-  <div class="section-header" style="color: #dc2626;">EXPIRED</div>
-  {% endif %}
-  {% if license.urgency_status == 'expired' %}
-  <a href="{% url 'deadlines:license_detail' license.pk %}" class="list-item" style="border-left: 4px solid #ef4444;">
-    <div class="list-item-title">{{ license.license_type }}</div>
-    <div class="list-item-meta">
-      <span>
-        <span class="entity-badge">{{ license.entity.entity_code }}</span>
-        {{ license.issuing_authority }}
-      </span>
-      <span style="color: #dc2626; font-weight: 600;">
-        Expired {{ license.expiration_date|date:"M j, Y" }}
-      </span>
-    </div>
-    {% if license.renewal_fee %}
-    <div class="list-item-meta" style="margin-top: 4px;">
-      <span class="list-item-amount">${{ license.renewal_fee|floatformat:2 }} renewal fee</span>
-    </div>
-    {% endif %}
-  </a>
-  {% endif %}
-  {% endfor %}
+  {% regroup licenses by urgency_status as license_groups %}
+  {% for group in license_groups %}
 
-  <!-- Critical (30 days) Section -->
-  {% with has_critical=False %}
-  {% for license in licenses %}
-  {% if license.urgency_status == 'critical' %}
-  {% if not has_critical %}
-  <div class="section-header" style="color: #f97316;">EXPIRES WITHIN 30 DAYS</div>
-  {% endif %}
-  <a href="{% url 'deadlines:license_detail' license.pk %}" class="list-item" style="border-left: 4px solid #f97316;">
-    <div class="list-item-title">{{ license.license_type }}</div>
-    <div class="list-item-meta">
-      <span>
-        <span class="entity-badge">{{ license.entity.entity_code }}</span>
-        {{ license.issuing_authority }}
-      </span>
-      <span style="color: #f97316; font-weight: 600;">
-        {{ license.days_until }} days - {{ license.expiration_date|date:"M j, Y" }}
-      </span>
-    </div>
-    {% if license.renewal_fee %}
-    <div class="list-item-meta" style="margin-top: 4px;">
-      <span class="list-item-amount">${{ license.renewal_fee|floatformat:2 }} renewal fee</span>
-    </div>
-    {% endif %}
-  </a>
-  {% endif %}
-  {% endfor %}
-  {% endwith %}
-
-  <!-- Warning (90 days) Section -->
-  {% with has_warning=False %}
-  {% for license in licenses %}
-  {% if license.urgency_status == 'warning' %}
-  {% if not has_warning %}
-  <div class="section-header" style="color: #d97706;">EXPIRES WITHIN 90 DAYS</div>
-  {% endif %}
-  <a href="{% url 'deadlines:license_detail' license.pk %}" class="list-item" style="border-left: 4px solid #f59e0b;">
-    <div class="list-item-title">{{ license.license_type }}</div>
-    <div class="list-item-meta">
-      <span>
-        <span class="entity-badge">{{ license.entity.entity_code }}</span>
-        {{ license.issuing_authority }}
-      </span>
-      <span style="color: #d97706; font-weight: 600;">
-        {{ license.days_until }} days - {{ license.expiration_date|date:"M j, Y" }}
-      </span>
-    </div>
-    {% if license.renewal_fee %}
-    <div class="list-item-meta" style="margin-top: 4px;">
-      <span class="list-item-amount">${{ license.renewal_fee|floatformat:2 }} renewal fee</span>
-    </div>
-    {% endif %}
-  </a>
-  {% endif %}
-  {% endfor %}
-  {% endwith %}
-
-  <!-- Normal Section -->
-  {% with has_normal=False %}
-  {% for license in licenses %}
-  {% if license.urgency_status == 'normal' %}
-  {% if not has_normal %}
-  <div class="section-header" style="color: #22c55e;">CURRENT</div>
-  {% endif %}
-  <a href="{% url 'deadlines:license_detail' license.pk %}" class="list-item" style="border-left: 4px solid #22c55e;">
-    <div class="list-item-title">{{ license.license_type }}</div>
-    <div class="list-item-meta">
-      <span>
-        <span class="entity-badge">{{ license.entity.entity_code }}</span>
-        {{ license.issuing_authority }}
-      </span>
-      {% if license.expiration_date %}
-      <span style="color: #22c55e;">
-        {{ license.expiration_date|date:"M j, Y" }}
-      </span>
-      {% else %}
-      <span style="color: #9ca3af;">No expiration</span>
+  {% if group.grouper == 'expired' %}
+  <div class="section-title" style="color: #dc2626;">EXPIRED</div>
+  <div class="licenses-grid">
+    {% for license in group.list %}
+    <a href="{% url 'deadlines:license_detail' license.pk %}" class="license-card expired">
+      <div class="license-title">{{ license.license_type }}</div>
+      <div class="license-detail">{{ license.issuing_authority }}</div>
+      <div class="license-detail expired">Expired {{ license.expiration_date|date:"M j, Y" }}</div>
+      {% if license.renewal_fee %}
+      <div class="license-detail">${{ license.renewal_fee|floatformat:2 }} renewal fee</div>
       {% endif %}
-    </div>
-    {% if license.renewal_fee %}
-    <div class="list-item-meta" style="margin-top: 4px;">
-      <span class="list-item-amount">${{ license.renewal_fee|floatformat:2 }} renewal fee</span>
-    </div>
-    {% endif %}
-  </a>
+      <div class="license-badges">
+        <span class="status-badge status-expired">EXPIRED</span>
+        <span class="entity-badge">{{ license.entity.entity_code }}</span>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
   {% endif %}
+
+  {% if group.grouper == 'critical' %}
+  <div class="section-title" style="color: #f97316;">EXPIRES WITHIN 30 DAYS</div>
+  <div class="licenses-grid">
+    {% for license in group.list %}
+    <a href="{% url 'deadlines:license_detail' license.pk %}" class="license-card critical">
+      <div class="license-title">{{ license.license_type }}</div>
+      <div class="license-detail">{{ license.issuing_authority }}</div>
+      <div class="license-detail critical">{{ license.days_until }} days - {{ license.expiration_date|date:"M j, Y" }}</div>
+      {% if license.renewal_fee %}
+      <div class="license-detail">${{ license.renewal_fee|floatformat:2 }} renewal fee</div>
+      {% endif %}
+      <div class="license-badges">
+        <span class="status-badge status-critical">{{ license.days_until }} DAYS</span>
+        <span class="entity-badge">{{ license.entity.entity_code }}</span>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if group.grouper == 'warning' %}
+  <div class="section-title" style="color: #d97706;">EXPIRES WITHIN 90 DAYS</div>
+  <div class="licenses-grid">
+    {% for license in group.list %}
+    <a href="{% url 'deadlines:license_detail' license.pk %}" class="license-card warning">
+      <div class="license-title">{{ license.license_type }}</div>
+      <div class="license-detail">{{ license.issuing_authority }}</div>
+      <div class="license-detail warning">{{ license.days_until }} days - {{ license.expiration_date|date:"M j, Y" }}</div>
+      {% if license.renewal_fee %}
+      <div class="license-detail">${{ license.renewal_fee|floatformat:2 }} renewal fee</div>
+      {% endif %}
+      <div class="license-badges">
+        <span class="status-badge status-warning">{{ license.days_until }} DAYS</span>
+        <span class="entity-badge">{{ license.entity.entity_code }}</span>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if group.grouper == 'normal' %}
+  <div class="section-title" style="color: #22c55e;">CURRENT</div>
+  <div class="licenses-grid">
+    {% for license in group.list %}
+    <a href="{% url 'deadlines:license_detail' license.pk %}" class="license-card normal">
+      <div class="license-title">{{ license.license_type }}</div>
+      <div class="license-detail">{{ license.issuing_authority }}</div>
+      {% if license.expiration_date %}
+      <div class="license-detail normal">{{ license.expiration_date|date:"M j, Y" }}</div>
+      {% else %}
+      <div class="license-detail">No expiration</div>
+      {% endif %}
+      {% if license.renewal_fee %}
+      <div class="license-detail">${{ license.renewal_fee|floatformat:2 }} renewal fee</div>
+      {% endif %}
+      <div class="license-badges">
+        <span class="entity-badge">{{ license.entity.entity_code }}</span>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  {% endif %}
+
   {% endfor %}
-  {% endwith %}
 
   {% else %}
-  <div class="empty-state">
-    <div class="empty-state-icon">📄</div>
-    <div class="empty-state-text">No licenses found</div>
-    <a href="{% url 'deadlines:license_add' %}" class="btn-primary" style="display: inline-flex; margin-top: 16px;">
-      + Add License
-    </a>
+  <div class="empty-state-small">
+    <p>📄</p>
+    <p>No licenses found.</p>
+    {% if entity_filter or type_filter or authority_filter %}
+    <p style="margin-top: 10px;">
+      <a href="{% url 'deadlines:license_list' %}" style="color: #6366f1; text-decoration: none;">
+        Clear filters
+      </a>
+    </p>
+    {% else %}
+    <p style="margin-top: 10px;">
+      <a href="{% url 'deadlines:license_add' %}" style="color: #6366f1; text-decoration: none;">
+        + Add License
+      </a>
+    </p>
+    {% endif %}
   </div>
   {% endif %}
 </div>

@@ -51,49 +51,158 @@
   </div>
 </div>
 
-<div class="detail-content" style="background: #f5f5f5;">
-  {% if policies %}
-  <div class="detail-card">
-    <h3>Active Policies ({{ policies|length }})</h3>
+<style>
+  .policy-card {
+    background: #f8f9fa;
+    padding: 15px;
+    margin: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: all 0.15s;
+  }
+  .policy-card:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+  }
+  .policy-card.overdue {
+    border-left: 4px solid #dc3545;
+  }
+  .policy-card.due-soon {
+    border-left: 4px solid #ffc107;
+  }
+  .policy-title {
+    font-weight: 600;
+    font-size: 15px;
+    color: #1f2937;
+    margin-bottom: 5px;
+  }
+  .policy-detail {
+    font-size: 13px;
+    color: #6b7280;
+    margin: 3px 0;
+  }
+  .policy-detail.overdue {
+    color: #dc3545;
+    font-weight: 600;
+  }
+  .policy-detail.due-soon {
+    color: #856404;
+    font-weight: 600;
+  }
+  .policy-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .entity-badge {
+    display: inline-block;
+    background: #f3f4f6;
+    color: #6b7280;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .type-badge {
+    display: inline-block;
+    background: #e0e7ff;
+    color: #4338ca;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .status-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .status-overdue {
+    background: #fee2e2;
+    color: #dc2626;
+  }
+  .status-due-soon {
+    background: #fef3c7;
+    color: #92400e;
+  }
+  .empty-state-small {
+    text-align: center;
+    padding: 60px 20px;
+    color: #9ca3af;
+    font-size: 14px;
+  }
+  @media (min-width: 1024px) {
+    .policy-card {
+      margin: 0;
+    }
+    .policies-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+      padding: 24px;
+    }
+  }
+  @media (max-width: 1023px) {
+    .policies-grid {
+      display: block;
+    }
+  }
+</style>
 
+<div class="content">
+  {% if policies %}
+  <div class="policies-grid">
     {% for policy in policies %}
-    <a href="{% url 'deadlines:insurance_detail' policy.pk %}" class="financial-item" style="display: block; text-decoration: none; color: inherit; {% if policy.is_overdue %}border-left: 4px solid #dc3545;{% elif policy.is_due_soon %}border-left: 4px solid #ffc107;{% endif %}">
-      <div class="financial-item-header" style="display: flex; justify-content: space-between; align-items: center;">
-        <span>{{ policy.policy_type }} - {{ policy.carrier }}</span>
-        <span style="font-size: 12px; color: #666;">{{ policy.entity.entity_code }}</span>
-      </div>
-      <div class="financial-item-detail">
-        Policy #: {{ policy.policy_number }}
-      </div>
+    <a href="{% url 'deadlines:insurance_detail' policy.pk %}" class="policy-card {% if policy.is_overdue %}overdue{% elif policy.is_due_soon %}due-soon{% endif %}">
+      <div class="policy-title">{{ policy.carrier }}</div>
+      <div class="policy-detail">Policy #: {{ policy.policy_number }}</div>
       {% if policy.coverage_amount %}
-      <div class="financial-item-detail">
-        Coverage: ${{ policy.coverage_amount|floatformat:0|default:"--" }}
-      </div>
+      <div class="policy-detail">Coverage: ${{ policy.coverage_amount|floatformat:0 }}</div>
       {% endif %}
       {% if policy.premium_amount %}
-      <div class="financial-item-detail">
-        Premium: ${{ policy.premium_amount|floatformat:2|default:"--" }}
-      </div>
+      <div class="policy-detail">Premium: ${{ policy.premium_amount|floatformat:2 }}</div>
       {% endif %}
       {% if policy.renewal_date %}
-      <div class="financial-item-detail" style="{% if policy.is_overdue %}color: #dc3545; font-weight: 600;{% elif policy.is_due_soon %}color: #856404; font-weight: 600;{% endif %}">
+      <div class="policy-detail {% if policy.is_overdue %}overdue{% elif policy.is_due_soon %}due-soon{% endif %}">
         Renewal: {{ policy.renewal_date|date:"M j, Y" }}
-        {% if policy.is_overdue %}
-        (OVERDUE)
-        {% elif policy.is_due_soon %}
-        ({{ policy.days_until_renewal }} days)
-        {% endif %}
+        {% if policy.is_overdue %}(OVERDUE){% elif policy.is_due_soon %}({{ policy.days_until_renewal }} days){% endif %}
       </div>
       {% endif %}
+      <div class="policy-badges">
+        <span class="type-badge">{{ policy.policy_type }}</span>
+        <span class="entity-badge">{{ policy.entity.entity_code }}</span>
+        {% if policy.is_overdue %}
+        <span class="status-badge status-overdue">OVERDUE</span>
+        {% elif policy.is_due_soon %}
+        <span class="status-badge status-due-soon">DUE SOON</span>
+        {% endif %}
+      </div>
     </a>
     {% endfor %}
   </div>
   {% else %}
-  <div class="detail-card">
-    <div class="empty-state-small" style="text-align: center; padding: 40px;">
-      <p style="color: #666; margin-bottom: 20px;">No insurance policies found</p>
-      <a href="{% url 'deadlines:insurance_add' %}" class="action-button">Add First Policy</a>
-    </div>
+  <div class="empty-state-small">
+    <p>🛡️</p>
+    <p>No insurance policies found.</p>
+    {% if entity_filter or policy_type_filter or carrier_filter %}
+    <p style="margin-top: 10px;">
+      <a href="{% url 'deadlines:insurance_list' %}" style="color: #6366f1; text-decoration: none;">
+        Clear filters
+      </a>
+    </p>
+    {% else %}
+    <p style="margin-top: 10px;">
+      <a href="{% url 'deadlines:insurance_add' %}" style="color: #6366f1; text-decoration: none;">
+        Add First Policy
+      </a>
+    </p>
+    {% endif %}
   </div>
   {% endif %}
 </div>

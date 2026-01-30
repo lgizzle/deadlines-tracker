@@ -39,54 +39,115 @@
   </div>
 </div>
 
+<style>
+  .loan-card {
+    background: #f8f9fa;
+    padding: 15px;
+    margin: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: all 0.15s;
+  }
+  .loan-card:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+  }
+  .loan-title {
+    font-weight: 600;
+    font-size: 15px;
+    color: #1f2937;
+    margin-bottom: 5px;
+  }
+  .loan-detail {
+    font-size: 13px;
+    color: #6b7280;
+    margin: 3px 0;
+  }
+  .loan-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .entity-badge {
+    display: inline-block;
+    background: #f3f4f6;
+    color: #6b7280;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .type-badge {
+    display: inline-block;
+    background: #e0e7ff;
+    color: #4338ca;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .empty-state-small {
+    text-align: center;
+    padding: 60px 20px;
+    color: #9ca3af;
+    font-size: 14px;
+  }
+  @media (min-width: 1024px) {
+    .loan-card {
+      margin: 0;
+    }
+    .loans-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+      padding: 24px;
+    }
+  }
+  @media (max-width: 1023px) {
+    .loans-grid {
+      display: block;
+    }
+  }
+</style>
+
 <div class="content">
   {% if loans %}
-  <div class="financial-list">
+  <div class="loans-grid">
     {% for loan in loans %}
-    <a href="{% url 'deadlines:loan_detail' loan.pk %}" class="list-item normal">
-      <div class="list-item-title">
-        {{ loan.loan_type }} - {{ loan.lender }}
-      </div>
-      <div class="list-item-meta">
-        <span>
-          <span class="entity-badge">{{ loan.entity.entity_code }}</span>
-          {% if loan.current_balance %}
-          <span style="margin-left: 8px;">Balance: ${{ loan.current_balance|floatformat:2 }}</span>
-          {% endif %}
-        </span>
-        <span style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px;">
-          {% if loan.payment_amount %}
-          <span class="list-item-amount">${{ loan.payment_amount|floatformat:2 }}/{{ loan.payment_frequency|default:"month" }}</span>
-          {% endif %}
-          {% if loan.maturity_date %}
-          <span class="maturity-date">Matures: {{ loan.maturity_date|date:"M j, Y" }}</span>
-          {% endif %}
-        </span>
+    <a href="{% url 'deadlines:loan_detail' loan.pk %}" class="loan-card">
+      <div class="loan-title">{{ loan.lender }}</div>
+      {% if loan.current_balance %}
+      <div class="loan-detail">Balance: ${{ loan.current_balance|floatformat:2 }}</div>
+      {% endif %}
+      {% if loan.payment_amount %}
+      <div class="loan-detail">${{ loan.payment_amount|floatformat:2 }}/{{ loan.payment_frequency|default:"month" }}</div>
+      {% endif %}
+      {% if loan.maturity_date %}
+      <div class="loan-detail">Matures: {{ loan.maturity_date|date:"M j, Y" }}</div>
+      {% endif %}
+      <div class="loan-badges">
+        <span class="type-badge">{{ loan.loan_type }}</span>
+        <span class="entity-badge">{{ loan.entity.entity_code }}</span>
       </div>
     </a>
     {% endfor %}
   </div>
   {% else %}
-  <div class="empty-state">
-    <div class="empty-state-icon">📋</div>
-    <div class="empty-state-text">No loans found.</div>
+  <div class="empty-state-small">
+    <p>📋</p>
+    <p>No loans found.</p>
+    {% if entity_filter or lender_filter or type_filter %}
+    <p style="margin-top: 10px;">
+      <a href="{% url 'deadlines:loan_list' %}" style="color: #6366f1; text-decoration: none;">
+        Clear filters
+      </a>
+    </p>
+    {% endif %}
   </div>
   {% endif %}
 </div>
-
-<style>
-  .financial-list {
-    padding: 14px;
-  }
-  @media (min-width: 1024px) {
-    .financial-list {
-      padding: 0;
-    }
-  }
-  .maturity-date {
-    font-size: 11px;
-    color: #6b7280;
-    font-weight: 500;
-  }
-</style>
 {% endblock %}

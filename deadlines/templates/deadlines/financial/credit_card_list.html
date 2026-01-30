@@ -31,43 +31,112 @@
   </div>
 </div>
 
+<style>
+  .card-item {
+    background: #f8f9fa;
+    padding: 15px;
+    margin: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: all 0.15s;
+  }
+  .card-item:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+  }
+  .card-title {
+    font-weight: 600;
+    font-size: 15px;
+    color: #1f2937;
+    margin-bottom: 5px;
+  }
+  .card-detail {
+    font-size: 13px;
+    color: #6b7280;
+    margin: 3px 0;
+  }
+  .card-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .entity-badge {
+    display: inline-block;
+    background: #f3f4f6;
+    color: #6b7280;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .network-badge {
+    display: inline-block;
+    background: #e0e7ff;
+    color: #4338ca;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .empty-state-small {
+    text-align: center;
+    padding: 60px 20px;
+    color: #9ca3af;
+    font-size: 14px;
+  }
+  @media (min-width: 1024px) {
+    .card-item {
+      margin: 0;
+    }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+      padding: 24px;
+    }
+  }
+  @media (max-width: 1023px) {
+    .cards-grid {
+      display: block;
+    }
+  }
+</style>
+
 <div class="content">
   {% if cards %}
-  <div class="financial-list">
+  <div class="cards-grid">
     {% for card in cards %}
-    <a href="{% url 'deadlines:credit_card_detail' card.pk %}" class="list-item normal">
-      <div class="list-item-title">{{ card.card_name }}</div>
-      <div class="list-item-meta">
-        <span>
-          <span class="entity-badge">{{ card.entity.entity_code }}</span>
-          <span style="margin-left: 8px;">
-            •••• {{ card.last4 }}
-            {% if card.network %}({{ card.network }}){% endif %}
-          </span>
-        </span>
-        {% if card.credit_limit %}
-        <span class="list-item-amount">Limit: ${{ card.credit_limit|floatformat:0 }}</span>
+    <a href="{% url 'deadlines:credit_card_detail' card.pk %}" class="card-item">
+      <div class="card-title">{{ card.card_name }}</div>
+      <div class="card-detail">•••• {{ card.last4 }}</div>
+      {% if card.credit_limit %}
+      <div class="card-detail">Limit: ${{ card.credit_limit|floatformat:0 }}</div>
+      {% endif %}
+      <div class="card-badges">
+        {% if card.network %}
+        <span class="network-badge">{{ card.network }}</span>
         {% endif %}
+        <span class="entity-badge">{{ card.entity.entity_code }}</span>
       </div>
     </a>
     {% endfor %}
   </div>
   {% else %}
-  <div class="empty-state">
-    <div class="empty-state-icon">💳</div>
-    <div class="empty-state-text">No credit cards found.</div>
+  <div class="empty-state-small">
+    <p>💳</p>
+    <p>No credit cards found.</p>
+    {% if entity_filter or network_filter %}
+    <p style="margin-top: 10px;">
+      <a href="{% url 'deadlines:credit_card_list' %}" style="color: #6366f1; text-decoration: none;">
+        Clear filters
+      </a>
+    </p>
+    {% endif %}
   </div>
   {% endif %}
 </div>
-
-<style>
-  .financial-list {
-    padding: 14px;
-  }
-  @media (min-width: 1024px) {
-    .financial-list {
-      padding: 0;
-    }
-  }
-</style>
 {% endblock %}
