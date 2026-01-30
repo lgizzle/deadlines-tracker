@@ -3,14 +3,14 @@ Views for global Operations module: State Accounts, Merchant Processors, Vendors
 These views provide cross-entity access to operational data.
 """
 
-from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, render
 
 from .models import Entity, MerchantProcessor, StateAccount, Vendor
 
 
-@login_required
+@staff_member_required
 def state_account_list(request):
     """List all state accounts across all entities."""
     state_filter = request.GET.get("state", "")
@@ -51,7 +51,7 @@ def state_account_list(request):
     return render(request, "deadlines/operations/state_account_list.html", context)
 
 
-@login_required
+@staff_member_required
 def state_account_detail(request, pk):
     """View details of a single state account."""
     account = get_object_or_404(StateAccount, pk=pk)
@@ -63,7 +63,7 @@ def state_account_detail(request, pk):
     return render(request, "deadlines/operations/state_account_detail.html", context)
 
 
-@login_required
+@staff_member_required
 def merchant_processor_list(request):
     """List all merchant processors across all entities."""
     entity_filter = request.GET.get("entity", "")
@@ -103,7 +103,7 @@ def merchant_processor_list(request):
     )
 
 
-@login_required
+@staff_member_required
 def merchant_processor_detail(request, pk):
     """View details of a single merchant processor."""
     processor = get_object_or_404(MerchantProcessor, pk=pk)
@@ -117,7 +117,7 @@ def merchant_processor_detail(request, pk):
     )
 
 
-@login_required
+@staff_member_required
 def vendor_list(request):
     """List all vendors across all entities."""
     entity_filter = request.GET.get("entity", "")
@@ -150,7 +150,7 @@ def vendor_list(request):
     return render(request, "deadlines/operations/vendor_list.html", context)
 
 
-@login_required
+@staff_member_required
 def vendor_detail(request, pk):
     """View details of a single vendor."""
     vendor = get_object_or_404(Vendor, pk=pk)

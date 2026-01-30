@@ -1,3 +1,5 @@
+import logging
+
 from django.contrib import admin
 from django.utils.html import format_html
 
@@ -193,16 +195,37 @@ class ContactAdmin(admin.ModelAdmin):
         "entity",
         "email",
         "phone",
+        "ssn_masked",
     ]
     list_filter = ["contact_type", "entity"]
     search_fields = ["first_name", "last_name", "company_name", "email"]
+    # SECURITY: Exclude raw SSN field - show masked version only
+    exclude = ["ssn"]
+    readonly_fields = ["ssn_masked"]
 
     fieldsets = (
-        ("Personal Information", {"fields": ("first_name", "last_name", "title")}),
+        ("Personal Information", {"fields": ("first_name", "last_name", "title", "ssn_masked")}),
         ("Organization", {"fields": ("entity", "company_name", "contact_type")}),
         ("Contact Details", {"fields": ("email", "phone", "mobile", "address")}),
         ("Notes", {"fields": ("notes",), "classes": ("collapse",)}),
     )
+
+    def ssn_masked(self, obj):
+        """Display masked SSN for security."""
+        if obj.ssn:
+            return f"XXX-XX-{obj.ssn[-4:]}"
+        return "-"
+    ssn_masked.short_description = "SSN (masked)"
+
+    def change_view(self, request, object_id, form_url="", extra_context=None):
+        """Log access to contact records with SSN."""
+        audit_logger = logging.getLogger("security.audit")
+        audit_logger.warning(
+            f"ADMIN_ACCESS: user={request.user.username} "
+            f"model=Contact object_id={object_id} "
+            f"ip={request.META.get('REMOTE_ADDR')}"
+        )
+        return super().change_view(request, object_id, form_url, extra_context)
 
 
 # =============================================================================

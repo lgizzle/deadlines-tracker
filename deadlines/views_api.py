@@ -3,6 +3,7 @@ API views for gmail-daily integration.
 Simple JsonResponse-based API without DRF.
 """
 import json
+import logging
 import os
 from datetime import datetime
 from functools import wraps
@@ -13,6 +14,9 @@ from django.views.decorators.http import require_http_methods
 from django.db.models import Q
 
 from .models import Entity, Deadline, Task, Document
+
+# Security audit logger
+audit_logger = logging.getLogger("security.audit")
 
 
 # =============================================================================
@@ -25,15 +29,26 @@ def api_key_required(view_func):
     Accepts API key via:
     - X-API-Key header (preferred for IAP passthrough)
     - Authorization: Bearer <key> header
+
+    SECURITY: No localhost bypass - always require authentication.
     """
     @wraps(view_func)
     def wrapper(request, *args, **kwargs):
         # Get expected API key from environment
         expected_key = os.environ.get("ERP_API_KEY", "")
 
-        # Allow bypass for localhost in development if no key configured
-        if not expected_key and request.META.get("HTTP_HOST", "").startswith("localhost"):
-            return view_func(request, *args, **kwargs)
+        # SECURITY: Fail hard if no API key configured
+        if not expected_key:
+            audit_logger.error(
+                f"API_MISCONFIGURED: ERP_API_KEY not set, "
+                f"ip={request.META.get('REMOTE_ADDR')} "
+                f"path={request.path}"
+            )
+            return JsonResponse({
+                "status": "error",
+                "code": "SERVER_MISCONFIGURED",
+                "message": "API authentication not configured"
+            }, status=500)
 
         # Check X-API-Key header first (preferred for IAP scenarios)
         provided_key = request.META.get("HTTP_X_API_KEY", "")
@@ -45,6 +60,11 @@ def api_key_required(view_func):
                 provided_key = auth_header[7:]
 
         if not provided_key:
+            audit_logger.warning(
+                f"API_AUTH_MISSING: No API key provided, "
+                f"ip={request.META.get('REMOTE_ADDR')} "
+                f"path={request.path}"
+            )
             return JsonResponse({
                 "status": "error",
                 "code": "AUTH_REQUIRED",
@@ -52,6 +72,11 @@ def api_key_required(view_func):
             }, status=401)
 
         if provided_key != expected_key:
+            audit_logger.warning(
+                f"API_AUTH_INVALID: Invalid API key attempt, "
+                f"ip={request.META.get('REMOTE_ADDR')} "
+                f"path={request.path}"
+            )
             return JsonResponse({
                 "status": "error",
                 "code": "AUTH_INVALID",

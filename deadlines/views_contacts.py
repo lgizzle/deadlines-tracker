@@ -1,12 +1,12 @@
 """Views for global contact management (cross-entity)."""
 
-from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .models import Contact, Entity
 
 
-@login_required
+@staff_member_required
 def contact_list(request):
     """List all contacts with optional filtering by entity and contact_type."""
     entity_filter = request.GET.get("entity", "")
@@ -39,7 +39,7 @@ def contact_list(request):
     return render(request, "deadlines/contacts/contact_list.html", context)
 
 
-@login_required
+@staff_member_required
 def contact_detail(request, pk):
     """View single contact details."""
     contact = get_object_or_404(Contact, pk=pk)
@@ -52,7 +52,7 @@ def contact_detail(request, pk):
     return render(request, "deadlines/contacts/contact_detail.html", context)
 
 
-@login_required
+@staff_member_required
 def contact_add(request):
     """Add a new contact."""
     if request.method == "POST":
@@ -100,7 +100,7 @@ def contact_add(request):
     return render(request, "deadlines/contacts/contact_form.html", context)
 
 
-@login_required
+@staff_member_required
 def contact_edit(request, pk):
     """Edit an existing contact."""
     contact = get_object_or_404(Contact, pk=pk)
@@ -143,7 +143,7 @@ def contact_edit(request, pk):
     return render(request, "deadlines/contacts/contact_form.html", context)
 
 
-@login_required
+@staff_member_required
 def contact_delete(request, pk):
     """Delete a contact with confirmation."""
     contact = get_object_or_404(Contact, pk=pk)

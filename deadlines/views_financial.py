@@ -5,12 +5,17 @@ These views provide global list and detail views across all entities,
 with filtering capabilities.
 """
 
-from django.contrib.auth.decorators import login_required
+import logging
+
+from django.contrib.admin.views.decorators import staff_member_required
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.views.decorators.http import require_GET
 
 from .models import BankAccount, CreditCard, Entity, Loan
+
+# Security audit logger for PCI DSS compliance
+audit_logger = logging.getLogger("security.audit")
 
 
 # =============================================================================
@@ -18,12 +23,22 @@ from .models import BankAccount, CreditCard, Entity, Loan
 # =============================================================================
 
 
-@login_required
+@staff_member_required
 @require_GET
 def get_sensitive_card_data(request, pk):
     """AJAX endpoint to fetch sensitive credit card data."""
     card = get_object_or_404(CreditCard, pk=pk)
     field = request.GET.get("field", "")
+
+    # SECURITY: Log all access to cardholder data (PCI DSS 10.2)
+    audit_logger.warning(
+        f"SENSITIVE_DATA_ACCESS: user={request.user.username} "
+        f"type=credit_card card_id={pk} field={field} "
+        f"entity={card.entity.entity_code if card.entity else 'N/A'} "
+        f"card_name={card.card_name} last4={card.last4} "
+        f"ip={request.META.get('REMOTE_ADDR')} "
+        f"user_agent={request.META.get('HTTP_USER_AGENT', '')[:100]}"
+    )
 
     if field == "number":
         return JsonResponse({"value": card.full_card_number or ""})
@@ -35,12 +50,22 @@ def get_sensitive_card_data(request, pk):
     return JsonResponse({"error": "Invalid field"}, status=400)
 
 
-@login_required
+@staff_member_required
 @require_GET
 def get_sensitive_account_data(request, pk):
     """AJAX endpoint to fetch sensitive bank account data."""
     account = get_object_or_404(BankAccount, pk=pk)
     field = request.GET.get("field", "")
+
+    # SECURITY: Log all access to account data
+    audit_logger.warning(
+        f"SENSITIVE_DATA_ACCESS: user={request.user.username} "
+        f"type=bank_account account_id={pk} field={field} "
+        f"entity={account.entity.entity_code if account.entity else 'N/A'} "
+        f"bank={account.bank_name} last4={account.account_number_last4} "
+        f"ip={request.META.get('REMOTE_ADDR')} "
+        f"user_agent={request.META.get('HTTP_USER_AGENT', '')[:100]}"
+    )
 
     if field == "number":
         return JsonResponse({"value": account.full_account_number or ""})
@@ -48,7 +73,7 @@ def get_sensitive_account_data(request, pk):
     return JsonResponse({"error": "Invalid field"}, status=400)
 
 
-@login_required
+@staff_member_required
 def bank_account_list(request):
     """List all active bank accounts, filterable by entity and bank_name."""
     entity_filter = request.GET.get("entity", "")
@@ -84,7 +109,7 @@ def bank_account_list(request):
     return render(request, "deadlines/financial/bank_account_list.html", context)
 
 
-@login_required
+@staff_member_required
 def bank_account_detail(request, pk):
     """View a single bank account's details."""
     account = get_object_or_404(BankAccount, pk=pk)
@@ -97,7 +122,7 @@ def bank_account_detail(request, pk):
     return render(request, "deadlines/financial/bank_account_detail.html", context)
 
 
-@login_required
+@staff_member_required
 def credit_card_list(request):
     """List all active credit cards, filterable by entity and network."""
     entity_filter = request.GET.get("entity", "")
@@ -134,7 +159,7 @@ def credit_card_list(request):
     return render(request, "deadlines/financial/credit_card_list.html", context)
 
 
-@login_required
+@staff_member_required
 def credit_card_detail(request, pk):
     """View a single credit card's details."""
     card = get_object_or_404(CreditCard, pk=pk)
@@ -147,7 +172,7 @@ def credit_card_detail(request, pk):
     return render(request, "deadlines/financial/credit_card_detail.html", context)
 
 
-@login_required
+@staff_member_required
 def loan_list(request):
     """List all active loans, filterable by entity, lender, and loan_type."""
     entity_filter = request.GET.get("entity", "")
@@ -195,7 +220,7 @@ def loan_list(request):
     return render(request, "deadlines/financial/loan_list.html", context)
 
 
-@login_required
+@staff_member_required
 def loan_detail(request, pk):
     """View a single loan's details."""
     loan = get_object_or_404(Loan, pk=pk)
