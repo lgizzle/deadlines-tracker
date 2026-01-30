@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from django.shortcuts import get_object_or_404, render
 
@@ -19,6 +20,7 @@ def format_file_size(size_bytes):
         return f"{size_bytes / (1024 * 1024 * 1024):.1f} GB"
 
 
+@login_required
 def document_list(request):
     """List all documents with filtering by document_type, entity, and source."""
     # Get filter parameters
@@ -88,6 +90,7 @@ def document_list(request):
     return render(request, "deadlines/documents/document_list.html", context)
 
 
+@login_required
 def document_detail(request, pk):
     """View single document details."""
     document = get_object_or_404(Document, pk=pk)

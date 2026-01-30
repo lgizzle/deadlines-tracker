@@ -3,11 +3,13 @@ Insurance Policy views for cross-entity insurance management.
 """
 from datetime import date, timedelta
 
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .models import Entity, InsurancePolicy
 
 
+@login_required
 def insurance_list(request):
     """List all insurance policies with filters."""
     # Get filter parameters
@@ -70,6 +72,7 @@ def insurance_list(request):
     return render(request, "deadlines/insurance/insurance_list.html", context)
 
 
+@login_required
 def insurance_detail(request, pk):
     """View single policy details."""
     policy = get_object_or_404(InsurancePolicy, pk=pk)
@@ -92,6 +95,7 @@ def insurance_detail(request, pk):
     return render(request, "deadlines/insurance/insurance_detail.html", context)
 
 
+@login_required
 def insurance_add(request):
     """Add new insurance policy form."""
     if request.method == "POST":
@@ -151,6 +155,7 @@ def insurance_add(request):
     return render(request, "deadlines/insurance/insurance_form.html", context)
 
 
+@login_required
 def insurance_edit(request, pk):
     """Edit existing insurance policy."""
     policy = get_object_or_404(InsurancePolicy, pk=pk)

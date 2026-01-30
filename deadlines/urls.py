@@ -88,4 +88,15 @@ urlpatterns = [
     # Financial views - Loans
     path("loans/", views_financial.loan_list, name="loan_list"),
     path("loan/<int:pk>/", views_financial.loan_detail, name="loan_detail"),
+    # AJAX endpoints for sensitive data (secure - login required, no DOM exposure)
+    path(
+        "api/credit-card/<int:pk>/sensitive/",
+        views_financial.get_sensitive_card_data,
+        name="get_sensitive_card_data",
+    ),
+    path(
+        "api/bank-account/<int:pk>/sensitive/",
+        views_financial.get_sensitive_account_data,
+        name="get_sensitive_account_data",
+    ),
 ]

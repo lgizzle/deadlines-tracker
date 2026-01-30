@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 
 from dateutil.relativedelta import relativedelta
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Q
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -32,6 +33,7 @@ def get_deadline_status(deadline):
     return "normal"
 
 
+@login_required
 def todo_view(request):
     """To-Do view with actionable items grouped by urgency."""
     today = timezone.now().date()
@@ -82,6 +84,7 @@ def todo_view(request):
     return render(request, "deadlines/todo.html", context)
 
 
+@login_required
 def list_view(request):
     """List view with all deadlines grouped by urgency."""
     today = timezone.now().date()
@@ -137,6 +140,7 @@ def list_view(request):
     return render(request, "deadlines/list.html", context)
 
 
+@login_required
 def calendar_view(request):
     """Calendar view showing deadlines by date."""
     # Get month/year from request or use current
@@ -212,6 +216,7 @@ def calendar_view(request):
     return render(request, "deadlines/calendar.html", context)
 
 
+@login_required
 def deadline_detail(request, pk):
     """Detailed view of a single deadline."""
     deadline = get_object_or_404(Deadline, pk=pk)
@@ -224,6 +229,7 @@ def deadline_detail(request, pk):
     return render(request, "deadlines/deadline_detail.html", context)
 
 
+@login_required
 def deadline_complete(request, pk):
     """Mark a deadline as complete and advance the date."""
     if request.method == "POST":
@@ -250,6 +256,7 @@ def deadline_complete(request, pk):
     return redirect("deadlines:deadline_detail", pk=pk)
 
 
+@login_required
 def deadline_add_note(request, pk):
     """Add a note to a deadline (simplified version)."""
     if request.method == "POST":
@@ -270,6 +277,7 @@ def deadline_add_note(request, pk):
     return redirect("deadlines:deadline_detail", pk=pk)
 
 
+@login_required
 def deadline_add(request):
     """Add a new deadline (simplified form)."""
     if request.method == "POST":
@@ -309,6 +317,7 @@ def deadline_add(request):
     return render(request, "deadlines/deadline_add.html", context)
 
 
+@login_required
 def entity_list(request):
     """List of all entities."""
     entities = Entity.objects.filter(status="Active").order_by("entity_code")
@@ -329,6 +338,7 @@ def entity_list(request):
     return render(request, "deadlines/entity_list.html", context)
 
 
+@login_required
 def entity_detail(request, pk):
     """Detailed view of an entity with tabs."""
     entity = get_object_or_404(Entity, pk=pk)
@@ -368,6 +378,7 @@ def entity_detail(request, pk):
     return render(request, "deadlines/entity_detail.html", context)
 
 
+@login_required
 def search(request):
     """Global search across all models."""
     query = request.GET.get("q", "").strip()
@@ -454,6 +465,7 @@ def advance_deadline_to_next_due(deadline):
     return True
 
 
+@login_required
 def bulk_complete_deadlines(request):
     """Mark multiple deadlines as complete and advance their dates."""
     if request.method == "POST":
@@ -492,6 +504,7 @@ def bulk_complete_deadlines(request):
     return redirect("deadlines:list")
 
 
+@login_required
 def export_deadlines_csv(request):
     """Export deadlines to CSV file."""
     deadline_ids_str = request.POST.get("deadline_ids", "") or request.GET.get("deadline_ids", "")

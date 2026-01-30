@@ -1,11 +1,13 @@
 """Views for task management."""
 
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 
 from .models import Entity, Task
 
 
+@login_required
 def task_list(request):
     """List all tasks with filtering by status, priority, entity, and task_type."""
     status_filter = request.GET.get("status", "")
@@ -57,6 +59,7 @@ def task_list(request):
     return render(request, "deadlines/tasks/task_list.html", context)
 
 
+@login_required
 def task_detail(request, pk):
     """View single task details."""
     task = get_object_or_404(Task, pk=pk)
@@ -69,6 +72,7 @@ def task_detail(request, pk):
     return render(request, "deadlines/tasks/task_detail.html", context)
 
 
+@login_required
 def task_status_update(request, pk):
     """Update task status via POST."""
     if request.method == "POST":

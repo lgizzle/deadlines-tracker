@@ -1,5 +1,6 @@
 from datetime import date, timedelta
 
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 
@@ -27,6 +28,7 @@ def get_license_urgency(license_obj):
     return "normal"  # Green - more than 90 days
 
 
+@login_required
 def license_list(request):
     """List all licenses with filtering by entity, license_type, issuing_authority."""
     # Get filter parameters
@@ -96,6 +98,7 @@ def license_list(request):
     return render(request, "deadlines/licenses/license_list.html", context)
 
 
+@login_required
 def license_detail(request, pk):
     """View single license details."""
     license_obj = get_object_or_404(License, pk=pk)
@@ -114,6 +117,7 @@ def license_detail(request, pk):
     return render(request, "deadlines/licenses/license_detail.html", context)
 
 
+@login_required
 def license_add(request):
     """Add new license form."""
     if request.method == "POST":
@@ -166,6 +170,7 @@ def license_add(request):
     return render(request, "deadlines/licenses/license_form.html", context)
 
 
+@login_required
 def license_edit(request, pk):
     """Edit license form."""
     license_obj = get_object_or_404(License, pk=pk)

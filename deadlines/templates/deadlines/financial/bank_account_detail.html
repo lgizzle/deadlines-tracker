@@ -31,11 +31,11 @@
       <div class="detail-field">
         <span class="detail-label">Account Number</span>
         <span class="detail-value" style="font-family: monospace;">
-          <span class="masked-value">•••• {{ account.account_number_last4 }}</span>
+          <span class="masked-value" data-field="number">•••• {{ account.account_number_last4 }}</span>
           {% if account.full_account_number %}
-          <span class="revealed-value" style="display: none;">{{ account.full_account_number }}</span>
-          <button type="button" class="reveal-btn" onclick="toggleReveal(this)">Show</button>
-          <button type="button" class="copy-btn" onclick="copyValue(this)" title="Copy to clipboard">Copy</button>
+          <span class="revealed-value" data-field="number" style="display: none;"></span>
+          <button type="button" class="reveal-btn" data-field="number" onclick="toggleReveal(this, 'number')">Show</button>
+          <button type="button" class="copy-btn" data-field="number" onclick="copyValue('number')" title="Copy to clipboard">Copy</button>
           {% endif %}
         </span>
       </div>
@@ -112,32 +112,100 @@
     border-color: #86efac;
     color: #166534;
   }
+  .reveal-btn:disabled, .copy-btn:disabled {
+    opacity: 0.5;
+    cursor: wait;
+  }
 </style>
 <script>
-function toggleReveal(btn) {
-  const parent = btn.parentElement;
-  const masked = parent.querySelector('.masked-value');
-  const revealed = parent.querySelector('.revealed-value');
+// Cache for fetched sensitive data (cleared on page unload)
+const sensitiveCache = {};
+const ACCOUNT_ID = {{ account.pk }};
+const API_URL = "{% url 'deadlines:get_sensitive_account_data' account.pk %}";
+
+async function fetchSensitiveData(field) {
+  if (sensitiveCache[field]) {
+    return sensitiveCache[field];
+  }
+
+  try {
+    const response = await fetch(`${API_URL}?field=${field}`, {
+      credentials: 'same-origin',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch');
+    }
+
+    const data = await response.json();
+    sensitiveCache[field] = data.value;
+    return data.value;
+  } catch (error) {
+    console.error('Error fetching sensitive data:', error);
+    return null;
+  }
+}
+
+async function toggleReveal(btn, field) {
+  const masked = document.querySelector(`.masked-value[data-field="${field}"]`);
+  const revealed = document.querySelector(`.revealed-value[data-field="${field}"]`);
+
   if (revealed.style.display === 'none') {
-    masked.style.display = 'none';
-    revealed.style.display = 'inline';
-    btn.textContent = 'Hide';
+    // Show - fetch from server
+    btn.disabled = true;
+    btn.textContent = '...';
+
+    const value = await fetchSensitiveData(field);
+
+    if (value) {
+      revealed.textContent = value;
+      masked.style.display = 'none';
+      revealed.style.display = 'inline';
+      btn.textContent = 'Hide';
+    } else {
+      btn.textContent = 'Error';
+      setTimeout(() => { btn.textContent = 'Show'; }, 2000);
+    }
+    btn.disabled = false;
   } else {
+    // Hide - clear displayed value
     masked.style.display = 'inline';
     revealed.style.display = 'none';
+    revealed.textContent = '';
     btn.textContent = 'Show';
   }
 }
-function copyValue(btn) {
-  const parent = btn.parentElement;
-  const revealed = parent.querySelector('.revealed-value');
-  navigator.clipboard.writeText(revealed.textContent.trim());
-  btn.textContent = 'Copied!';
-  btn.classList.add('copied');
-  setTimeout(() => {
-    btn.textContent = 'Copy';
-    btn.classList.remove('copied');
-  }, 2000);
+
+async function copyValue(field) {
+  const btn = document.querySelector(`.copy-btn[data-field="${field}"]`);
+  btn.disabled = true;
+
+  let value = sensitiveCache[field];
+  if (!value) {
+    value = await fetchSensitiveData(field);
+  }
+
+  if (value) {
+    await navigator.clipboard.writeText(value);
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  } else {
+    btn.textContent = 'Error';
+    setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+  }
+  btn.disabled = false;
 }
+
+// Clear cache on page unload for security
+window.addEventListener('beforeunload', () => {
+  Object.keys(sensitiveCache).forEach(key => delete sensitiveCache[key]);
+});
 </script>
 {% endblock %}
