@@ -59,113 +59,158 @@
 </div>
 
 <div class="content">
-  <div class="calendar">
-    <div class="calendar-header">
-      <div class="calendar-nav">
-        <button
-          onclick="location.href='?year={{ prev_year }}&month={{ prev_month }}{% if entity_filter %}&entity={{ entity_filter }}{% endif %}'"
-        >
-          ‹
-        </button>
-      </div>
-      <div class="calendar-month">{{ month_name }} {{ year }}</div>
-      <div class="calendar-nav">
-        <button
-          onclick="location.href='?year={{ next_year }}&month={{ next_month }}{% if entity_filter %}&entity={{ entity_filter }}{% endif %}'"
-        >
-          ›
-        </button>
-      </div>
-    </div>
+  <div class="calendar-layout{% if selected_day %} has-selection{% endif %}">
+    <div class="calendar-main">
+      <div class="calendar">
+        <div class="calendar-header">
+          <div class="calendar-nav">
+            <button
+              onclick="location.href='?year={{ prev_year }}&month={{ prev_month }}{% if entity_filter %}&entity={{ entity_filter }}{% endif %}'"
+            >
+              ‹
+            </button>
+          </div>
+          <div class="calendar-month">{{ month_name }} {{ year }}</div>
+          <div class="calendar-nav">
+            <button
+              onclick="location.href='?year={{ next_year }}&month={{ next_month }}{% if entity_filter %}&entity={{ entity_filter }}{% endif %}'"
+            >
+              ›
+            </button>
+          </div>
+        </div>
 
-    <div class="weekdays">
-      <div>Sun</div>
-      <div>Mon</div>
-      <div>Tue</div>
-      <div>Wed</div>
-      <div>Thu</div>
-      <div>Fri</div>
-      <div>Sat</div>
-    </div>
+        <div class="weekdays">
+          <div>Sun</div>
+          <div>Mon</div>
+          <div>Tue</div>
+          <div>Wed</div>
+          <div>Thu</div>
+          <div>Fri</div>
+          <div>Sat</div>
+        </div>
 
-    <div class="days">
-      {% for week in month_days %}
+        <div class="days">
+          {% for week in month_days %}
 {% for day in week %}
 {% if day == 0 %}
-      <div class="day empty"></div>
-      {% else %}
+          <div class="day empty"></div>
+          {% else %}
 {% if deadlines_by_date|in_dict:day %}
 {% with deadlines_by_date|get_item:day as day_deadlines %}
 {% with day_deadlines|first as first_deadline %}
-      <a
-        href="?year={{ year }}&month={{ month }}&day={{ day }}{% if entity_filter %}&entity={{ entity_filter }}{% endif %}"
-        class="day {% if first_deadline.urgency_status == 'overdue' %}has-overdue{% else %}has-deadline{% endif %} {% if day == today.day and month == today.month and year == today.year %}today{% endif %} {% if day == selected_day %}selected{% endif %}"
-      >
-        <div class="day-number">{{ day }}</div>
-        <div class="day-events">
-          {% for deadline in day_deadlines|slice:":3" %}
-          <div class="day-event {{ deadline.urgency_status }}">
-            <span class="event-entity">{{ deadline.entity.entity_code }}</span>
-            <span class="event-title"
-              >{{ deadline.title|truncatechars:15 }}</span
-            >
-          </div>
-          {% endfor %}
+          <a
+            href="?year={{ year }}&month={{ month }}&day={{ day }}{% if entity_filter %}&entity={{ entity_filter }}{% endif %}"
+            class="day {% if first_deadline.urgency_status == 'overdue' %}has-overdue{% else %}has-deadline{% endif %} {% if day == today.day and month == today.month and year == today.year %}today{% endif %} {% if day == selected_day %}selected{% endif %}"
+          >
+            <div class="day-number">{{ day }}</div>
+            <div class="day-events">
+              {% for deadline in day_deadlines|slice:":3" %}
+              <div class="day-event {{ deadline.urgency_status }}">
+                <span class="event-entity">{{ deadline.entity.entity_code }}</span>
+                <span class="event-title"
+                  >{{ deadline.title|truncatechars:15 }}</span
+                >
+              </div>
+              {% endfor %}
 {% if day_deadlines|length > 3 %}
-          <div class="day-event-more">
-            +{{ day_deadlines|length|add:"-3" }} more
-          </div>
-          {% endif %}
-        </div>
-        {% if day_deadlines|length > 1 %}
-        <span class="day-count">{{ day_deadlines|length }} items</span>
-        {% elif day_deadlines|length == 1 %}
-        <span class="day-count">1 item</span>
-        {% endif %}
-      </a>
-      {% endwith %}
+              <div class="day-event-more">
+                +{{ day_deadlines|length|add:"-3" }} more
+              </div>
+              {% endif %}
+            </div>
+            {% if day_deadlines|length > 1 %}
+            <span class="day-count">{{ day_deadlines|length }} items</span>
+            {% elif day_deadlines|length == 1 %}
+            <span class="day-count">1 item</span>
+            {% endif %}
+          </a>
+          {% endwith %}
 {% endwith %}
 {% else %}
-      <a
-        href="?year={{ year }}&month={{ month }}&day={{ day }}{% if entity_filter %}&entity={{ entity_filter }}{% endif %}"
-        class="day {% if day == today.day and month == today.month and year == today.year %}today{% endif %} {% if day == selected_day %}selected{% endif %}"
-      >
-        <div class="day-number">{{ day }}</div>
-      </a>
-      {% endif %}
+          <a
+            href="?year={{ year }}&month={{ month }}&day={{ day }}{% if entity_filter %}&entity={{ entity_filter }}{% endif %}"
+            class="day {% if day == today.day and month == today.month and year == today.year %}today{% endif %} {% if day == selected_day %}selected{% endif %}"
+          >
+            <div class="day-number">{{ day }}</div>
+          </a>
+          {% endif %}
 {% endif %}
 {% endfor %}
 {% endfor %}
+        </div>
+      </div>
     </div>
+
+    {% if selected_day %}
+    <div class="day-panel">
+      <div class="day-panel-header">
+        <div class="day-panel-title">
+          <span class="day-panel-date">{{ month_name }} {{ selected_day }}</span>
+          <span class="day-panel-count">{{ selected_deadlines|length }} item{% if selected_deadlines|length != 1 %}s{% endif %}</span>
+        </div>
+        <a href="?year={{ year }}&month={{ month }}{% if entity_filter %}&entity={{ entity_filter }}{% endif %}" class="day-panel-close" title="Close">&times;</a>
+      </div>
+      <div class="day-panel-content">
+        {% if selected_deadlines %}
+        {% for deadline in selected_deadlines %}
+        <a
+          href="{% url 'deadlines:deadline_detail' deadline.pk %}"
+          class="day-panel-item {{ deadline.urgency_status }}"
+        >
+          <div class="day-panel-item-title">{{ deadline.title }}</div>
+          <div class="day-panel-item-meta">
+            <span class="day-panel-item-entity">{{ deadline.entity.entity_code }}</span>
+            <span class="day-panel-item-category">{{ deadline.category|default:"" }}</span>
+          </div>
+          {% if deadline.estimated_amount %}
+          <div class="day-panel-item-amount">${{ deadline.estimated_amount }}</div>
+          {% endif %}
+        </a>
+        {% endfor %}
+        {% else %}
+        <div class="day-panel-empty">
+          <div class="day-panel-empty-icon">📅</div>
+          <div class="day-panel-empty-text">No deadlines on this day</div>
+          <a href="{% url 'deadlines:deadline_add' %}" class="btn-primary" style="margin-top: 12px;">+ Add Deadline</a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
   </div>
 
+  <!-- Mobile: Show day details below calendar -->
   {% if selected_day %}
-  <div class="section-header">
-    {{ month_name }} {{ selected_day }} — {% if selected_deadlines %}{{ selected_deadlines|length }} item{% if selected_deadlines|length != 1 %}s{% endif %}{% else %}No deadlines{% endif %}
-  </div>
-  {% if selected_deadlines %}
-  {% for deadline in selected_deadlines %}
-  <a
-    href="{% url 'deadlines:deadline_detail' deadline.pk %}"
-    class="list-item {{ deadline.urgency_status }}"
-  >
-    <div class="list-item-title">{{ deadline.title }}</div>
-    <div class="list-item-meta">
-      <div>
-        <span class="list-item-entity">{{ deadline.entity.entity_code }}</span>
-        <span>{{ deadline.category|default:"" }}</span>
-      </div>
-      {% if deadline.estimated_amount %}
-      <div class="list-item-amount">${{ deadline.estimated_amount }}</div>
-      {% endif %}
+  <div class="day-detail-mobile">
+    <div class="section-header">
+      {{ month_name }} {{ selected_day }} — {% if selected_deadlines %}{{ selected_deadlines|length }} item{% if selected_deadlines|length != 1 %}s{% endif %}{% else %}No deadlines{% endif %}
+      <a href="?year={{ year }}&month={{ month }}{% if entity_filter %}&entity={{ entity_filter }}{% endif %}" class="day-detail-close-mobile">&times;</a>
     </div>
-  </a>
-  {% endfor %}
-  {% else %}
-  <div class="empty-state" style="padding: 30px;">
-    <div class="empty-state-text">No deadlines on this day</div>
+    {% if selected_deadlines %}
+    {% for deadline in selected_deadlines %}
+    <a
+      href="{% url 'deadlines:deadline_detail' deadline.pk %}"
+      class="list-item {{ deadline.urgency_status }}"
+    >
+      <div class="list-item-title">{{ deadline.title }}</div>
+      <div class="list-item-meta">
+        <div>
+          <span class="list-item-entity">{{ deadline.entity.entity_code }}</span>
+          <span>{{ deadline.category|default:"" }}</span>
+        </div>
+        {% if deadline.estimated_amount %}
+        <div class="list-item-amount">${{ deadline.estimated_amount }}</div>
+        {% endif %}
+      </div>
+    </a>
+    {% endfor %}
+    {% else %}
+    <div class="empty-state" style="padding: 30px;">
+      <div class="empty-state-text">No deadlines on this day</div>
+    </div>
+    {% endif %}
   </div>
   {% endif %}
-{% endif %}
 </div>
 {% endblock %}
